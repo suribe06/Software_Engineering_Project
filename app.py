@@ -9,6 +9,7 @@ session = cluster.connect("bdis")
 
 #Configuramos la app de flask
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 #Funciones de cada vista
 @app.route('/', methods=['GET','POST'])
@@ -20,7 +21,7 @@ def login():
         if ans:
             return render_template('main.html')
         else:
-            return render_template('register.html')
+            flash("Usuario o contraseña incorrecta")
 
     return render_template('login.html')
 
@@ -64,4 +65,5 @@ def register():
 
 
 if __name__ == "__main__":
-	app.run()
+    app.debug = True
+    app.run()
