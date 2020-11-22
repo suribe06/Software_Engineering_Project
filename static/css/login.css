@@ -80,19 +80,6 @@ input[type=submit]{
 
 }
 
-#acheref{
-  position: relative;
-  top: 70%;
-  left:47%;
-  margin: 0 0 0 -15%;
-  color : blue ;
-  background-color: transparent;
-  border: none;
-  overflow: hidden;
-  font-size: 17px;
-  text-size-adjust: auto;
-}
-
 #BlackImg{
   background: rgba(0, 0, 0, .3);
   position: fixed;
