@@ -1,31 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="/static/css/login.css" >
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="utf-8">
   </head>
   <body>
-  <div id="BlackImg">
-  </div>
-  <div id="loginDiv">
-    <img src = "/static/images/logo.png" id="headerImg" >
-    <form method="POST" action="/">
-      <input type="text" name="user" placeholder="Usuario" id="user">
-      <input type="password" name="pass" placeholder="Contraseña" id="password">
-      <input type ="submit" value="Iniciar sesion" id="login" >
-    </form>
-    <button id="acheref"> ¿Olvidó su contraseña? </button>
-    <div class="">
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <ul class=flashes style="list-style-type:none">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-      {% endwith %}
+  <div class="row h-100 justify-content-center align-items-center" id="BlackImg">
+    <div class="row">
+    </div>
+    <div class="row container-fluid align-self-center" id="loginDiv">
+      <div class="row justify-content-center">
+      <img src = "/static/images/logo.png" id="logo">
+      </div>
+      <div class="row justify-content-center w-100">
+      <form method="POST" action="/">
+        <table style=" width: 100%;">
+          <tr>
+            <td><input type="text" name="user" placeholder="Usuario" id="user"></td>
+          </tr>
+          <tr>
+            <td><input type="password" name="pass" placeholder="Contraseña" id="password"></td>
+          </tr>
+          <tr>
+            <td><input type ="submit" value="Iniciar sesión" id="login" ></td>
+          </tr>
+        </form>
+        <form method="POST" action="/">
+          <tr>
+            <td><input type= "submit" value="Registrarse" id="registro"></td>
+          </tr>
+        </form>
+        <form method="POST" action ="/">
+          <tr>
+            <td><button id="acheref"> ¿Olvidó su contraseña? </button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="">
+              {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <ul class=flashes style="list-style-type:none">
+                  {% for message in messages %}
+                    <li>{{ message }}</li>
+                  {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+             </div>
+           </td>
+          </tr>
+        </form>
+        </table>
+      </div>
+    </div>
+    <div class="row">
     </div>
   </div>
   <div class="container-fluid">
