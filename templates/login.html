@@ -18,34 +18,32 @@
       <form method="POST" action="/">
         <table style=" width: 100%;">
           <tr>
-            <td><input type="text" name="user" placeholder="Usuario" id="user"></td>
+            <td><input type="text" name="user" placeholder="Usuario" id="user" required></td>
           </tr>
           <tr>
-            <td><input type="password" name="pass" placeholder="Contraseña" id="password"></td>
+            <td><input type="password" name="pass" placeholder="Contraseña" id="password" required></td>
           </tr>
           <tr>
-            <td><input type ="submit" value="Iniciar sesión" id="login" ></td>
+            <td><input type ="submit" value="Iniciar sesión" id="login" name="b1" ></td>
           </tr>
         </form>
         <form method="POST" action="/">
           <tr>
-            <td><input type= "submit" value="Registrarse" id="registro"></td>
+            <td><input type= "submit" value="Registrarse" id="registro" name="b1"></td>
           </tr>
         </form>
         <form method="POST" action ="/">
           <tr>
-            <td><button id="acheref"> ¿Olvidó su contraseña? </button></td>
+            <td><input type= "submit" value="Recordar Contraseña" id="recuperarC" name="b1" > </td>
           </tr>
           <tr>
             <td>
               <div class="">
               {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                  <ul class=flashes style="list-style-type:none">
                   {% for message in messages %}
-                    <li>{{ message }}</li>
+                    <p>{{ message }}</p>
                   {% endfor %}
-                  </ul>
                 {% endif %}
               {% endwith %}
              </div>

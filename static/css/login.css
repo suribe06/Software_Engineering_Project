@@ -43,7 +43,7 @@ input[type=password] {
 }
 
 input[type=submit]{
-  width: 80%;
+  width: 90%;
   background-color: #0E4682;
   color: white;
   padding: 10px 10px;
@@ -51,6 +51,7 @@ input[type=submit]{
   border-radius: 4px;
   cursor: pointer;
   font-size: 18px;
+  text-align: center;
 }
 
 
