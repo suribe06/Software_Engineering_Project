@@ -21,67 +21,59 @@ def login():
             p = request.form['pass']
             ans, tp = inicio(u, p)
             if ans:
-                return render_template('main.html')
+                return redirect(url_for('main'))
             else:
                 flash("Usuario o contraseña incorrecta")
         elif request.form["b1"]=="Registrarse":
-            return render_template('register.html')
+            return redirect(url_for('register_select'))
 
     return render_template('login.html')
+
+@app.route('/register_select', methods=['GET','POST'])
+def register_select():
+    if request.method == 'POST':
+        select_tipo = str(request.form.get('tipoR'))
+        if select_tipo == "C":
+            return redirect(url_for('register_civil'))
+        elif select_tipo == "EP":
+            pass
+        elif select_tipo == "ES":
+            pass
+    return render_template('register_select.html')
+
+@app.route('/register_civil', methods=['GET','POST'])
+def register_civil():
+    if request.method == 'POST':
+        #Tipo 1 corresponde a civil
+        nombres_ = request.form['nombres']
+        apellidos_ = request.form['apellidos']
+        fecha_ = request.form['fecha']
+        tipoDoc = request.form['tipoDocumento']
+        numDoc = request.form['numeroDocumento']
+        dept = request.form['departamento']
+        mun = request.form['municipio']
+        barrio_ = request.form['barrio']
+        dire = request.form['direccion']
+        genero_ = request.form['genero']
+        tel = request.form['telefono']
+        email = request.form['correo']
+        u = request.form['username']
+        p = request.form['password']
+        #Registro del civil en la base de datos
+        registroC(u, p, int(numDoc), apellidos_, barrio_, email, dept, dire, mun, fecha_, nombres_, genero_, tipoDoc, int(tel))
+        data = {}
+        data["Nombre"] = nombres_
+        data["Apellido"] = apellidos_
+        data["Tipo Documento"] = tipoDoc
+        data["Numero Documento"] = numDoc
+        #Se crea el codigo qr del civil
+        makeQR(data)
+        return redirect(url_for('login'))
+    return render_template('register_civil.html')
 
 @app.route('/main', methods=['GET','POST'])
 def main():
     return render_template('main.html')
-
-@app.route('/register', methods=['GET','POST'])
-def register():
-    if request.method == 'POST':
-        #Se obtienen los datos del formulario
-        tipoS = request.form['tipoRegistro']
-        tipo = None
-        if tipoS == "C":
-            tipo = 1
-        elif tipoS == "EP":
-            tipo = 2
-        elif tipoS == "ES":
-            tipo = 3
-
-        if tipo == 1:
-            #Tipo 1 corresponde a civil
-            nombres_ = request.form['nombres']
-            apellidos_ = request.form['apellidos']
-            fecha_ = request.form['fecha']
-            tipoDoc = request.form['tipoDocumento']
-            numDoc = request.form['numeroDocumento']
-            dept = request.form['departamento']
-            mun = request.form['municipio']
-            barrio_ = request.form['barrio']
-            dire = request.form['direccion']
-            genero_ = request.form['genero']
-            tel = request.form['telefono']
-            email = request.form['correo']
-            u = request.form['username']
-            p = request.form['password']
-            #Registro del civil en la base de datos
-            registroC(u, p, int(numDoc), apellidos_, barrio_, email, dept, dire, mun, fecha_, nombres_, genero_, tipoDoc, int(tel))
-            data = {}
-            data["Nombre"] = nombres_
-            data["Apellido"] = apellidos_
-            data["Tipo Documento"] = tipoDoc
-            data["Numero Documento"] = numDoc
-            #Se crea el codigo qr del civil
-            makeQR(data)
-        elif tipo == 2:
-            #Tipo 2 corresponde a Entidad Publica
-            pass
-        elif tipo == 3:
-            #Tipo 3 corresponde a Entidad Salud
-            pass
-
-        return render_template('login.html')
-
-    return render_template('register.html')
-
 
 if __name__ == "__main__":
     app.debug = True
