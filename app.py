@@ -16,16 +16,13 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        if request.form["b1"]=="Iniciar sesion":
-            u = request.form['user']
-            p = request.form['pass']
-            ans, tp = inicio(u, p)
-            if ans:
-                return render_template('main.html')
-            else:
-                flash("Usuario o contraseña incorrecta")
-        elif request.form["b1"]=="Registrarse":
-            return render_template('register.html')
+        u = request.form['user']
+        p = request.form['pass']
+        ans, tp = inicio(u, p)
+        if ans:
+            return render_template('main.html')
+        else:
+            flash("Usuario o contraseña incorrecta")
 
     return render_template('login.html')
 
