@@ -55,14 +55,6 @@ input[type=submit]{
 }
 
 
-#acheref{
-  position: relative;
-  color : blue ;
-  background-color: transparent;
-  border: none;
-  overflow: hidden;
-  font-size: 17px;
-}
 
 #BlackImg{
   background: rgba(0, 0, 0, .3);
