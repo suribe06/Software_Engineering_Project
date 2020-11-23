@@ -2,7 +2,7 @@ from cassandra.cluster import Cluster
 from flask import *
 import requests, csv
 from database import registroC, inicio
-from QR import makeQR
+from QR import makeQR, readQR
 
 #Conectamos con la BD
 cluster = Cluster(contact_points=['127.0.0.1'], port=9042)

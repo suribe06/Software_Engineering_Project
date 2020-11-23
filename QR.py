@@ -1,4 +1,6 @@
 import qrcode
+from PIL import Image
+from pyzbar import pyzbar
 
 def makeQR(data):
     #Se crea el QR
@@ -12,4 +14,18 @@ def makeQR(data):
     qr.make(fit=True)
     #Se guarda el qr como imagen
     img = qr.make_image(fill='black', back_color='white')
-    img.save('QR_Code.png')
+    img.save('QR_{0}.png'.format(data["Numero Documento"]))
+
+def readQR():
+    #Se abre el codigo QR
+    img = Image.open('QR_1234.png')
+    #Se decodifica el qr
+    output = pyzbar.decode(img)
+    output_decode = output[0].data.decode()
+    #Se parsea la informacion
+    x = output_decode.split('\n')
+    x.pop()
+    data = []
+    for d in x:
+        data.append((d.split(':')[1]).strip())
+    return data
