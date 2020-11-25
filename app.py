@@ -21,7 +21,7 @@ def login():
             p = request.form['pass']
             ans, tp = inicio(u, p)
             if ans:
-                return redirect(url_for('main'))
+                return redirect(url_for('home'))
             else:
                 flash("Usuario o contraseña incorrecta")
         elif request.form["b1"]=="Registrarse":
@@ -96,10 +96,30 @@ def register_publico():
 
 @app.route('/register_salud', methods=['GET','POST'])
 def register_salud():
+    if request.method == 'POST':
+        nit_ = request.form['NIT']
+        razon_ = str(request.form.get('razon'))
+        dept_ = str(request.form.get('departamento'))
+        mun_ = str(request.form.get('municipio'))
+        barrio_ = str(request.form.get('barrio'))
+        dir_ = request.form['direccion']
+        tels = []
+        t1 = request.form['T1']
+        tels.append(int(t1))
+        t2 = request.form['T2']
+        if len(t2) != 0: tels.append(int(t2))
+        t3 = request.form['T3']
+        if len(t3) != 0: tels.append(int(t3))
+        email = request.form['correo']
+        u = request.form['username']
+        p = request.form['password']
+        #Registro de la entidad salud en la base de datos
+        registroS(u, int(nit_), barrio_, email, dept_, dir_, mun_, p, razon_, tels)
+        return redirect(url_for('login'))
     return render_template('register_salud.html')
 
-@app.route('/main', methods=['GET','POST'])
-def main():
+@app.route('/home', methods=['GET','POST'])
+def home():
     return render_template('main.html')
 
 if __name__ == "__main__":
