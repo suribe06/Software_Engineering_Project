@@ -12,7 +12,7 @@ def inicio(usr,pasw):
 			de usuario que hizo login el sistema este cambia (0: admin, 1: civil, 2:establecimiento publico, 3: establecimiento de salud,
 			-1: si no se hace login)
 	Funcionamiento: utilizando CQL se hace una query en la tabla usuarios para obtener la contraseña y el tipo de usuario dependiendo del
-					username en cuestion, una vez teniendo eso se valida si el usuario existe, de ser así se valida si la contraseña ingresada
+					username en cuestion, una vez teniendo eso se valida si el usuario existe, de ser asi se valida si la contraseña ingresada
 					es igual a la contraseña alamcenada en la base de datos, y con base en eso se da un veredicto
 	"""
 	tp = -1
@@ -27,16 +27,44 @@ def registroC(usr,pasw,ndoc,ape,bar,cor,dep,dire,mun,nac,nom,sex,tdoc,tel):
 			dep que es departamento, dire que es direccion, mun que es municipio, nac que es fecha de nacimiento, nom que es nombres, sex que es el
 			genero,tdoc que es el tipo de documento y tel que es telefono
 	Salida:
-	Funcionamiento:Se toman cada una de los valores que llegan a la funcion y utlizando sentencias CQL se ingresan los datos en la tabla civil, ademas
+	Funcionamiento: Se toman cada una de los valores que llegan a la funcion y utlizando sentencias CQL se ingresan los datos en la tabla civil, ademas
 				   se insertan tambien el username, la contraseña y el tipo de usuario en la tabla usuarios, en este caso a ser civil el tipo es 1
 	"""
-	person = session.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
-	if person.one() == None:
+	person1 = session.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
+	person2 = session.execute("SELECT password from civil WHERE ndocumento = {0} and tdocumento = '{1}' allow filtering".format(ndoc,tdoc))
+	if person1.one() == None and person2.one() == None:
 		session.execute("INSERT INTO civil (username,ndocumento,apellidos,barrio,correo,departamento,direccion,municipio,nacimiento,nombres,password,sexo,tdocumento,telefono) VALUES('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}',{13})".format(usr,ndoc,ape,bar,cor,dep,dire,mun,nac,nom,pasw,sex,tdoc,tel))
 		session.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,1))
 	return
 
-def regExam(n,td,nd):
+def RegistroS(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel):
+	ent1 = session.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
+	ent2 = session.execute("SELECT username, Nit from salud WHERE Nit = {0} allow filtering".format(n))
+	if ent1.one() == None and ent2.one() == None:
+		session.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,2))
+		if len(tel) == 3:
+			session.execute("INSERT INTO salud (username,Nit,barrio,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],tel[1],tel[2]))
+		elif len(tel) == 2:
+			session.execute("INSERT INTO salud (username,Nit,barrio,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},NULL)".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],tel[1]))
+		else:
+			session.execute("INSERT INTO salud (username,Nit,barrio,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},NULL,NULL)".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0]))
+	return
+
+def RegistroP(usr,n,bar,cat,cor,dep,dir,mun,pasw,rsol,tel):
+	ent1 = session.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
+	ent2 = session.execute("SELECT username, Nit from publica WHERE Nit = {0} allow filtering".format(n))
+	if ent1.one() == None and ent2.one() == None:
+		session.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,2))
+		if len(tel) == 3:
+			session.execute("INSERT INTO publica (username,Nit,barrio,categoria,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{12}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],tel[1],tel[2],cat))
+		elif len(tel) == 2:
+			session.execute("INSERT INTO publica (username,Nit,barrio,categoria,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{11}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},NULL)".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],tel[1],cat))
+		else:
+			session.execute("INSERT INTO publica (username,Nit,barrio,categoria,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{10}','{3}','{4}','{5}','{6}','{7}','{8}',{9},NULL,NULL)".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],cat))
+	return
+
+
+def regExam(id,n,td,nd):
 	"""
 	Entrada: un entero n el cual hace referencia al NIT de la entidad de salud, td el cual es un string que hace referencia al tipo de
 			 documento del civil al que se le va a registar el examen de COVID-19, y un entero nd el cual hace referencia al numero de
@@ -52,7 +80,12 @@ def regExam(n,td,nd):
 	person = session.execute("SELECT * from civil WHERE ndocumento = {0} and tdocumento = '{1}' allow filtering".format(nd,td))
 	if person.one() != None and	sal.one() != None:
 		dia = dt.datetime.today()
-		session.execute("INSERT INTO examenes (nit,ndocumento,efecha,resultado,rfecha,tdocumento) VALUES({0},{1},'{2}-{3}-{4}','Evaluando',NULL,'{5}')".format(n,nd,dia.year,dia.month,dia.day,td))
+		session.execute("INSERT INTO examenes (id,nit,ndocumento,efecha,resultado,rfecha,tdocumento) VALUES({6},{0},{1},'{2}-{3}-{4}','Evaluando',NULL,'{5}')".format(n,nd,dia.year,dia.month,dia.day,td,id))
 	return
 
-regExam(5648213220, 'C.C', 1107532049)
+def regResultExam(id,n,nd,res):	
+	e = session.execute("SELECT ndocumento from examenes WHERE Id = {0}".format(id))
+	if e.one() != None:
+		dia = dt.datetime.today()
+		session.execute("UPDATE examenes SET rfecha = '{0}-{1}-{2}', resultado = '{6}' WHERE Id = {3} and Nit = {4} and ndocumento = {5}".format(dia.year,dia.month,dia.day,id,n,nd,res))
+	return
