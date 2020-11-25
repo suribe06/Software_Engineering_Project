@@ -36,9 +36,9 @@ def register_select():
         if select_tipo == "C":
             return redirect(url_for('register_civil'))
         elif select_tipo == "EP":
-            pass
+            return redirect(url_for('register_publico'))
         elif select_tipo == "ES":
-            pass
+            return redirect(url_for('register_salud'))
     return render_template('register_select.html')
 
 @app.route('/register_civil', methods=['GET','POST'])
@@ -70,6 +70,14 @@ def register_civil():
         makeQR(data)
         return redirect(url_for('login'))
     return render_template('register_civil.html')
+
+@app.route('/register_publico', methods=['GET','POST'])
+def register_publico():
+    return render_template('register_publico.html')
+
+@app.route('/register_salud', methods=['GET','POST'])
+def register_salud():
+    return render_template('register_salud.html')
 
 @app.route('/main', methods=['GET','POST'])
 def main():
