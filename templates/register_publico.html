@@ -13,7 +13,7 @@
     <img src = "/static/images/logo.png" id="headerImg" >
     </div>
     <div class="row justify-content-center">
-      <form action="/register" method="POST" width="100%">
+      <form action="/register_publico" method="POST" width="100%">
       <table width="100%" >
       <tr>
         <td colspan="2"> <p> Registro de Establecimiento Público </p>
@@ -22,36 +22,36 @@
         <td> <input type="text" name="NIT" placeholder="NIT" required></td>
         <td>
           <select name="razon" id="razon">
-            <option value = "G">Gimnasio</option>
-            <option value = "B">Bar</option>
-            <option value = "C">Cine</option>
-            <option value = "R">Restaurante</option>
-            <option value = "R">Discoteca</option>
+            <option value = "Gimnasio">Gimnasio</option>
+            <option value = "Bar">Bar</option>
+            <option value = "Cine">Cine</option>
+            <option value = "Restaurante">Restaurante</option>
+            <option value = "Discoteca">Discoteca</option>
           </select>
         </td>
       </tr>
       <tr>
         <td>
           <select name="departamento" id="departamento">
-            <option value = "VC">Valle del Cauca</option>
-            <option value = "CC">Cauca</option>
-            <option value ="Q" >Quindio </option>
+            <option value = "Valle del Cauca">Valle del Cauca</option>
+            <option value = "Cauca">Cauca</option>
+            <option value ="Quindio" >Quindio</option>
           </select>
         </td>
         <td>
           <select name="municipio" id="municipio">
-            <option value = "VC">Valle del cauca</option>
-            <option value = "CC">Cauca</option>
-            <option value ="Q" >Quindio </option>
+            <option value = "Valle del Cauca">Valle del Cauca</option>
+            <option value = "Cauca">Cauca</option>
+            <option value ="Quindio" >Quindio</option>
           </select>
         </td>
       </tr>
       <tr>
         <td>
           <select name="barrio" id="barrio">
-            <option value = "R">Refugio</option>
-            <option value = "A">Antigua</option>
-            <option value ="CJ" > Ciudad Jardin</option>
+            <option value = "Refugio">Refugio</option>
+            <option value = "Antigua">Antigua</option>
+            <option value ="Ciudad Jardin"> Ciudad Jardin</option>
           </select>
         </td>
         <td> <input type="text" name="direccion" placeholder="Dirección" required></td>
@@ -65,7 +65,7 @@
         <td><input type="text" name="correo" placeholder="Correo electronico" required></td>
       </tr>
       <tr>
-        <td> <input type="text" name="usuario" placeholder="Nombre de Usuario" required></td>
+        <td> <input type="text" name="username" placeholder="Nombre de Usuario" required></td>
         <td> <input type="password" name="password" placeholder="Contraseña" required></td>
       </tr>
       <tr>

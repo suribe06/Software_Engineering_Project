@@ -37,7 +37,7 @@ def registroC(usr,pasw,ndoc,ape,bar,cor,dep,dire,mun,nac,nom,sex,tdoc,tel):
 		session.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,1))
 	return
 
-def RegistroS(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel):
+def registroS(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel):
 	ent1 = session.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
 	ent2 = session.execute("SELECT username, Nit from salud WHERE Nit = {0} allow filtering".format(n))
 	if ent1.one() == None and ent2.one() == None:
@@ -50,7 +50,7 @@ def RegistroS(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel):
 			session.execute("INSERT INTO salud (username,Nit,barrio,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9},NULL,NULL)".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0]))
 	return
 
-def RegistroP(usr,n,bar,cat,cor,dep,dir,mun,pasw,rsol,tel):
+def registroP(usr,n,bar,cat,cor,dep,dir,mun,pasw,rsol,tel):
 	ent1 = session.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
 	ent2 = session.execute("SELECT username, Nit from publica WHERE Nit = {0} allow filtering".format(n))
 	if ent1.one() == None and ent2.one() == None:

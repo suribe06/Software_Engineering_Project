@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv
-from database import registroC, inicio
+from database import inicio, registroC, registroP, registroS
 from QR import makeQR, readQR
 
 #Conectamos con la BD
@@ -44,7 +44,6 @@ def register_select():
 @app.route('/register_civil', methods=['GET','POST'])
 def register_civil():
     if request.method == 'POST':
-        #Tipo 1 corresponde a civil
         nombres_ = request.form['nombres']
         apellidos_ = request.form['apellidos']
         fecha_ = request.form['fecha']
@@ -73,6 +72,26 @@ def register_civil():
 
 @app.route('/register_publico', methods=['GET','POST'])
 def register_publico():
+    if request.method == 'POST':
+        nit_ = request.form['NIT']
+        razon_ = str(request.form.get('razon'))
+        dept_ = str(request.form.get('departamento'))
+        mun_ = str(request.form.get('municipio'))
+        barrio_ = str(request.form.get('barrio'))
+        dir_ = request.form['direccion']
+        tels = []
+        t1 = request.form['T1']
+        tels.append(int(t1))
+        t2 = request.form['T2']
+        if len(t2) != 0: tels.append(int(t2))
+        t3 = request.form['T3']
+        if len(t3) != 0: tels.append(int(t3))
+        email = request.form['correo']
+        u = request.form['username']
+        p = request.form['password']
+        #Registro de la entidad publica en la base de datos
+        registroP(u, int(nit_), barrio_, razon_, email, dept_, dir_, mun_, p, razon_, tels)
+        return redirect(url_for('login'))
     return render_template('register_publico.html')
 
 @app.route('/register_salud', methods=['GET','POST'])
