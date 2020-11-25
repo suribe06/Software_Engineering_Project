@@ -54,7 +54,7 @@ def RegistroP(usr,n,bar,cat,cor,dep,dir,mun,pasw,rsol,tel):
 	ent1 = session.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
 	ent2 = session.execute("SELECT username, Nit from publica WHERE Nit = {0} allow filtering".format(n))
 	if ent1.one() == None and ent2.one() == None:
-		session.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,2))
+		session.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,3))
 		if len(tel) == 3:
 			session.execute("INSERT INTO publica (username,Nit,barrio,categoria,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{12}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],tel[1],tel[2],cat))
 		elif len(tel) == 2:
@@ -83,7 +83,7 @@ def regExam(id,n,td,nd):
 		session.execute("INSERT INTO examenes (id,nit,ndocumento,efecha,resultado,rfecha,tdocumento) VALUES({6},{0},{1},'{2}-{3}-{4}','Evaluando',NULL,'{5}')".format(n,nd,dia.year,dia.month,dia.day,td,id))
 	return
 
-def regResultExam(id,n,nd,res):	
+def regResultExam(id,n,nd,res):
 	e = session.execute("SELECT ndocumento from examenes WHERE Id = {0}".format(id))
 	if e.one() != None:
 		dia = dt.datetime.today()
