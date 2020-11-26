@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="/static/css/main_civil.css">
+<meta charset="utf-8">
+</head>
+<body>
+  <div class="container-fluid" id="cont">
+    <div class="row" id="rowsito">
+      <div class="col-1" id="cols"><img src="/static/images/logo.png" id="logo"></div>
+      <div class="col-9" id="cols1"><br><p id="header">Sistema Web para la Gestión de Accesos por COVID-19</p></div>
+      <div class="col-2" id="cols" >
+        <br>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Nombre de Usuario
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button">Editar Perfil</button>
+            <button class="dropdown-item" type="button">Contactanos</button>
+            <button class="dropdown-item" type="button">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col">
+      <button class="tablink" onclick="openPage('RegistroEmpleado','cont','Reg', this)" id="Reg">Código QR</button>
+    </div>
+    <div  class="col">
+      <button class="tablink" onclick="openPage('HistorialCOVID','cont2' ,'His', this)" id="His">Resultados COVID-19</button>
+    </div>
+    <div  class="col">
+      <button class="tablink" onclick="openPage('ListaEmpleado','cont1' ,'Lis', this)" id="Lis">Historial de visitas</button>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div id="RegistroEmpleado" class="tabcontent">
+
+      Aqui iria el codigo QR
+
+    </div>
+  </div>
+  </div>
+  <div class="container-fluid" id="cont1" >
+    <div class="row" id="rowsito">
+      <div class="col-1" id="cols"><img src="Images/logo.png" id="logo"></div>
+      <div class="col-9" id="cols1"><br><p id="header">Sistema Web para la Gestión de Accesos por COVID-19</p></div>
+      <div class="col-2" id="cols" >
+        <br>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Nombre de Usuario
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button">Editar Perfil</button>
+            <button class="dropdown-item" type="button">Contactanos</button>
+            <button class="dropdown-item" type="button">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col">
+      <button class="tablink" onclick="openPage('RegistroEmpleado','cont','Reg', this)" id="Reg">Código QR</button>
+    </div>
+    <div  class="col">
+      <button class="tablink" onclick="openPage('HistorialCOVID','cont2' ,'His', this)" id="His">Resultados COVID-19</button>
+    </div>
+    <div  class="col">
+      <button class="tablink" onclick="openPage('ListaEmpleado','cont1' ,'Lista', this)" id="Lista">Historial de visitas</button>
+    </div>
+  </div>
+
+
+  <div id="ListaEmpleado" class="tabcontent">
+    <div class = "row">
+      <div class="col-3" >
+      <button style=" float: right !important;" type="button" class="botones" id="filtrar"> Filtrar </button>
+      </div>
+      <div class="col-4">
+        <br>
+        <select style="float: right !important;" name="descarga" id="descarga">
+           <option value = "CSV">CSV</option>
+           <option value = "PDF">PDF</option>
+         </select>
+      </div>
+      <div class="col-3" >
+      <button style=" float: right !important;" type="button" class="botones" id="filtrar"> Descargar </button>
+      </div>
+      <div class="col-1"></div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col" align="center">
+        <table id="myTable">
+          <tr>
+            <th>NIT </th>
+            <th> Nombre </th>
+            <th> Dirección</th>
+            <th>Teléfono</th>
+            <th>Responsable</th>
+            <th>Acción</th>
+          </tr>
+
+        </table>
+
+      </div>
+    <div class="overlay" id="overlay">
+      <div class="popUp" id="popUp">
+        <div class="popHeader"> <p>Filtrar </p> </div>
+        <div class="popBody">
+             <table id="FiltTable" border="0">
+               <tr>
+                 <td>
+                     <select class="selection" id="selecting">
+                        <option value= "0"> NIT </option>
+                        <option value= "1"> Nombre</option>
+                        <option value= "2"> Dirección </option>
+                        <option value= "3"> Teléfono </option>
+                        <option value= "4"> Responsable </option>
+                     </select>
+                  </td>
+                  <td><input type="text" id="myInput"></td>
+                </tr>
+              </table>
+               <br><br>
+               <button type="button" id="buttonFilt"> Aceptar </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="container-fluid" id="cont2" >
+    <div class="row" id="rowsito">
+      <div class="col-1" id="cols"><img src="Images/logo.png" id="logo"></div>
+      <div class="col-9" id="cols1"><br><p id="header">Sistema Web para la Gestión de Accesos por COVID-19</p></div>
+      <div class="col-2" id="cols" >
+        <br>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Nombre de Usuario
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button">Editar Perfil</button>
+            <button class="dropdown-item" type="button">Contactanos</button>
+            <button class="dropdown-item" type="button">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col">
+      <button class="tablink" onclick="openPage('RegistroEmpleado','cont','Reg', this)" id="Reg">Código QR</button>
+    </div>
+    <div  class="col">
+      <button class="tablink" onclick="openPage('HistorialCOVID','cont2' ,'His', this)" id="His">Resultados COVID-19</button>
+    </div>
+    <div  class="col">
+      <button class="tablink" onclick="openPage('ListaEmpleado','cont1' ,'Lista', this)" id="Lista">Historial de visitas</button>
+    </div>
+  </div>
+  <div id="HistorialCOVID" class="tabcontent">
+    <div class = "row">
+      <div class="col-3" >
+      <button style=" float: right !important;" type="button" class="botones" id="filtrar2"> Filtrar </button>
+      </div>
+      <div class="col-4">
+        <br>
+        <select style="float: right !important;" name="descarga" id="descarga">
+           <option value = "CSV">CSV</option>
+           <option value = "PDF">PDF</option>
+         </select>
+      </div>
+      <div class="col-3" >
+      <button style=" float: right !important;" type="button" class="botones" id="filtrar"> Descargar H</button>
+      </div>
+      <div class="col-1"></div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col" align="center">
+        <table id="myTable">
+          <tr>
+            <th>NIT </th>
+            <th> Nombre </th>
+            <th> Dirección</th>
+            <th>Teléfono</th>
+            <th>Responsable</th>
+            <th>Acción</th>
+          </tr>
+
+        </table>
+
+      </div>
+    <div class="overlay" id="overlay2">
+      <div class="popUp" id="popUp">
+        <div class="popHeader"> <p>Filtrar </p> </div>
+        <div class="popBody">
+             <table id="FiltTable" border="0">
+               <tr>
+                 <td>
+                     <select class="selection" id="selecting">
+                        <option value= "0"> NIT </option>
+                        <option value= "1"> Nombre</option>
+                        <option value= "2"> Dirección </option>
+                        <option value= "3"> Teléfono </option>
+                        <option value= "4"> Responsable </option>
+                     </select>
+                  </td>
+                  <td><input type="text" id="myInput"></td>
+                </tr>
+              </table>
+               <br><br>
+               <button type="button" id="buttonFilt2"> Aceptar </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/static/js/main_civil.js"></script>
+</body>
+</html>
