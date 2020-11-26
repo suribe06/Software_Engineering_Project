@@ -22,7 +22,8 @@ def login():
             p = encriptar(request.form['pass'])
             ans, tp = inicio(u, p)
             if ans:
-                return redirect(url_for('home'))
+                if tp == 1:
+                    return redirect(url_for('main_civil'))
             else:
                 flash("Usuario o contraseña incorrecta")
         elif request.form["b1"]=="Registrarse":
@@ -119,9 +120,10 @@ def register_salud():
         return redirect(url_for('login'))
     return render_template('register_salud.html')
 
-@app.route('/home', methods=['GET','POST'])
-def home():
-    return render_template('main.html')
+@app.route('/main_civil', methods=['GET','POST'])
+def main_civil():
+
+    return render_template('main_civil.html')
 
 if __name__ == "__main__":
     app.debug = True
