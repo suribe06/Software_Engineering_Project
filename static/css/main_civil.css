@@ -25,7 +25,6 @@ body, html {
   height: 100%;
   font-size: 30px;
   text-align: center;
-  margin: 25px 50px;
 }
 
 
@@ -35,8 +34,8 @@ body, html {
 }
 
 .selection{
-  
-  
+
+
 }
 
 #cols1{
@@ -50,18 +49,18 @@ body, html {
 
  #btn{
   background-color: #BF2225;
-  float: right !important; 
+  float: right !important;
   height: 100%;
   width: 100%;
   border: 0;
 
-  
+
 }
 
 #btn_back{
 
   background-color: #55A6D7;
-  float: left !important; 
+  float: left !important;
   height: 100%;
   width: 100%;
   border: 0;
@@ -70,25 +69,12 @@ body, html {
 }
 #logo{
 
-  height: 57%;
-  width: 70%;
+  height: 100%;
 
 
 }
 #header{
   top: auto;
-}
-
-
-
-.dot {
-  
-  height: 200px;
-  width: 200px;
-  
-  background-color: #E5EEF7;
-  border-radius: 50%;
-  display: inline-block;
 }
 
 
@@ -109,7 +95,9 @@ body, html {
 .image{
   width: 65%;
   height: 65%;
-  margin: 25px;
+  position: absolute;
+  top: 15%;
+  left: 17%;
 }
 
 .tablink {
@@ -179,29 +167,15 @@ input[type=text] {
 }
 
 .texto{
-  word-wrap: break-word;
-  background-color: #E5EEF7 ;
-  height: 30%;
-  width: 50%;
-  border-radius: 12px;
-  font-size: 20px;
-  color: #586F88;
-  text-align: center;
-  vertical-align: center;
-}
-
-
-.textoG{
   color: #47525E;
-  font-size: 30px;
-  font-family: "Arial" ;
+  font-size: 22px;
+
 }
 
 #rowsito{
   height: 100px;
   background-color: #256DB6;
 }
-
 
 .overlay{
   background: rgba(0, 0, 0, .3);
@@ -271,7 +245,7 @@ input[type=text] {
 
 
 }
-.filtrar{
+.botones{
   width: 55%;
   background-color: #256DB6;
   color: white;
@@ -291,7 +265,7 @@ input[type=text] {
 
 
 #RegistroPromedio{
-  align-items: center; 
+  align-items: center;
 }
 
 
