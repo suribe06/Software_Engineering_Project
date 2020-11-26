@@ -73,8 +73,6 @@ def register_civil():
 
 @app.route('/register_publico', methods=['GET','POST'])
 def register_publico():
-    d1 = {"Valle":["Cali","Palmira"], "Quindio":["Armenia", "La Tebaida"], "Nariño" : ["Pasto", "Ipiales"]}
-
     if request.method == 'POST':
         nit_ = request.form['NIT']
         razon_ = str(request.form.get('razon'))
@@ -95,7 +93,7 @@ def register_publico():
         #Registro de la entidad publica en la base de datos
         registroP(u, int(nit_), barrio_, razon_, email, dept_, dir_, mun_, p, razon_, tels)
         return redirect(url_for('login'))
-    return render_template('register_publico.html', d1=d1)
+    return render_template('register_publico.html')
 
 @app.route('/register_salud', methods=['GET','POST'])
 def register_salud():
