@@ -3,6 +3,7 @@ from flask import *
 import requests, csv
 from database import inicio, registroC, registroP, registroS
 from QR import makeQR, readQR
+from cryption import encriptar
 
 #Conectamos con la BD
 cluster = Cluster(contact_points=['127.0.0.1'], port=9042)
@@ -18,7 +19,7 @@ def login():
     if request.method == 'POST':
         if request.form["b1"]=="Iniciar sesion":
             u = request.form['user']
-            p = request.form['pass']
+            p = encriptar(request.form['pass'])
             ans, tp = inicio(u, p)
             if ans:
                 return redirect(url_for('home'))
@@ -57,7 +58,7 @@ def register_civil():
         tel = request.form['telefono']
         email = request.form['correo']
         u = request.form['username']
-        p = request.form['password']
+        p = encriptar(request.form['password'])
         #Registro del civil en la base de datos
         registroC(u, p, int(numDoc), apellidos_, barrio_, email, dept, dire, mun, fecha_, nombres_, genero_, tipoDoc, int(tel))
         data = {}
@@ -88,7 +89,7 @@ def register_publico():
         if len(t3) != 0: tels.append(int(t3))
         email = request.form['correo']
         u = request.form['username']
-        p = request.form['password']
+        p = encriptar(request.form['password'])
         #Registro de la entidad publica en la base de datos
         registroP(u, int(nit_), barrio_, razon_, email, dept_, dir_, mun_, p, razon_, tels)
         return redirect(url_for('login'))
@@ -112,7 +113,7 @@ def register_salud():
         if len(t3) != 0: tels.append(int(t3))
         email = request.form['correo']
         u = request.form['username']
-        p = request.form['password']
+        p = encriptar(request.form['password'])
         #Registro de la entidad salud en la base de datos
         registroS(u, int(nit_), barrio_, email, dept_, dir_, mun_, p, razon_, tels)
         return redirect(url_for('login'))
