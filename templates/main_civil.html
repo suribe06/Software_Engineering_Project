@@ -14,13 +14,13 @@
         <br>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Nombre de Usuario
+            {{ usuario }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <form method="POST" action="/">
-            <button class="dropdown-item" type="button">Editar Perfil</button>
-            <button class="dropdown-item" type="button">Contactanos</button>
-            <button class="dropdown-item" type="button">Cerrar sesión</button>
+            <form method="POST" action="/main_civil">
+              <input class="dropdown-item" type ="submit" value="Cerrar Sesión" name="btn" >
+              <button class="dropdown-item" name="btn" value="editar" type="button">Editar Perfil</button>
+              <button class="dropdown-item" name="btn" value="contacto" type="button">Contactanos</button>
             </form>
           </div>
         </div>
@@ -53,13 +53,13 @@
         <br>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Nombre de Usuario
+            {{ usuario }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <form method="POST" action="/">
-            <button class="dropdown-item" type="button">Editar Perfil</button>
-            <button class="dropdown-item" type="button">Contactanos</button>
-            <button class="dropdown-item" type="button">Cerrar sesión</button>
+            <form method="POST" action="/main_civil">
+              <button class="dropdown-item" name="btn" value="editar" type="button">Editar Perfil</button>
+              <button class="dropdown-item" name="btn" value="contacto" type="button">Contactanos</button>
+              <button class="dropdown-item" name="btn" value="salir" type="button">Cerrar sesión</button>
             </form>
           </div>
         </div>
@@ -146,13 +146,13 @@
         <br>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Nombre de Usuario
+            {{ usuario }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <form method="POST" action="/">
-            <button class="dropdown-item" type="button">Editar Perfil</button>
-            <button class="dropdown-item" type="button">Contactanos</button>
-            <button class="dropdown-item" type="button">Cerrar sesión</button>
+            <form method="POST" action="/main_civil">
+              <button class="dropdown-item" name="btn" value="editar" type="button">Editar Perfil</button>
+              <button class="dropdown-item" name="btn" value="contacto" type="button">Contactanos</button>
+              <button class="dropdown-item" name="btn" value="salir" type="button">Cerrar sesión</button>
             </form>
           </div>
         </div>

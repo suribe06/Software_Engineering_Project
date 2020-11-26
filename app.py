@@ -5,13 +5,14 @@ from database import inicio, registroC, registroP, registroS
 from QR import makeQR, readQR
 from cryption import encriptar
 
-#Conectamos con la BD
-cluster = Cluster(contact_points=['127.0.0.1'], port=9042)
-session = cluster.connect("bdis")
-
 #Configuramos la app de flask
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+@app.route('/set/')
+def set():
+    session['key'] = 'value'
+    return 'ok'
 
 #Funciones de cada vista
 @app.route('/', methods=['GET','POST'])
@@ -23,6 +24,7 @@ def login():
             ans, tp = inicio(u, p)
             if ans:
                 if tp == 1:
+                    session['user'] = request.form['user']
                     return redirect(url_for('main_civil'))
             else:
                 flash("Usuario o contraseña incorrecta")
@@ -122,8 +124,15 @@ def register_salud():
 
 @app.route('/main_civil', methods=['GET','POST'])
 def main_civil():
+    usuario = None
+    if 'user' in session:
+        usuario = session['user']
+        if request.method == 'POST':
+            if request.form["btn"] == "Cerrar Sesión":
+                session.pop('user', None)
+                return redirect(url_for('login'))
 
-    return render_template('main_civil.html')
+    return render_template('main_civil.html', usuario=usuario)
 
 if __name__ == "__main__":
     app.debug = True
