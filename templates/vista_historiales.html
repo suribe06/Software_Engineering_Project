@@ -1,0 +1,68 @@
+{% extends 'main_civil2.html' %}
+
+{% block content %}
+  <h1>Hola</h1>
+  <div id="ListaEmpleado" class="tabcontent">
+    <div class = "row">
+      <div class="col-3" >
+      <button style=" float: right !important;" type="button" class="botones" id="filtrar"> Filtrar </button>
+      </div>
+      <div class="col-4">
+        <br>
+        <select style="float: right !important;" name="descarga" id="descarga">
+           <option value = "CSV">CSV</option>
+           <option value = "PDF">PDF</option>
+         </select>
+      </div>
+      <div class="col-3" >
+      <button style=" float: right !important;" type="button" class="botones" id="filtrar"> Descargar </button>
+      </div>
+      <div class="col-1"></div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col" align="center">
+        <table id="myTable">
+          <tr>
+            <th>NIT </th>
+            <th> Nombre </th>
+            <th> Dirección</th>
+            <th>Teléfono</th>
+            <th>Responsable</th>
+            <th>Acción</th>
+          </tr>
+
+        </table>
+
+      </div>
+    <div class="overlay" id="overlay">
+      <div class="popUp" id="popUp">
+        <div class="popHeader"> <p>Filtrar </p> </div>
+        <div class="popBody">
+             <table id="FiltTable" border="0">
+               <tr>
+                 <td>
+                     <select class="selection" id="selecting">
+                        <option value= "0"> NIT </option>
+                        <option value= "1"> Nombre</option>
+                        <option value= "2"> Dirección </option>
+                        <option value= "3"> Teléfono </option>
+                        <option value= "4"> Responsable </option>
+                     </select>
+                  </td>
+                  <td><input type="text" id="myInput"></td>
+                </tr>
+              </table>
+               <br><br>
+               <button type="button" id="buttonFilt"> Aceptar </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}

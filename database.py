@@ -88,3 +88,7 @@ def regResultExam(id,n,nd,res):
 		dia = dt.datetime.today()
 		sessionDB.execute("UPDATE examenes SET rfecha = '{0}-{1}-{2}', resultado = '{6}' WHERE Id = {3} and Nit = {4} and ndocumento = {5}".format(dia.year,dia.month,dia.day,id,n,nd,res))
 	return
+
+def getNd(usr):
+    person = sessionDB.execute("SELECT ndocumento from civil where username = '{0}'".format(usr))
+    return person.one().ndocumento

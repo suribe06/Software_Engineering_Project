@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv
-from database import inicio, registroC, registroP, registroS
+from database import inicio, registroC, registroP, registroS, getNd
 from QR import makeQR, readQR
 from cryption import encriptar
 
@@ -131,8 +131,24 @@ def main_civil():
             if request.form["btn"] == "Cerrar Sesión":
                 session.pop('user', None)
                 return redirect(url_for('login'))
+            elif request.form["btn"] == "Código QR":
+                return redirect(url_for('vista_qr'))
+            elif request.form["btn"] == "Historial de visitas":
+                return redirect(url_for('vista_historiales'))
 
-    return render_template('main_civil.html', usuario=usuario)
+    return render_template('main_civil2.html', usuario=usuario)
+
+@app.route('/qr', methods=['GET','POST'])
+def vista_qr():
+    usuario = session['user']
+    ndu = getNd(usuario)
+    qr = "QR_{0}.png".format(str(ndu))
+    return render_template('vista_qr.html', usuario=usuario, qr=qr)
+
+@app.route('/historiales', methods=['GET','POST'])
+def vista_historiales():
+    usuario = session['user']
+    return render_template('vista_historiales.html', usuario=usuario)
 
 if __name__ == "__main__":
     app.debug = True

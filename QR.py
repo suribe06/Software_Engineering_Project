@@ -14,7 +14,7 @@ def makeQR(data):
     qr.make(fit=True)
     #Se guarda el qr como imagen
     img = qr.make_image(fill='black', back_color='white')
-    img.save('QR_{0}.png'.format(data["Numero Documento"]))
+    img.save('static/images/QR_{0}.png'.format(data["Numero Documento"]))
 
 def readQR():
     #Se abre el codigo QR

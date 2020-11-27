@@ -1,0 +1,17 @@
+{% extends 'main_civil2.html' %}
+
+{% block content %}
+<table style="width:100% align:center;">
+  <tr>
+    <td style="text-align:center; height:180px">
+      <p style="font-size:50px;">Este es tu código QR</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="static/images/{{ qr }}" alt=""/>
+    </td>
+  </tr>
+</table>
+
+{% endblock %}
