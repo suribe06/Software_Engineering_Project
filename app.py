@@ -135,6 +135,8 @@ def main_civil():
                 return redirect(url_for('vista_qr'))
             elif request.form["btn"] == "Historial de visitas":
                 return redirect(url_for('vista_historiales'))
+            elif request.form["btn"] == "Resultados COVID-19":
+                return redirect(url_for('vista_covid'))
 
     return render_template('main_civil2.html', usuario=usuario)
 
@@ -149,6 +151,11 @@ def vista_qr():
 def vista_historiales():
     usuario = session['user']
     return render_template('vista_historiales.html', usuario=usuario)
+
+@app.route('/pruebas_covid', methods=['GET','POST'])
+def vista_covid():
+    usuario = session['user']
+    return render_template('vista_covid.html', usuario=usuario)
 
 if __name__ == "__main__":
     app.debug = True

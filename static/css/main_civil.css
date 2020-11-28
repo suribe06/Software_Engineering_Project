@@ -35,7 +35,6 @@ body, html {
 
 .selection{
 
-
 }
 
 #cols1{
@@ -116,23 +115,9 @@ body, html {
 
 }
 
-
-
-
-
 .tablink:hover {
   background-color: #8EBEEB;
 }
-
-.tabcontent {
-  color: black;
-  display: none;
-  padding: 100px 20px;
-  height: 100%;
-  widows: 100%;
-
-}
-
 
 input[type=text] {
 
