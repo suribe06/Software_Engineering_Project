@@ -92,3 +92,7 @@ def regResultExam(id,n,nd,res):
 def getNd(usr):
     person = sessionDB.execute("SELECT ndocumento from civil where username = '{0}'".format(usr))
     return person.one().ndocumento
+
+def getTipo(usr):
+    person = sessionDB.execute("SELECT tipo from usuarios where username = '{0}'".format(usr))
+    return person.one().tipo

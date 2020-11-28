@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv
-from database import inicio, registroC, registroP, registroS, getNd
+from database import inicio, registroC, registroP, registroS, getNd, getTipo
 from QR import makeQR, readQR
 from cryption import encriptar
 
@@ -137,6 +137,8 @@ def main_civil():
                 return redirect(url_for('vista_historiales'))
             elif request.form["btn"] == "Resultados COVID-19":
                 return redirect(url_for('vista_covid'))
+            elif request.form["btn"] == "Contáctanos":
+                return redirect(url_for('contacto'))
 
     return render_template('main_civil2.html', usuario=usuario)
 
@@ -156,6 +158,26 @@ def vista_historiales():
 def vista_covid():
     usuario = session['user']
     return render_template('vista_covid.html', usuario=usuario)
+
+@app.route('/contacto', methods=['GET','POST'])
+def contacto():
+    usuario = session['user']
+    t = getTipo(usuario)
+    if 'user' in session:
+        if request.method == 'POST':
+            if request.form["btn"] == "Enviar":
+                td_ = request.form['TD']
+                nd_ = request.form['ND']
+                nombres_ = request.form['nombres']
+                apellidos_ = request.form['apellidos']
+                email = request.form['correo']
+                comentarios_ = request.form['comentarios']
+                #que hacer con esta info?
+            elif request.form["btn"] == "Volver":
+                if t == 1:
+                    return redirect(url_for('main_civil'))
+
+    return render_template('contactanos.html', usuario=usuario)
 
 if __name__ == "__main__":
     app.debug = True
