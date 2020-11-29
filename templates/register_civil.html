@@ -9,12 +9,11 @@
   <body>
   <div class="h-100 d-flex justify-content-center align-items-center" id="BlackImg">
   <div class="container-fluid" id="loginDiv">
+    <form action="/register_civil" method="POST" width="100%">
     <div class="row justify-content-center">
-    <img src = "/static/images/logo.png" id="headerImg" >
-    </div>
-    <div class="row justify-content-center">
-      <form action="/register_civil" method="POST" width="100%">
       <table width="100%" >
+      <tr><td colspan="2"><img src = "/static/images/logo.png" id="logo" ></td></tr>
+      <tr><td colspan="2"><p> Registro Civil </p> </td> </tr>
       <tr>
         <td> <input type="text" name="nombres" placeholder="Nombres" required></td>
         <td> <input type="text" name="apellidos" placeholder="Apellidos" required></td>
@@ -23,6 +22,7 @@
         <td><input type="text" name="fecha" placeholder="Fecha de Nacimiento YYYY-MM-DD"	onfocus="(this.type='date')" onblur="(this.type='text')" required></td>
         <td>
           <select name="tipoDocumento" id="tipoDocumento">
+            <option value="" disabled selected>Tipo de documento</option>
             <option value = "TI">Tarjeta de Identidad</option>
             <option value = "CC">Cedula de Ciudadania</option>
             <option value ="Pasaporte" >Pasaporte </option>
@@ -41,6 +41,7 @@
         <td> <input type="text" name="direccion" placeholder="Direccion" required></td>
         <td>
           <select name="genero" id="genero">
+            <option value="" disabled selected>Genero</option>
             <option value = "hombre">Hombre</option>
             <option value = "mujer">Mujer</option>
             <option value ="otro" >Otro </option>
@@ -57,11 +58,10 @@
       </tr>
       <tr>
         <td colspan="2"> <input type="submit" name="Registrarse" value="Registrarse"></td>
-
       </tr>
       </table>
-      </form>
     </div>
+    </form>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

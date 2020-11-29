@@ -8,16 +8,16 @@
   <body>
 
   <div class="row h-100 justify-content-center align-items-center" id="BlackImg">
-    <div class="row container-fluid align-self-center" id="loginDiv">
-      <div class="row justify-content-center">
-      <img src = "/static/images/logo.png" id="logo">
-      </div>
-      <div class="row justify-content-center w-100">
+    <div class="row justify-content-center align-items-center" id="loginDiv">
       <form method="POST" action="/register_select">
+      <div class="row h-100 justify-content-center align-items-center">
         <table style=" width: 100%;">
+          <tr><td><img src = "/static/images/logo.png" id="logo"> </td> </tr>
+          <tr><td> <p>Escoga el tipo de usuario que desee registrar </p></td></tr>
           <tr>
             <td>
               <select name="tipoR" id="tipoRegistro">
+                <option value="" disabled selected>Seleccione el tipo de registro</option>
                 <option value = "C">Civil</option>
                 <option value = "EP">Establecimiento Público</option>
                 <option value ="ES" >Establecimiento Salud </option>
@@ -26,8 +26,8 @@
           </tr>
           <tr> <td> <input type="submit" value="Continuar"> </td> </tr>
         </table>
-      </form>
       </div>
+     </form>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
