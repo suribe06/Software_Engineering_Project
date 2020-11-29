@@ -93,6 +93,30 @@ def getNd(usr):
     person = sessionDB.execute("SELECT ndocumento from civil where username = '{0}'".format(usr))
     return person.one().ndocumento
 
+def getTd(usr):
+    person = sessionDB.execute("SELECT tdocumento from civil where username = '{0}'".format(usr))
+    return person.one().tdocumento
+
 def getTipo(usr):
     person = sessionDB.execute("SELECT tipo from usuarios where username = '{0}'".format(usr))
     return person.one().tipo
+
+def editC(usr,pasw,ndoc,ape,bar,cor,dep,dire,mun,nac,nom,sex,tdoc,tel):
+    exe = "UPDATE civil SET "
+    exe1 = " WHERE username = '{0}' and ndocumento = {1} and tdocumento = '{2}'".format(usr,ndoc,tdoc)
+    if pasw != None: exe+= "password = '{0}',".format(pasw)
+    if ape != None: exe+="apellidos = '{0}',".format(ape)
+    if bar != None: exe+="barrio = '{0}',".format(bar)
+    if cor != None: exe+= "correo = '{0}',".format(cor)
+    if dep != None: exe+="departamento = '{0}',".format(dep)
+    if dire != None: exe+="direccion = '{0}',".format(dire)
+    if mun != None: exe+="municipio = '{0}',".format(mun)
+    if nac != None: exe+="nacimiento = '{0}',".format(nac)
+    if nom != None: exe+="nombres = '{0}',".format(nom)
+    if sex != None: exe+="sexo = '{0}',".format(sex)
+    if tel != None: exe+="telefono = {0},".format(tel)
+    if len(exe) > 17:
+        exe = exe[:len(exe)-1]
+        exe+= exe1
+        sessionDB.execute(exe)
+    return

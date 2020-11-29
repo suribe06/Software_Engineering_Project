@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv
-from database import inicio, registroC, registroP, registroS, getNd, getTipo
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC
 from QR import makeQR, readQR
 from cryption import encriptar
 
@@ -139,6 +139,8 @@ def main_civil():
                 return redirect(url_for('vista_covid'))
             elif request.form["btn"] == "Contáctanos":
                 return redirect(url_for('contacto'))
+            elif request.form["btn"] == "Editar Perfil":
+                return redirect(url_for('editar_perfil_civil'))
 
     return render_template('main_civil2.html', usuario=usuario)
 
@@ -178,6 +180,41 @@ def contacto():
                     return redirect(url_for('main_civil'))
 
     return render_template('contactanos.html', usuario=usuario)
+
+@app.route('/edit_perfil', methods=['GET','POST'])
+def editar_perfil_civil():
+    usuario = session['user']
+    td = getTd(usuario)
+    nd = getNd(usuario)
+    if 'user' in session:
+        if request.method == 'POST':
+            if request.form["btn"] == "Guardar":
+                if len(request.form['nombres']) != 0: nombres_ = request.form['nombres']
+                else: nombres_ = None
+                if len(request.form['apellidos']) != 0: apellidos_ = request.form['apellidos']
+                else: apellidos_ = None
+                if request.form.get('genero') != None: genero_ = str(request.form.get('genero'))
+                else: genero_ = None
+                if len(request.form['T']) != 0: tel_ = int(request.form['T'])
+                else: tel_ = None
+                if len(request.form['fecha']) != 0: fecha_ = request.form['fecha']
+                else: fecha_ = None
+                if len(request.form['correo']) != 0: email = request.form['correo']
+                else: email = None
+                if request.form.get('departamento') != None: dept_ = str(request.form.get('departamento'))
+                else: dept_ = None
+                if request.form.get('municipio') != None: mun_ = str(request.form.get('municipio'))
+                else: mun_ = None
+                if request.form.get('barrio') != None: barrio_ = str(request.form.get('barrio'))
+                else: barrio_ = None
+                if len(request.form['direccion']) != 0: dir_ = request.form['direccion']
+                else: dir_ = None
+                if len(request.form['contraseña']) != 0: p = encriptar(request.form['contraseña'])
+                else: p = None
+                editC(usuario, p, int(nd), apellidos_, barrio_, email, dept_, dir_, mun_, fecha_, nombres_, genero_, td, tel_)
+            elif request.form["btn"] == "Volver":
+                return redirect(url_for('main_civil'))
+    return render_template('editar_perfil_civil.html', usuario=usuario)
 
 if __name__ == "__main__":
     app.debug = True
