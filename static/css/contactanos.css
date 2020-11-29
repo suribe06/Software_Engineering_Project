@@ -6,7 +6,6 @@ body, html {
   font-family: Arial;
 }
 
-
 #header{
   color: white;
   width: 100%;
@@ -14,8 +13,6 @@ body, html {
   font-size: 30px;
   text-align: center;
 }
-
-
 
 #cols1{
   padding: 0 !important;
@@ -32,12 +29,11 @@ body, html {
 
   background-color: #55A6D7 !important;
   float: left !important;
-  height: 100%;
-  width: 70%;
+  height: 100px;
+  width: 100px;
   border: 0;
-
-
 }
+
 #logo{
 
   max-width: 100%;
@@ -49,13 +45,6 @@ body, html {
 #header{
   top: auto;
 }
-
-
-
-
-
-
-
 
 input[type=text]{
 
@@ -69,7 +58,7 @@ input[type=text]{
   font-size: 18px;
 }
 
-input[type=submit]{
+input#enviar{
   width: 25%;
   background-color: #0E4682;
   color: white;
@@ -83,7 +72,8 @@ input[type=submit]{
 input#btn_back{
   background: #ccc url('/static/images/back.svg') no-repeat;
   padding: 5px;
-
+  display: block;
+  font-size: 0px;
 }
 
 

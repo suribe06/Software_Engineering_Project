@@ -1,9 +1,11 @@
 import base64
 
 def encriptar(password):
-    password_encrypt = password.encode()
-    encoded = base64.b64encode(password_encrypt)
-    encoded = encoded.decode()
+    encoded = None
+    if password != None:
+        password_encrypt = password.encode()
+        encoded = base64.b64encode(password_encrypt)
+        encoded = encoded.decode()
     return encoded
 
 def decriptar(encoded):

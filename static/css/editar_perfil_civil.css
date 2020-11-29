@@ -32,8 +32,8 @@ body, html {
 
   background-color: #55A6D7 !important;
   float: left !important;
-  height: 100%;
-  width: 70%;
+  height: 100px;
+  width: 100px;
   border: 0;
 
 
@@ -52,11 +52,6 @@ body, html {
 
 
 
-
-
-
-
-
 input[type=text],input[type=password], select{
 
 
@@ -69,7 +64,7 @@ input[type=text],input[type=password], select{
   font-size: 18px;
 }
 
-input[type=submit]{
+input#guardar{
   width: 30%;
   background-color: #0E4682;
   color: white;
@@ -83,7 +78,8 @@ input[type=submit]{
 input#btn_back{
   background: #ccc url('/static/images/back.svg') no-repeat;
   padding: 5px;
-
+  display: block;
+  font-size: 0px;
 }
 
 
