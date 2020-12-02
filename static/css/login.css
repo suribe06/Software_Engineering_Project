@@ -21,7 +21,7 @@ input[type=text] {
 
 
   width: 100%;
-  padding: 15px 10px;
+  padding: 10px 10px;
 
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -34,7 +34,7 @@ input[type=password] {
 
 
   width: 100%;
-  padding: 15px 10px;
+  padding: 10px 10px;
 
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -43,7 +43,7 @@ input[type=password] {
 }
 
 input[type=submit]{
-  width: 90%;
+  width: 100%;
   background-color: #0E4682;
   color: white;
   padding: 10px 10px;
@@ -53,8 +53,6 @@ input[type=submit]{
   font-size: 18px;
   text-align: center;
 }
-
-
 
 #BlackImg{
   background: rgba(0, 0, 0, .3);
@@ -67,47 +65,6 @@ input[type=submit]{
 }
 
 
-#AcceptEmail{
-
-  width: 30%;
-  background-color: #0E4682;
-  color: white;
-  padding: 10px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
-
-}
-
-
-
-.overlay{
-
-  background: rgba(0, 0, 0, .3);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden ;
-
-}
-
-.overlay.active{
-  visibility: visible;
-}
-
-
-#hiddenEmail{
-  padding: 15px;
-  background-color: #F8F8F8;
-  width: 100%;
-  border-radius: 3px;
-}
 
 .col{
   width: 100% !important;

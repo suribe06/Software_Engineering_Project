@@ -12,13 +12,10 @@ html {
     border-radius: 12px;
     padding: 100px 20px;
 }
-
-#headerImg{
-  width: 30%;
-  top: 0%;
-  left:50%;
+#logo{
+    max-width: 20%;
+    max-height: 20%;
 }
-
 input[type=text] {
 
 
@@ -31,8 +28,7 @@ input[type=text] {
   font-size: 18px;
 }
 
-
-input[type=password] {
+input[type=password], select{
 
 
   width: 80%;
@@ -45,7 +41,7 @@ input[type=password] {
 }
 
 input[type=submit]{
-  width: 50%;
+  width: 80%;
   background-color: #0E4682;
   color: white;
   padding: 10px 10px;
@@ -55,39 +51,7 @@ input[type=submit]{
   font-size: 18px;
 }
 
-#user{
-  position: absolute;
-  top: 40%;
-  left:50%;
-  margin: 0 0 0 -25%;
 
-}
-#password{
-  position: absolute;
-  top: 55%;
-  left:50%;
-  margin: 0 0 0 -25%;
-}
-#login{
-  position: absolute;
-  top: 80%;
-  left:50%;
-  margin: 0 0 0 -25%;
-
-}
-
-#acheref{
-  position: relative;
-  top: 70%;
-  left:47%;
-  margin: 0 0 0 -15%;
-  color : blue ;
-  background-color: transparent;
-  border: none;
-  overflow: hidden;
-  font-size: 17px;
-  text-size-adjust: auto;
-}
 
 #BlackImg{
   background: rgba(0, 0, 0, .3);
@@ -100,40 +64,6 @@ input[type=submit]{
 }
 
 
-#AcceptEmail{
-
-  width: 30%;
-  background-color: #0E4682;
-  color: white;
-  padding: 10px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
-
-}
-
-
-
-.overlay{
-
-  background: rgba(0, 0, 0, .3);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden ;
-
-}
-
-.overlay.active{
-  visibility: visible;
-}
-
 table td{
   vertical-align: middle;
   text-align: center;
@@ -143,4 +73,7 @@ table td{
 .col{
   width: 100% !important;
   padding: 0px;
+}
+p{
+  font-size: 25px;
 }

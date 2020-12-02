@@ -4,73 +4,75 @@
     <meta http-equiv=”Content-Type” content=”text/html; charset=ISO-8859-1″ />
     <link rel="stylesheet" href="/static/css/register_salud.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
   </head>
   <body>
   <div class="h-100 d-flex justify-content-center align-items-center" id="BlackImg">
   <div class="container-fluid" id="loginDiv">
     <div class="row justify-content-center">
-    <img src = "/static/images/logo.png" id="headerImg" >
-    </div>
-    <div class="row justify-content-center">
       <form action="/register_salud" method="POST" width="100%">
-      <table width="100%" >
-      <tr>
-        <td colspan="2"> <p> Registro de Establecimiento Salud </p>
-      <tr>
-      <tr>
-        <td> <input type="text" name="NIT" placeholder="NIT" required></td>
-        <td>
-          <select name="razon" id="razon">
-            <option value = "Hospital">Hospital</option>
-            <option value = "EPS">EPS</option>
-            <option value = "Prestadores de atención ambulatoria">Prestadores de atención ambulatoria</option>
-            <option value = "Prestadores de servicios auxiliares">Prestadores de servicios auxiliares</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <select name="departamento" id="departamento">
-            <option value = "Valle del Cauca">Valle del Cauca</option>
-            <option value = "Cauca">Cauca</option>
-            <option value ="Quindio" >Quindio</option>
-          </select>
-        </td>
-        <td>
-          <select name="municipio" id="municipio">
-            <option value = "Valle del Cauca">Valle del Cauca</option>
-            <option value = "Cauca">Cauca</option>
-            <option value ="Quindio" >Quindio</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <select name="barrio" id="barrio">
-            <option value = "Refugio">Refugio</option>
-            <option value = "Antigua">Antigua</option>
-            <option value ="Ciudad Jardin"> Ciudad Jardin</option>
-          </select>
-        </td>
-        <td> <input type="text" name="direccion" placeholder="Dirección" required></td>
-      </tr>
-      <tr>
-        <td> <input type="text" name="T1" placeholder="Teléfono 1" required></td>
-        <td> <input type="text" name="T2" placeholder="Teléfono 2 (opcional)"></td>
-      </tr>
-      <tr>
-        <td> <input type="text" name="T3" placeholder="Teléfono 3 (opcional)"></td>
-        <td><input type="text" name="correo" placeholder="Correo electronico" required></td>
-      </tr>
-      <tr>
-        <td> <input type="text" name="username" placeholder="Nombre de Usuario" required></td>
-        <td> <input type="password" name="password" placeholder="Contraseña" required></td>
-      </tr>
-      <tr>
-        <td colspan="2"> <input type="submit" name="Registrarse" value="Registrarse"></td>
-      </tr>
-      </table>
+        <table width="100%">
+        <tr><td colspan="2"> <img src = "/static/images/logo.png" id="logo" > </td> </tr>
+        <tr>
+          <td colspan="2"> <p> Registro de Establecimiento de Salud </p>
+        <tr>
+        <tr>
+          <td> <input type="text" name="NIT" placeholder="NIT" required></td>
+          <td> <input type="text" name="razon" placeholder="Razón social" required> </td>
+        </tr>
+        <tr>
+          <td>
+            <select name="categoria" id="categoria">
+              <option value="" disabled selected>Categoria</option>
+              <option value = "Hospital">Hospital</option>
+              <option value = "EPS">EPS</option>
+              <option value = "PAA">P. Atención ambulatoria</option>
+              <option value = "PSA">P. Servicios auxiliares</option>
+            </select>
+          </td>
+          <td>
+            <select name="departamento" id="departamento">
+              <option value="" disabled selected>Departamento</option>
+              <option value = "Valle del Cauca">Valle del Cauca</option>
+              <option value = "Cauca">Cauca</option>
+              <option value ="Quindio" >Quindio</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <select name="municipio" id="municipio">
+              <option value="" disabled selected>Municipio</option>
+              <option value = "Popayan">Popayán</option>
+              <option value = "C">Cali</option>
+              <option value ="Bogota" >Bogota</option>
+            </select>
+          </td>
+          <td>
+            <select name="barrio" id="barrio">
+              <option value="" disabled selected>Barrio</option>
+              <option value = "BV">Antigua</option>
+              <option value = "Refugio">Refugio</option>
+              <option value ="CJ">Ciudad Jardin </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td> <input type="text" name="direccion" placeholder="Dirección" required></td>
+          <td> <input type="text" name="T1" placeholder="Teléfono 1" required></td>
+        </tr>
+        <tr>
+          <td> <input type="text" name="T2" placeholder="Teléfono 2 (opcional)"></td>
+          <td> <input type="text" name="T3" placeholder="Teléfono 3 (opcional)"></td>
+        </tr>
+        <tr>
+          <td><input type="text" name="correo" placeholder="Correo electronico" required></td>
+          <td> <input type="text" name="username" placeholder="Nombre de Usuario" required></td>
+        </tr>
+        <tr>
+          <td> <input type="password" name="password" placeholder="Contraseña" required></td>
+          <td> <input type="submit" name="Registrarse" value="Registrarse"></td>
+        </tr>
+        </table>
       </form>
     </div>
   </div>
