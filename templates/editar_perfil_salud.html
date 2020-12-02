@@ -46,27 +46,22 @@
       </tr>
       <tr>
         <td>
-          <select name="departamento" id="departamento">
-            <option value = "Valle del Cauca">Valle del Cauca</option>
-            <option value = "Cauca">Cauca</option>
-            <option value ="Quindio" >Quindio</option>
+          <select name="departamento" id="departamento" onchange="cargarMunicipio()">
+            <option disabled selected>Departamento</option>
+
           </select>
         </td>
         <td colspan="2"></td>
         <td>
-          <select name="municipio" id="municipio">
-            <option value = "Valle del Cauca">Valle del Cauca</option>
-            <option value = "Cauca">Cauca</option>
-            <option value ="Quindio" >Quindio</option>
+          <select name="municipio" id="municipio" onchange="cargarBarrios()">
+            <option disabled selected>Municipio</option>
           </select>
         </td>
       </tr>
       <tr>
         <td>
           <select name="barrio" id="barrio">
-            <option value = "Refugio">Refugio</option>
-            <option value = "Antigua">Antigua</option>
-            <option value ="Ciudad Jardin"> Ciudad Jardin</option>
+            <option disabled selected>Barrios</option>
           </select>
         </td>
         <td colspan="2"></td>

@@ -1,0 +1,21 @@
+[
+  {
+      "id":0,
+      "ciudad":"Cali",
+      "barrios":[
+          "Capri",
+          "San Fernando Viejo",
+          "El Limonar",
+          "Caney",
+          "Santa Mónica",
+          "La Flora",
+          "Lili",
+          "Versalles",
+          "Pance",
+          "Refugio",
+          "San Fernando Viejo"
+
+      ]
+
+  }
+]
