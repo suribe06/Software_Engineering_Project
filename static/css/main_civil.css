@@ -253,32 +253,32 @@ input[type=text] {
   align-items: center;
 }
 
-
-
-#myTable{
+#hv{
+  border: 1px solid black;
+  padding: 5px;
   font-family: Arial;
-  border-collapse: collapse;
-  width: 80%
+  margin-left: auto;
+  margin-right: auto;
 
 }
 
-#myTable td, #myTable th{
-  border: 1px solid #ddd;
+#hv td, #hv th{
+  border: 2px solid #2980B9;
   padding: 8px 8px;
-  align-items: :center;
+  align-items: center;
+  align-content: center;
 }
 
-#myTable tr:nth-child(even){
-  background-color: #ddd;
+#hv tr:nth-child(even){
+  background-color: #2980B9;
 }
 
 
-#myTable th{
-  background-color: #E3E7EE;
+#hv th{
+  background-color: #D6EAF8 ;
 
 }
 
 #tabla td{
-
   padding: 10px;
 }
