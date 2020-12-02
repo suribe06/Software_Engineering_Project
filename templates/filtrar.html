@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="ListaEmpleado" class="">
+      <div class="row">
+        <div class="col-3" >
+          <button style=" float: right !important;" type="button" class="botones" id="filtrar"> Filtrar </button>
+        </div>
+        <div class="col-4">
+          <br>
+          <select style="float: right !important;" name="descarga" id="descarga">
+             <option value = "CSV">CSV</option>
+             <option value = "PDF">PDF</option>
+           </select>
+        </div>
+        <div class="col-3" >
+          <button style=" float: right !important;" type="button" class="botones" id="filtrar"> Descargar </button>
+        </div>
+        <div class="col-1"></div>
+        <br>
+        <br>
+        <div class="row">
+          <div class="col" align="center">
+
+          </div>
+          <div class="overlay" id="overlay">
+            <div class="popUp" id="popUp">
+              <div class="popHeader"><p>Filtrar </p></div>
+              <div class="popBody">
+                <table id="FiltTable" border="0">
+                  <tr>
+                    <td>
+                      <select class="selection" id="selecting">
+                        <option value= "0"> NIT </option>
+                        <option value= "1"> Nombre</option>
+                        <option value= "2"> Dirección </option>
+                        <option value= "3"> Teléfono </option>
+                        <option value= "4"> Responsable </option>
+                      </select>
+                    </td>
+                    <td><input type="text" id="myInput"></td>
+                  </tr>
+                </table>
+                <br>
+                <br>
+                <button type="button" id="buttonFilt"> Aceptar </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
