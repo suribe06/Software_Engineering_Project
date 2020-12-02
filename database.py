@@ -164,3 +164,14 @@ def hVisitas(nd,td):
         pers = [obj.rsocial,a,b,obj.reason]
         visi.append(pers)
     return visi
+
+def hExamenes(nd,td):
+    e = sessionDB.execute("SELECT * from examenes WHERE ndocumento = {0} and tdocumento = '{1}' allow filtering".format(nd,td))
+    exa = []
+    for obj in e:
+        a = str(obj.efecha.date().year)+"-"+str(obj.efecha.date().month)+"-"+str(obj.efecha.date().day)
+        if obj.rfecha != None: b = str(obj.rfecha.date().year)+"-"+str(obj.rfecha.date().month)+"-"+str(obj.rfecha.date().day)
+        else: b = "NA"
+        pers = [obj.rsocial,a,b,obj.resultado]
+        exa.append(pers)
+    return exa

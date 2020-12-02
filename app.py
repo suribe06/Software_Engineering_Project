@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes
 from QR import makeQR, readQR
 from cryption import encriptar
 
@@ -162,7 +162,10 @@ def vista_historiales():
 @app.route('/pruebas_covid', methods=['GET','POST'])
 def vista_covid():
     usuario = session['user']
-    return render_template('vista_covid.html', usuario=usuario)
+    ndu = getNd(usuario)
+    tdu = getTd(usuario)
+    hist_completo = hExamenes(ndu, tdu)
+    return render_template('vista_covid.html', usuario=usuario, hist_completo=hist_completo)
 
 @app.route('/contacto', methods=['GET','POST'])
 def contacto():
