@@ -1,0 +1,24 @@
+{% extends 'main_civil2.html' %}
+
+{% block content %}
+<table style="width:100% align:center;">
+  <tr>
+    <td> <input type="file" name="nombres" required></td>
+    <td colspan="2"></td>
+    <td> <input type="text" name="temp" placeholder="temperatura" required></td>
+  </tr>
+  <tr>
+    <td>
+      <select name="tipoDocumento" id="tipoDocumento">
+        <option value="" disabled selected>¿Lleva tapabocas?</option>
+        <option value = "S">Sí</option>
+        <option value = "N">No</option>
+      </select>
+    </td>
+    <td colspan="2"></td>
+    <td>
+      <input type="submit" name="Registrarse" value="Registrar entrada">
+    </td>
+  </tr>
+</table>
+{% endblock %}

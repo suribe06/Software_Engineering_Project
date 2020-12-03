@@ -2,7 +2,7 @@
 <html>
   <head>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      <link rel="stylesheet" href="/static/css/main_salud.css">
+      <link rel="stylesheet" href="/static/css/main_publico.css">
       <meta charset="utf-8">
   </head>
   <body>
@@ -16,7 +16,7 @@
             {{ usuario }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <form method="POST" action="/main_salud">
+            <form method="POST" action="/main_publico">
               <input class="dropdown-item" type ="submit" value="Editar Perfil" name="btn" >
               <input class="dropdown-item" type ="submit" value="Contáctanos" name="btn" >
               <input class="dropdown-item" type ="submit" value="Cerrar Sesión" name="btn" >
@@ -27,13 +27,13 @@
     </div>
     <div class="row">
       <div class="col">
-        <form class="" action="/main_salud" method="post">
-          <input class="tablink" type ="submit" value="Registro prueba COVID-19" name="btn" >
+        <form class="" action="/main_publico" method="post">
+          <input class="tablink" type ="submit" value="Registro condiciones ingreso" name="btn" >
         </form>
       </div>
       <div  class="col">
-        <form class="" action="/main_salud" method="post">
-          <input class="tablink" type ="submit" value="Historial Pruevas COVID-19" name="btn" >
+        <form class="" action="/main_publico" method="post">
+          <input class="tablink" type ="submit" value="Historial de visitas" name="btn" >
         </form>
       </div>
     </div>
