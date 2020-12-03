@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS
 from QR import makeQR, readQR
 from cryption import encriptar
 
@@ -23,9 +23,11 @@ def login():
             p = encriptar(request.form['pass'])
             ans, tp = inicio(u, p)
             if ans:
+                session['user'] = request.form['user']
                 if tp == 1:
-                    session['user'] = request.form['user']
                     return redirect(url_for('main_civil'))
+                if tp == 2:
+                    return redirect(url_for('main_salud'))
             else:
                 flash("Usuario o contraseña incorrecta")
         elif request.form["b1"]=="Registrarse":
@@ -102,7 +104,7 @@ def register_publico():
 def register_salud():
     if request.method == 'POST':
         nit_ = request.form['NIT']
-        razon_ = str(request.form.get('razon'))
+        razon_ = request.form['razon']
         dept_ = str(request.form.get('departamento'))
         mun_ = str(request.form.get('municipio'))
         barrio_ = str(request.form.get('barrio'))
@@ -141,8 +143,26 @@ def main_civil():
                 return redirect(url_for('contacto'))
             elif request.form["btn"] == "Editar Perfil":
                 return redirect(url_for('editar_perfil_civil'))
-
     return render_template('main_civil2.html', usuario=usuario)
+
+@app.route('/main_salud', methods=['GET','POST'])
+def main_salud():
+    usuario = None
+    if 'user' in session:
+        usuario = session['user']
+        if request.method == 'POST':
+            if request.form["btn"] == "Cerrar Sesión":
+                session.pop('user', None)
+                return redirect(url_for('login'))
+            #elif request.form["btn"] == "Contáctanos":
+                #return redirect(url_for('contacto'))
+            elif request.form["btn"] == "Editar Perfil":
+                return redirect(url_for('editar_perfil_salud'))
+            elif request.form["btn"] == "Historial pruebas COVID-19":
+                return redirect(url_for('vista_pruebas_covid'))
+            elif request.form["btn"] == "Registro prueba COVID-19":
+                return redirect(url_for('vista_registro_prueba_covid'))
+    return render_template('main_salud.html', usuario=usuario)
 
 @app.route('/qr', methods=['GET','POST'])
 def vista_qr():
@@ -167,10 +187,9 @@ def vista_covid():
     hist_completo = hExamenes(ndu, tdu)
     return render_template('vista_covid.html', usuario=usuario, hist_completo=hist_completo)
 
-@app.route('/contacto', methods=['GET','POST'])
+@app.route('/contacto_civil', methods=['GET','POST'])
 def contacto():
     usuario = session['user']
-    t = getTipo(usuario)
     if 'user' in session:
         if request.method == 'POST':
             if request.form["btn"] == "Enviar":
@@ -182,10 +201,8 @@ def contacto():
                 comentarios_ = request.form['comentarios']
                 #que hacer con esta info?
             elif request.form["btn"] == "Volver":
-                if t == 1:
-                    return redirect(url_for('main_civil'))
-
-    return render_template('contactanos.html', usuario=usuario)
+                return redirect(url_for('main_civil'))
+    return render_template('contacto_civil.html', usuario=usuario)
 
 @app.route('/edit_perfil', methods=['GET','POST'])
 def editar_perfil_civil():
@@ -221,6 +238,27 @@ def editar_perfil_civil():
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_civil'))
     return render_template('editar_perfil_civil.html', usuario=usuario)
+
+@app.route('/edit_perfil_salud', methods=['GET','POST'])
+def editar_perfil_salud():
+    usuario = session['user']
+    if 'user' in session:
+        if request.method == 'POST':
+            if request.form["btn"] == "Volver":
+                return redirect(url_for('main_salud'))
+    return render_template('editar_perfil_salud.html', usuario=usuario)
+
+@app.route('/histo_covid', methods=['GET','POST'])
+def vista_pruebas_covid():
+    usuario = session['user']
+    nitus = getNitS(usuario)
+    hist_completo = hExamenesS(nitus)
+    return render_template('vista_historial_p_covid.html', usuario=usuario, hist_completo=hist_completo)
+
+@app.route('/registro_p_covid', methods=['GET','POST'])
+def vista_registro_prueba_covid():
+    usuario = session['user']
+    return render_template('vista_registro_p_covid.html', usuario=usuario)
 
 if __name__ == "__main__":
     app.debug = True
