@@ -176,3 +176,11 @@ def hExamenes(nd,td):
         pers = [obj.rsocial,a,b,obj.resultado]
         exa.append(pers)
     return exa
+
+def getNitP(usr):
+    person = sessionDB.execute("SELECT Nit from Publica where username = '{0}'".format(usr))
+    return person.one().nit
+
+def getNitS(usr):
+    person = sessionDB.execute("SELECT Nit from salud where username = '{0}'".format(usr))
+    return person.one().nit
