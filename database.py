@@ -132,7 +132,7 @@ def cuarentena(nd,td):
     if conres.one() != None: enfer = True
     return cuar, enfer
 
-def regVisita(i,ni,nd,td,nom,ape,tem,tap,rsol):
+def regVisita(i,ni,nd,td,nom,ape,tem,tap,rsol,cat):
     person = sessionDB.execute("SELECT nombres,apellidos from civil WHERE ndocumento = {0} and tdocumento = '{1}'allow filtering".format(nd,td))
     if person.one() != None:
         cuar,enfer = cuarentena(nd,td)
@@ -140,7 +140,7 @@ def regVisita(i,ni,nd,td,nom,ape,tem,tap,rsol):
         temperatura = tem <= 37
         ans = tap and temperatura and not(cuar) and not(enfer)
         if ans == True:
-            sessionDB.execute("INSERT INTO visitas (id,nit,ndocumento,apellidos,fent,nombres,reason,rsocial,tapa,tdocumento,temp,veredict) VALUES({0},{1},{2},'{3}','{4}-{5}-{6}','{7}','NA','{11}',{8},'{9}',{10},True)".format(i,ni,nd,ape,dia.year,dia.strftime("%m"),dia.strftime("%d"),nom,tap,td,tem,rsol))
+            sessionDB.execute("INSERT INTO visitas (id,nit,ndocumento,apellidos,categoria,fent,hent,nombres,reason,rsocial,tapa,tdocumento,temp,veredict) VALUES({0},{1},{2},'{3}','{15}','{4}-{5}-{6}','{12}:{13}:{14}','{7}','NA','{11}',{8},'{9}',{10},True)".format(i,ni,nd,ape,dia.year,dia.strftime("%m"),dia.strftime("%d"),nom,tap,td,tem,rsol,dia.hour,dia.minute,dia.second,cat))
         else:
             razon = ''
             if not(tap):
@@ -151,7 +151,7 @@ def regVisita(i,ni,nd,td,nom,ape,tem,tap,rsol):
                 razon = razon + '- Positivo por COVID-19 '
             if cuar:
                 razon = razon + '- En cuarentena por examen '
-            sessionDB.execute("INSERT INTO visitas (id,nit,ndocumento,apellidos,fent,nombres,reason,rsocial,tapa,tdocumento,temp,veredict) VALUES({0},{1},{2},'{3}','{4}-{5}-{6}','{7}','{8}','{12}',{9},'{10}',{11},False)".format(i,ni,nd,ape,dia.year,dia.strftime("%m"),dia.strftime("%d"),nom,razon,tap,td,tem,rsol))
+            sessionDB.execute("INSERT INTO visitas (id,nit,ndocumento,apellidos,categoria,fent,hent,nombres,reason,rsocial,tapa,tdocumento,temp,veredict) VALUES({0},{1},{2},'{3}','{16}','{4}-{5}-{6}','{13}:{14}:{15}','{7}','{8}','{12}',{9},'{10}',{11},False)".format(i,ni,nd,ape,dia.year,dia.strftime("%m"),dia.strftime("%d"),nom,razon,tap,td,tem,rsol,dia.hour,dia.minute,dia.second,cat))
     return
 
 def hVisitas(nd,td):
@@ -161,7 +161,8 @@ def hVisitas(nd,td):
         if obj.veredict == True: b = "Aceptado"
         else: b = "Denegado"
         a = str(obj.fent.date().year)+"-"+str(obj.fent.date().month)+"-"+str(obj.fent.date().day)
-        pers = [obj.rsocial,a,b,obj.reason]
+        c = str(obj.hent.time().hour)+":"+str(obj.hent.time().minute)
+        pers = [obj.rsocial,obj.categoria,a,c,b,obj.reason]
         visi.append(pers)
     return visi
 
