@@ -8,14 +8,11 @@
 {% block content %}
 <table style="width:100% align:center;">
   <tr>
-    <td>
-      <form action="/registro_visita" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <input type=submit value=Upload>
-      </form>
-
+    <td style="text-align:center; height:180px">
+      <h1>Llena los siguientes campos para registrar una visita</h1>
     </td>
-    <td colspan="2"></td>
+  </tr>
+  <tr>
     <td> <input type="text" name="temp" placeholder="temperatura" required></td>
   </tr>
   <tr>
@@ -26,12 +23,19 @@
         <option value = "No">No</option>
       </select>
     </td>
-    <td colspan="2"></td>
-    <td>
-      <form action="/registro_visita" method="post" enctype="multipart/form-data">
-        <input type="submit" name="Registrarse" value="Registrar entrada">
-      </form>
-    </td>
   </tr>
+  <form action="/registro_visita" method="post" enctype="multipart/form-data">
+    <tr>
+      <td>
+        <input type="file" name="file" required>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type=submit name="btn" value="Upload">
+      </td>
+    </tr>
+  </form>
+
 </table>
 {% endblock %}
