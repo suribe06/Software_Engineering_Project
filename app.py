@@ -1,10 +1,10 @@
 from cassandra.cluster import Cluster
 from flask import *
-import requests, csv
+import requests, csv, sys, os
 from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS
+from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar
-import os
 
 #Configuramos la app de flask
 app = Flask(__name__)
@@ -189,6 +189,7 @@ def vista_qr():
 
 @app.route('/historiales', methods=['GET','POST'])
 def vista_historiales():
+    fields = ['Establecimiento Publico', 'Categoria', 'Fecha Entrada', 'Hora Entrada', 'Veredicto', 'Razón']
     usuario = session['user']
     ndu = getNd(usuario)
     tdu = getTd(usuario)
@@ -197,6 +198,7 @@ def vista_historiales():
 
 @app.route('/pruebas_covid', methods=['GET','POST'])
 def vista_covid():
+    fields = ['Establecimiento de Salud', 'Fecha de Realización', 'Fecha Obtención Resultado', 'Resultado']
     usuario = session['user']
     ndu = getNd(usuario)
     tdu = getTd(usuario)
