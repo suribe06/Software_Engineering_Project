@@ -4,6 +4,7 @@ import requests, csv
 from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS
 from QR import makeQR, readQR
 from cryption import encriptar
+import os
 
 #Configuramos la app de flask
 app = Flask(__name__)
@@ -28,6 +29,8 @@ def login():
                     return redirect(url_for('main_civil'))
                 if tp == 2:
                     return redirect(url_for('main_salud'))
+                if tp == 3:
+                    return redirect(url_for('main_publico'))
             else:
                 flash("Usuario o contraseña incorrecta")
         elif request.form["b1"]=="Registrarse":
@@ -164,6 +167,19 @@ def main_salud():
                 return redirect(url_for('vista_registro_prueba_covid'))
     return render_template('main_salud.html', usuario=usuario)
 
+@app.route('/main_publico', methods=['GET','POST'])
+def main_publico():
+    usuario = None
+    if 'user' in session:
+        usuario = session['user']
+        if request.method == 'POST':
+            if request.form["btn"] == "Cerrar Sesión":
+                session.pop('user', None)
+                return redirect(url_for('login'))
+            elif request.form["btn"] == "Registro Visita":
+                return redirect(url_for('registro_visita'))
+    return render_template('main_publico.html', usuario=usuario)
+
 @app.route('/qr', methods=['GET','POST'])
 def vista_qr():
     usuario = session['user']
@@ -259,6 +275,31 @@ def vista_pruebas_covid():
 def vista_registro_prueba_covid():
     usuario = session['user']
     return render_template('vista_registro_p_covid.html', usuario=usuario)
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/registro_visita', methods=['GET','POST'])
+def registro_visita():
+    UPLOAD_FOLDER = '/home/suribe06/github/Proyecto_IngeSoft/static/images/uploads/'
+    usuario = session['user']
+    if 'user' in session:
+        if request.method == 'POST':
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = file.filename
+                file.save('{0}{1}'.format(UPLOAD_FOLDER, filename))
+                return redirect(url_for('registro_visita', filename=filename))
+
+    return render_template('vista_registro_visita.html', usuario=usuario)
 
 if __name__ == "__main__":
     app.debug = True

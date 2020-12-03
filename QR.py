@@ -19,7 +19,7 @@ def makeQR(data):
 
 def readQR():
     #Se abre el codigo QR
-    img = Image.open('static/images/QR_1144107262.png')
+    img = Image.open('static/images/uploads/QR_1144107262.png')
     #Se decodifica el qr
     output = pyzbar.decode()
     output_decode = output[0].data.decode()
