@@ -177,6 +177,17 @@ def hExamenes(nd,td):
         exa.append(pers)
     return exa
 
+def hExamenesS(n):
+    e = sessionDB.execute("SELECT * from examenes WHERE nit = {0} allow filtering".format(n))
+    exa = []
+    for obj in e:
+        a = str(obj.efecha.date().year)+"-"+str(obj.efecha.date().month)+"-"+str(obj.efecha.date().day)
+        if obj.rfecha != None: b = str(obj.rfecha.date().year)+"-"+str(obj.rfecha.date().month)+"-"+str(obj.rfecha.date().day)
+        else: b = "NA"
+        pers = [obj.ndocumento,a,b,obj.resultado]
+        exa.append(pers)
+    return exa
+
 def getNitP(usr):
     person = sessionDB.execute("SELECT Nit from Publica where username = '{0}'".format(usr))
     return person.one().nit

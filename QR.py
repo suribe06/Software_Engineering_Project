@@ -1,5 +1,6 @@
 import qrcode
 from PIL import Image
+import cv2
 from pyzbar import pyzbar
 
 def makeQR(data):
@@ -18,9 +19,9 @@ def makeQR(data):
 
 def readQR():
     #Se abre el codigo QR
-    img = Image.open('QR_1234.png')
+    img = Image.open('static/images/QR_1144107262.png')
     #Se decodifica el qr
-    output = pyzbar.decode(img)
+    output = pyzbar.decode()
     output_decode = output[0].data.decode()
     #Se parsea la informacion
     x = output_decode.split('\n')
