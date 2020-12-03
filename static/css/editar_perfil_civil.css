@@ -52,7 +52,7 @@ body, html {
 
 
 
-input[type=text],input[type=password], select{
+input[type=text],input[type=date],input[type=password], select{
 
 
   width: 50%;
