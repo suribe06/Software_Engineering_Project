@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv, sys, os
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar
@@ -178,6 +178,8 @@ def main_publico():
                 return redirect(url_for('login'))
             elif request.form["btn"] == "Registro Visita":
                 return redirect(url_for('registro_visita'))
+            elif request.form["btn"] == "Historial de visitas":
+                return redirect(url_for('vista_historiales_visitas'))
     return render_template('main_publico.html', usuario=usuario)
 
 @app.route('/qr', methods=['GET','POST'])
@@ -194,6 +196,13 @@ def vista_historiales():
     ndu = getNd(usuario)
     tdu = getTd(usuario)
     hist_completo = hVisitas(ndu, tdu)
+    if request.method == 'POST':
+        if request.form["btn"] == "Descargar":
+            if str(request.form.get('formato')) == "CSV":
+                download_csv(fields, hist_completo, 1)
+            elif str(request.form.get('formato')) == "PDF":
+                download_pdf(fields, hist_completo, 1)
+
     return render_template('vista_historiales.html', usuario=usuario, hist_completo=hist_completo)
 
 @app.route('/pruebas_covid', methods=['GET','POST'])
@@ -203,6 +212,12 @@ def vista_covid():
     ndu = getNd(usuario)
     tdu = getTd(usuario)
     hist_completo = hExamenes(ndu, tdu)
+    if request.method == 'POST':
+        if request.form["btn"] == "Descargar":
+            if str(request.form.get('formato')) == "CSV":
+                download_csv(fields, hist_completo, 2)
+            elif str(request.form.get('formato')) == "PDF":
+                download_pdf(fields, hist_completo, 2)
     return render_template('vista_covid.html', usuario=usuario, hist_completo=hist_completo)
 
 @app.route('/contacto_civil', methods=['GET','POST'])
@@ -268,9 +283,16 @@ def editar_perfil_salud():
 
 @app.route('/histo_covid', methods=['GET','POST'])
 def vista_pruebas_covid():
+    fields = ["Persona", "Fecha de Realización", "Fecha Resultado", "Resultado"]
     usuario = session['user']
     nitus = getNitS(usuario)
     hist_completo = hExamenesS(nitus)
+    if request.method == 'POST':
+        if request.form["btn"] == "Descargar":
+            if str(request.form.get('formato')) == "CSV":
+                download_csv(fields, hist_completo, 2)
+            elif str(request.form.get('formato')) == "PDF":
+                download_pdf(fields, hist_completo, 2)
     return render_template('vista_historial_p_covid.html', usuario=usuario, hist_completo=hist_completo)
 
 @app.route('/registro_p_covid', methods=['GET','POST'])
@@ -285,11 +307,16 @@ def allowed_file(filename):
 
 @app.route('/registro_visita', methods=['GET','POST'])
 def registro_visita():
-    UPLOAD_FOLDER = '/home/suribe06/github/Proyecto_IngeSoft/static/images/uploads/'
+    scriptPath = sys.path[0]
+    UPLOAD_PATH = os.path.join(scriptPath, 'static/images/uploads/')
     usuario = session['user']
+    data =  None
     if 'user' in session:
         if request.method == 'POST':
-            if request.form["btn"] == "Upload":
+            if request.form["btn"] == "Registrar":
+                tapabocas_ = str(request.form.get('tapabocas'))
+                temperatura = request.form['temp']
+                filename = None
                 if 'file' not in request.files:
                     flash('No file part')
                     return redirect(request.url)
@@ -299,10 +326,31 @@ def registro_visita():
                     return redirect(request.url)
                 if file and allowed_file(file.filename):
                     filename = file.filename
-                    file.save('{0}{1}'.format(UPLOAD_FOLDER, filename))
-                    return redirect(url_for('registro_visita'))
-
+                    file.save('{0}{1}'.format(UPLOAD_PATH, filename))
+                    data = readQR(filename)
+                nitus = getNitP(usuario)
+                rsol, cat = getCatRsol(usuario)
+                tap = None
+                if tapabocas_ == "Si": tap = True
+                else: tap = False
+                regVisita(nitus, int(data[3]), data[2], data[0], data[1], int(temperatura), tap, rsol, cat)
+                os.remove('{0}{1}'.format(UPLOAD_PATH, filename))
+                return redirect(url_for('registro_visita'))
     return render_template('vista_registro_visita.html', usuario=usuario)
+
+@app.route('/historiales_visitas', methods=['GET','POST'])
+def vista_historiales_visitas():
+    fields = ["Tipo Documento", "Numero Documento", "Fecha Entrada", "Hora Entrada", "Veredicto", "Razón"]
+    usuario = session['user']
+    nitus = getNitP(usuario)
+    hist_completo = hVisitasP(nitus)
+    if request.method == 'POST':
+        if request.form["btn"] == "Descargar":
+            if str(request.form.get('formato')) == "CSV":
+                download_csv(fields, hist_completo, 1)
+            elif str(request.form.get('formato')) == "PDF":
+                download_pdf(fields, hist_completo, 1)
+    return render_template('vista_historial_visitas.html', usuario=usuario, hist_completo=hist_completo)
 
 if __name__ == "__main__":
     app.debug = True

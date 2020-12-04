@@ -17,11 +17,11 @@ def makeQR(data):
     img = qr.make_image(fill='black', back_color='white')
     img.save('static/images/QR_{0}.png'.format(data["Numero Documento"]))
 
-def readQR():
+def readQR(filename):
     #Se abre el codigo QR
-    img = Image.open('static/images/uploads/QR_1144107262.png')
+    img = Image.open('static/images/uploads/{0}'.format(filename))
     #Se decodifica el qr
-    output = pyzbar.decode()
+    output = pyzbar.decode(img)
     output_decode = output[0].data.decode()
     #Se parsea la informacion
     x = output_decode.split('\n')

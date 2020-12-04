@@ -14,19 +14,19 @@ def download_csv(fields, rows, tipo):
         csvwriter.writerows(rows)
 
 def download_pdf(fields, rows, tipo):
-    pdf = FPDF()
+    pdf = FPDF(orientation = 'L')
     pdf.add_page()
     pdf.set_font('Arial', 'B', 12)
     header = "| "
     for x in fields:
         header = header + x + ' | '
-    pdf.cell(200, 10, txt = header, ln = 1, align = 'C')
+    pdf.cell(0, 10, txt = header, ln = 1, align = 'C')
     pdf.set_font("Arial", size = 12)
     for l in rows:
         r = "| "
         for x in l:
-            r = r + x + ' | '
-        pdf.cell(200, 10, txt = r, ln = 1, align = 'C')
+            r = r + str(x) + ' | '
+        pdf.cell(0, 10, txt = r, ln = 1, align = 'C')
     if tipo == 1:
         filename = "historial_visitas.pdf"
     elif tipo == 2:

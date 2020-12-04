@@ -1,5 +1,3 @@
-
-
 body, html {
   height: 100%;
   margin: 0;
@@ -7,9 +5,9 @@ body, html {
 }
 
 .col{
-
   padding: 0px;
 }
+
 #header{
   color: white;
   width: 100%;
@@ -18,9 +16,7 @@ body, html {
   text-align: center;
 }
 
-
 #cont{
-
   padding: 0px !important;
 }
 
@@ -32,6 +28,7 @@ body, html {
   padding: 0 !important;
   height: 100px;
 }
+
 #cols{
   padding: 0 !important ;
   height: 100px;
@@ -43,35 +40,27 @@ body, html {
   height: 100%;
   width: 100%;
   border: 0;
-
-
 }
 
 #btn_back{
-
   background-color: #55A6D7;
   float: left !important;
   height: 100%;
   width: 100%;
   border: 0;
-
-
 }
+
 #logo{
-
   height: 100%;
-
-
 }
+
 #header{
   top: auto;
 }
 
-
 #Imglog{
   width: 50%;
   height: 50%;
-
 }
 
 #sal{
@@ -91,7 +80,6 @@ body, html {
 }
 
 .tablink {
-
   background-color: white;
   color: #47525E;
   border: none;
@@ -103,11 +91,19 @@ body, html {
   width: 100%;
   height: 100%;
   border: 2px solid #DEDBE7 ;
-
 }
 
 .tablink:hover {
   background-color: #8EBEEB;
+}
+
+input[type=text] {
+  width: 50%;
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 18px;
 }
 
 .buttonsBelow{
@@ -123,7 +119,6 @@ body, html {
 
 #buttonsBelow1{
   text-align: center;
-
 }
 
 #buttonsBelow2{
@@ -133,7 +128,6 @@ body, html {
 .texto{
   color: #47525E;
   font-size: 22px;
-
 }
 
 #rowsito{
@@ -141,35 +135,14 @@ body, html {
   background-color: #256DB6;
 }
 
-.overlay{
-  background: rgba(0, 0, 0, .3);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden ;
-
-}
-
-.overlay.active{
-  visibility: visible;
-}
-
 .popUp{
   background-color: #F8F8F8;
   width: 50%;
   border-radius: 3px;
-
 }
 
 .popHeader {
   background-color: #256DB6;
-
-
   width: 100%;
   font-size: 22px;
   display: flex;
@@ -182,15 +155,13 @@ body, html {
 }
 
 .popBody{
-
   text-align: center;
   padding: 40px ;
   align-items: center;
-
 }
+
 .popBody input{
   width: 50%
-
 }
 .popBody  button{
   width: 30%;
@@ -201,14 +172,12 @@ body, html {
   border-radius: 2px;
   cursor: pointer;
   font-size: 18px;
-
-
 }
+
 .popBody button:hover{
   background-color: #428BD6;
-
-
 }
+
 .botones{
   width: 55%;
   background-color: #256DB6;
@@ -218,8 +187,16 @@ body, html {
   cursor: pointer;
   font-size: 22px;
   border-radius: 30px
-
 }
+
+#descarga{
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  border-radius: 30px
+}
+
 #FiltTable{
   align-items: center;
   margin: 0 auto;
@@ -236,7 +213,6 @@ body, html {
   font-family: Arial;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 #hv td, #hv th{
@@ -250,34 +226,10 @@ body, html {
   background-color: #2980B9;
 }
 
-
 #hv th{
   background-color: #D6EAF8 ;
-
 }
 
 #tabla td{
   padding: 10px;
-}
-
-
-input[type=text],input[type=date],input[type=password], select{
-  width: 80%;
-  padding: 10px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 18px;
-}
-
-
-input[type=submit]{
-  width: 80%;
-  background-color: #0E4682;
-  color: white;
-  padding: 10px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
 }

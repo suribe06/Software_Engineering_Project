@@ -40,18 +40,20 @@
     <tr>
       <td>
         <table style="width: 100%">
-          <tr>
-            <td style="width: 50%"><input class="botones" type ="submit" value="Filtrar" name="btn" ></td>
-            <td style=""></td>
-            <td style="width: 50%"><input class="botones" type ="submit" value="Descargar" name="btn" ></td>
-            <td style="width: 50%">
-              <select id="descarga">
-                <option disabled selected>Formato</option>
-                 <option value = "CSV">CSV</option>
-                 <option value = "PDF">PDF</option>
-              </select>
-            </td>
-          </tr>
+          <form class="" action="/historiales" method="post">
+            <tr>
+              <td style="width: 50%"><input class="botones" type ="submit" value="Filtrar" name="btn"></td>
+              <td style=""></td>
+              <td style="width: 50%"><input class="botones" type ="submit" value="Descargar" name="btn" onclick="download()"></td>
+              <td style="width: 50%">
+                <select name="formato" id="descarga">
+                  <option disabled selected>Formato</option>
+                   <option value="CSV">CSV</option>
+                   <option value="PDF">PDF</option>
+                </select>
+              </td>
+            </tr>
+          </form>
         </table>
       </td>
     </tr>

@@ -132,9 +132,11 @@ def cuarentena(nd,td):
     if conres.one() != None: enfer = True
     return cuar, enfer
 
-def regVisita(i,ni,nd,td,nom,ape,tem,tap,rsol,cat):
+def regVisita(ni,nd,td,nom,ape,tem,tap,rsol,cat):
     person = sessionDB.execute("SELECT nombres,apellidos from civil WHERE ndocumento = {0} and tdocumento = '{1}'allow filtering".format(nd,td))
     if person.one() != None:
+        visi = sessionDB.execute("SELECT COUNT(*) from visitas WHERE ndocumento = {0} and nit = {2} and tdocumento = '{1}'allow filtering".format(nd,td,ni))
+        i = int(visi.one().count)
         cuar,enfer = cuarentena(nd,td)
         dia = dt.datetime.now()
         temperatura = tem <= 37
@@ -188,6 +190,18 @@ def hExamenesS(n):
         exa.append(pers)
     return exa
 
+def hVisitasP(n):
+    v = sessionDB.execute("SELECT * from visitas WHERE nit = {0} allow filtering".format(n))
+    visi = []
+    for obj in v:
+        if obj.veredict == True: b = "Aceptado"
+        else: b = "Denegado"
+        a = str(obj.fent.date().year)+"-"+str(obj.fent.date().month)+"-"+str(obj.fent.date().day)
+        c = str(obj.hent.time().hour)+":"+str(obj.hent.time().minute)
+        pers = [obj.tdocumento,obj.ndocumento,a,c,b,obj.reason]
+        visi.append(pers)
+    return visi
+
 def getNitP(usr):
     person = sessionDB.execute("SELECT Nit from Publica where username = '{0}'".format(usr))
     return person.one().nit
@@ -195,3 +209,7 @@ def getNitP(usr):
 def getNitS(usr):
     person = sessionDB.execute("SELECT Nit from salud where username = '{0}'".format(usr))
     return person.one().nit
+
+def getCatRsol(usr):
+    person = sessionDB.execute("SELECT rsocial, categoria from publica where username = '{0}'".format(usr))
+    return person.one().rsocial,person.one().categoria
