@@ -36,7 +36,7 @@
     <br>
     <br>
     <br>
-  <form action="/edit_perfil" method="POST">
+  <form action="/edit_perfil" method="POST" id="editar">
   <div class="row h-100 d-flex justify-content-center">
 
       <table width="60%">
@@ -55,12 +55,12 @@
       <tr>
         <td><input type="text"  name="apellidos" placeholder="Apellidos"></td>
         <td colspan="2"></td>
-        <td><input type="text" name="T" placeholder="Teléfono"></td>
+        <td><input type="text" name="T" placeholder="Teléfono" id="telefono"></td>
       </tr>
       <tr>
         <td><input type="text" name="fecha" placeholder="Fecha de Nacimiento YYYY-MM-DD"	onfocus="(this.type='date')" onblur="(this.type='text')"></td>
         <td colspan="2"></td>
-        <td><input type="text" name="correo" placeholder="Correo"></td>
+        <td><input type="text" name="correo" placeholder="Correo" id="correo"></td>
       </tr>
       <tr>
         <td>
@@ -76,7 +76,6 @@
         <td>
           <select name="municipio" id="municipio" onchange="cargarBarrios()">
             <option disabled selected>Municipio</option>
-
           </select>
         </td>
         <td colspan="2"></td>
@@ -91,6 +90,9 @@
       </tr>
       <tr>
         <td><input type="text" name="direccion" placeholder="Dirección"></td>
+      </tr>
+      <tr>
+      <td colspan="2"><p id="error" style="color: red;"> </p> </td>
       </tr>
       </table>
   </div>

@@ -9,62 +9,56 @@
   <div class="h-100 d-flex justify-content-center align-items-center" id="BlackImg">
   <div class="container-fluid" id="loginDiv">
     <div class="row justify-content-center">
-      <form action="/register_salud" method="POST" width="100%">
+      <form action="/register_salud" method="POST" width="100%" id="registro">
         <table width="100%">
         <tr><td colspan="2"> <img src = "/static/images/logo.png" id="logo" > </td> </tr>
         <tr>
           <td colspan="2"> <p> Registro de Establecimiento de Salud </p>
         <tr>
         <tr>
-          <td> <input type="text" name="NIT" placeholder="NIT" required></td>
+          <td> <input type="text" name="NIT" placeholder="NIT" id="nit" required></td>
           <td> <input type="text" name="razon" placeholder="Razón social" required> </td>
         </tr>
         <tr>
-          <td>
-            <select name="categoria" id="categoria">
-              <option value="" disabled selected>Categoria</option>
-              <option value = "Hospital">Hospital</option>
-              <option value = "EPS">EPS</option>
-              <option value = "PAA">P. Atención ambulatoria</option>
-              <option value = "PSA">P. Servicios auxiliares</option>
-            </select>
-          </td>
           <td>
             <select name="departamento" id="departamento" onchange="cargarMunicipio()">
               <option value="" disabled selected>Departamento</option>
 
             </select>
           </td>
-        </tr>
-        <tr>
           <td>
             <select name="municipio" id="municipio" onchange="cargarBarrios()">
               <option value="" disabled selected>Municipio</option>
 
             </select>
           </td>
+        </tr>
+        <tr>
           <td>
             <select name="barrio" id="barrio">
               <option value="" disabled selected>Barrio</option>
-
             </select>
           </td>
-        </tr>
-        <tr>
           <td> <input type="text" name="direccion" placeholder="Dirección" required></td>
-          <td> <input type="text" name="T1" placeholder="Teléfono 1" required></td>
+        </tr>
+
+        <tr>
+          <td> <input type="text" name="T1" placeholder="Teléfono 1" id="telefono1" required></td>
+          <td> <input type="text" name="T2" placeholder="Teléfono 2 (opcional)" id="telefono2"></td>
         </tr>
         <tr>
-          <td> <input type="text" name="T2" placeholder="Teléfono 2 (opcional)"></td>
-          <td> <input type="text" name="T3" placeholder="Teléfono 3 (opcional)"></td>
+          <td> <input type="text" name="T3" placeholder="Teléfono 3 (opcional)" id="telefono3"></td>
+          <td><input type="text" name="correo" placeholder="Correo electronico" id="correo" required></td>
         </tr>
         <tr>
-          <td><input type="text" name="correo" placeholder="Correo electronico" required></td>
           <td> <input type="text" name="username" placeholder="Nombre de Usuario" required></td>
+          <td> <input type="password" name="password" placeholder="Contraseña" required></td>
         </tr>
         <tr>
-          <td> <input type="password" name="password" placeholder="Contraseña" required></td>
-          <td> <input type="submit" name="Registrarse" value="Registrarse"></td>
+          <td colspan="2"> <input type="submit" name="Registrarse" value="Registrarse"></td>
+        </tr>
+        <tr>
+        <td colspan="2"><p id="error" style="color: red;"></p></td>
         </tr>
         </table>
       </form>
@@ -74,5 +68,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/static/js/colombia.js"></script>
+  <script type="text/javascript" src="/static/js/verificacion_entidades.js"></script>
   </body>
 </html>
