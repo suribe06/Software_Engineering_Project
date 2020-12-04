@@ -34,12 +34,9 @@ cargarDepartamento();
 function cargarMunicipio(){
 		let auxHTML = '';
     new_dep = document.getElementById("departamento").value
-    console.log(new_dep)
     auxHTML+= '<option  disabled selected>Municipio</option>'
     for (var index in jsonDatos){
-      console.log(jsonDatos[index].departamento == new_dep)
       if(jsonDatos[index].departamento == new_dep){
-        console.log(jsonDatos[index].ciudades)
         for(var i in jsonDatos[index].ciudades){
     			auxHTML += '<option value="'+ jsonDatos[index].ciudades[i] +'">'+ jsonDatos[index].ciudades[i] +'</option>';
 
@@ -53,12 +50,9 @@ function cargarMunicipio(){
 function cargarBarrios(){
 		let auxHTML = '';
     new_mun = document.getElementById("municipio").value
-    console.log(new_mun)
     auxHTML+= '<option  disabled selected>Barrio</option>'
     for (var index in jsonDatos_2){
-      console.log(jsonDatos_2[index].ciudad == new_mun)
       if(jsonDatos_2[index].ciudad == new_mun){
-        console.log(jsonDatos_2[index].barrios)
         for(var i in jsonDatos_2[index].barrios){
     			auxHTML += '<option value="'+ jsonDatos_2[index].barrios[i] +'">'+ jsonDatos_2[index].barrios[i] +'</option>';
 

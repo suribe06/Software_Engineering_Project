@@ -8,7 +8,7 @@
 <body>
     <div class="row" id="rowsito">
       <div class="col-1" id="cols">
-      <form action="/edit_perfil_salud" method="POST">
+      <form action="/edit_perfil_salud" method="POST" id="editar">
         <div class="col-1" id="cols">
           <input type="submit" name="btn" id="btn_back" value="Volver">
         </div>
@@ -36,19 +36,19 @@
     <br>
     <br>
     <br>
-  <form action="/edit_perfil_salud" method="POST">
+  <form action="/edit_perfil_salud" method="POST" id="editar">
   <div class="row h-100 d-flex justify-content-center">
 
       <table width="60%">
       <tr>
         <td><input type="text" name="razon" placeholder="Razón social"></td>
         <td colspan="2"></td>
-        <td><input type="text" name="T1" placeholder="Teléfono"></td>
+        <td><input type="text" name="T1" placeholder="Teléfono" id="telefono1"></td>
       </tr>
       <tr>
-        <td><input type="text"  name="T2" placeholder="Teléfono 2(opcional)"></td>
+        <td><input type="text"  name="T2" placeholder="Teléfono 2(opcional)" id="telefono2"></td>
         <td colspan="2"></td>
-        <td><input type="text" name="T3" placeholder="Teléfono 3(opcional)"></td>
+        <td><input type="text" name="T3" placeholder="Teléfono 3(opcional)" id="telefono3"></td>
       </tr>
       <tr>
         <td>
@@ -73,6 +73,9 @@
         <td colspan="2"></td>
         <td><input type="submit" name="btn" id="guardar" placeholder="Guardar"></td>
       </tr>
+      <tr>
+      <td colspan="2"><p id="error" style="color: red;"> </p> </td>
+      </tr>
       </table>
   </div>
   </form>
@@ -80,5 +83,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/static/js/colombia.js"></script>
+  <script type="text/javascript" src="/static/js/verificacion_edEnt.js"></script>
 </body>
 </html>
