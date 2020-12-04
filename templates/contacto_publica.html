@@ -8,7 +8,7 @@
 <body>
   <div class="row" id="rowsito">
     <div class="col-1" id="cols">
-    <form action="/contacto_civil" method="POST">
+    <form action="/contacto_publico" method="POST">
       <div class="col-1" id="cols">
         <input type="submit" name="btn" id="btn_back" value="Volver">
       </div>
@@ -23,7 +23,7 @@
           {{ usuario }}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <form  method="POST" action="/main_civil">
+          <form  method="POST" action="/main_publico">
             <input class="dropdown-item" type ="submit" value="Editar Perfil" name="btn" >
             <input class="dropdown-item" type ="submit" value="Contáctanos" name="btn" >
             <input class="dropdown-item" type ="submit" value="Cerrar Sesión" name="btn" >
@@ -36,22 +36,13 @@
   <br>
   <br>
   <br>
-  <form action="/contacto_civil" method="POST">
+  <form action="/contacto_publico" method="POST">
     <div class="row h-100 d-flex justify-content-center">
         <table width="60%">
         <tr>
-          <td><input type="text" name="TD" placeholder="Tipo de Documento"></td>
+          <td><input type="text" name="NIT" placeholder="NIT"></td>
           <td colspan="2"></td>
-          <td><input type="text" name="ND" placeholder="Número de Documento"></td>
-        </tr>
-        <tr>
-          <td><input type="text" name="nombres" placeholder="Nombres"></td>
-          <td colspan="2"></td>
-          <td><input type="text" name="apellidos" placeholder="Apellidos"></td>
-        </tr>
-        <tr>
           <td><input type="text" name="correo" placeholder="Correo"></td>
-          <td colspan="3"></td>
         </tr>
         <tr style="height: 200px;">
           <td colspan="4" id="comentarios"><input type="text" style="width:77%; height: 100%; " name="comentarios" placeholder="Escriba aqui sus comentarios..."></td>

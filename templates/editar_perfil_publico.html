@@ -8,7 +8,7 @@
 <body>
     <div class="row" id="rowsito">
       <div class="col-1" id="cols">
-      <form action="/edit_perfil_salud" method="POST" id="editar">
+      <form action="/edit_perfil_publico" method="POST" id="editar">
         <div class="col-1" id="cols">
           <input type="submit" name="btn" id="btn_back" value="Volver">
         </div>
@@ -23,9 +23,9 @@
             {{ usuario }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <form  method="POST" action="/main_salud">
-              <input class="dropdown-item" type ="submit" value="Editar Perfil" name="btn" >
-              <input class="dropdown-item" type ="submit" value="Contáctanos" name="btn" >
+            <form  method="POST" action="/main_publico">
+              <input class="dropdown-item" type ="submit" value="Editar Perfil" name="btn">
+              <input class="dropdown-item" type ="submit" value="Contáctanos" name="btn">
               <input class="dropdown-item" type ="submit" value="Cerrar Sesión" name="btn" >
             </form>
           </div>
@@ -36,7 +36,7 @@
     <br>
     <br>
     <br>
-  <form action="/edit_perfil_salud" method="POST" id="editar">
+  <form action="/edit_perfil_publico" method="POST" id="editar">
   <div class="row h-100 d-flex justify-content-center">
 
       <table width="60%">
@@ -71,7 +71,7 @@
           </select>
         </td>
         <td colspan="2"></td>
-        <td><input type="submit" name="btn" id="guardar" value="Guardar"></td>
+        <td> <input type="submit" name="btn" id="guardar" value="Guardar"></td>
       </tr>
       <tr>
       <td colspan="2"><p id="error" style="color: red;"> </p> </td>

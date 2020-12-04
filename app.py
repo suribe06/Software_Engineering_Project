@@ -15,7 +15,7 @@ def set():
     session['key'] = 'value'
     return 'ok'
 
-#Funciones de cada vista
+#VISTA DE LOGIN
 @app.route('/', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
@@ -38,6 +38,7 @@ def login():
 
     return render_template('login.html')
 
+#VISTA SELECCIONAR TIPO DE REGISTRO
 @app.route('/register_select', methods=['GET','POST'])
 def register_select():
     if request.method == 'POST':
@@ -50,6 +51,7 @@ def register_select():
             return redirect(url_for('register_salud'))
     return render_template('register_select.html')
 
+#VISTA REGISTRO DEL CIVIL
 @app.route('/register_civil', methods=['GET','POST'])
 def register_civil():
     if request.method == 'POST':
@@ -79,6 +81,7 @@ def register_civil():
         return redirect(url_for('login'))
     return render_template('register_civil.html')
 
+#VISTA REGISTRO DE ENTIDAD PUBLICA
 @app.route('/register_publico', methods=['GET','POST'])
 def register_publico():
     if request.method == 'POST':
@@ -103,6 +106,7 @@ def register_publico():
         return redirect(url_for('login'))
     return render_template('register_publico.html')
 
+#VISTA REGISTRO ENTIDAD DE SALUD
 @app.route('/register_salud', methods=['GET','POST'])
 def register_salud():
     if request.method == 'POST':
@@ -127,6 +131,7 @@ def register_salud():
         return redirect(url_for('login'))
     return render_template('register_salud.html')
 
+#VISTA MAIN CIVIL
 @app.route('/main_civil', methods=['GET','POST'])
 def main_civil():
     usuario = None
@@ -148,6 +153,7 @@ def main_civil():
                 return redirect(url_for('editar_perfil_civil'))
     return render_template('main_civil2.html', usuario=usuario)
 
+#VISTA MAIN ENTIDAD DE SALUD
 @app.route('/main_salud', methods=['GET','POST'])
 def main_salud():
     usuario = None
@@ -157,8 +163,8 @@ def main_salud():
             if request.form["btn"] == "Cerrar Sesión":
                 session.pop('user', None)
                 return redirect(url_for('login'))
-            #elif request.form["btn"] == "Contáctanos":
-                #return redirect(url_for('contacto'))
+            elif request.form["btn"] == "Contáctanos":
+                return redirect(url_for('contacto_salud'))
             elif request.form["btn"] == "Editar Perfil":
                 return redirect(url_for('editar_perfil_salud'))
             elif request.form["btn"] == "Historial pruebas COVID-19":
@@ -167,6 +173,7 @@ def main_salud():
                 return redirect(url_for('vista_registro_prueba_covid'))
     return render_template('main_salud.html', usuario=usuario)
 
+#VISTA MAIN ENTIDAD PUBLICA
 @app.route('/main_publico', methods=['GET','POST'])
 def main_publico():
     usuario = None
@@ -180,8 +187,13 @@ def main_publico():
                 return redirect(url_for('registro_visita'))
             elif request.form["btn"] == "Historial de visitas":
                 return redirect(url_for('vista_historiales_visitas'))
+            elif request.form["btn"] == "Contáctanos":
+                return redirect(url_for('contacto_publico'))
+            elif request.form["btn"] == "Editar Perfil":
+                return redirect(url_for('editar_perfil_publico'))
     return render_template('main_publico.html', usuario=usuario)
 
+#VISTA DEL CODIGO QR PARA EL CIVIL
 @app.route('/qr', methods=['GET','POST'])
 def vista_qr():
     usuario = session['user']
@@ -189,6 +201,7 @@ def vista_qr():
     qr = "QR_{0}.png".format(str(ndu))
     return render_template('vista_qr.html', usuario=usuario, qr=qr)
 
+#VISTA HISTORIALES DE VISITAS PARA EL CIVIL
 @app.route('/historiales', methods=['GET','POST'])
 def vista_historiales():
     fields = ['Establecimiento Publico', 'Categoria', 'Fecha Entrada', 'Hora Entrada', 'Veredicto', 'Razón']
@@ -205,6 +218,7 @@ def vista_historiales():
 
     return render_template('vista_historiales.html', usuario=usuario, hist_completo=hist_completo)
 
+#VISTA HISTORIALES DE PRUEBAS COVID PARA CIVIL
 @app.route('/pruebas_covid', methods=['GET','POST'])
 def vista_covid():
     fields = ['Establecimiento de Salud', 'Fecha de Realización', 'Fecha Obtención Resultado', 'Resultado']
@@ -220,6 +234,7 @@ def vista_covid():
                 download_pdf(fields, hist_completo, 2)
     return render_template('vista_covid.html', usuario=usuario, hist_completo=hist_completo)
 
+#VISTA CONTACTO PARA EL CIVIL
 @app.route('/contacto_civil', methods=['GET','POST'])
 def contacto():
     usuario = session['user']
@@ -237,6 +252,37 @@ def contacto():
                 return redirect(url_for('main_civil'))
     return render_template('contacto_civil.html', usuario=usuario)
 
+#VISTA CONTACTO PARA ENTIDAD PUBLICA
+@app.route('/contacto_publico', methods=['GET','POST'])
+def contacto_publico():
+    usuario = session['user']
+    if 'user' in session:
+        if request.method == 'POST':
+            if request.form["btn"] == "Enviar":
+                nit_ = request.form['NIT']
+                email = request.form['correo']
+                comentarios_ = request.form['comentarios']
+                #que hacer con esta info?
+            elif request.form["btn"] == "Volver":
+                return redirect(url_for('main_publico'))
+    return render_template('contacto_publica.html', usuario=usuario)
+
+#VISTA CONTACTO PARA ENTIDAD DE SALUD
+@app.route('/contacto_salud', methods=['GET','POST'])
+def contacto_salud():
+    usuario = session['user']
+    if 'user' in session:
+        if request.method == 'POST':
+            if request.form["btn"] == "Enviar":
+                nit_ = request.form['NIT']
+                email = request.form['correo']
+                comentarios_ = request.form['comentarios']
+                #que hacer con esta info?
+            elif request.form["btn"] == "Volver":
+                return redirect(url_for('main_salud'))
+    return render_template('contacto_salud.html', usuario=usuario)
+
+#VISTA EDITAR PERFIL PARA EL CIVIL
 @app.route('/edit_perfil', methods=['GET','POST'])
 def editar_perfil_civil():
     usuario = session['user']
@@ -272,15 +318,59 @@ def editar_perfil_civil():
                 return redirect(url_for('main_civil'))
     return render_template('editar_perfil_civil.html', usuario=usuario)
 
+#VISTA EDITAR PERFIL PARA ENTIDAD PUBLICA
+@app.route('/edit_perfil_publico', methods=['GET','POST'])
+def editar_perfil_publico():
+    usuario = session['user']
+    if 'user' in session:
+        if request.method == 'POST':
+            if request.form["btn"] == "Guardar":
+                if len(request.form['razon']) != 0: razon_ = request.form['razon']
+                else: razon_ = None
+                if len(request.form['T1']) != 0: tel1_ = int(request.form['T1'])
+                else: tel1_ = None
+                if len(request.form['T2']) != 0: tel2_ = int(request.form['T2'])
+                else: tel2_ = None
+                if len(request.form['T3']) != 0: tel3_ = int(request.form['T3'])
+                else: tel3_ = None
+                if request.form.get('departamento') != None: dept_ = str(request.form.get('departamento'))
+                else: dept_ = None
+                if request.form.get('municipio') != None: mun_ = str(request.form.get('municipio'))
+                else: mun_ = None
+                if request.form.get('barrio') != None: barrio_ = str(request.form.get('barrio'))
+                else: barrio_ = None
+                #funcion de editar publico
+            elif request.form["btn"] == "Volver":
+                return redirect(url_for('main_publico'))
+    return render_template('editar_perfil_publico.html', usuario=usuario)
+
+#VISTA EDITAR PERFIL PARA ENTIDAD DE SALUD
 @app.route('/edit_perfil_salud', methods=['GET','POST'])
 def editar_perfil_salud():
     usuario = session['user']
     if 'user' in session:
         if request.method == 'POST':
-            if request.form["btn"] == "Volver":
+            if request.form["btn"] == "Guardar":
+                if len(request.form['razon']) != 0: razon_ = request.form['razon']
+                else: razon_ = None
+                if len(request.form['T1']) != 0: tel1_ = int(request.form['T1'])
+                else: tel1_ = None
+                if len(request.form['T2']) != 0: tel2_ = int(request.form['T2'])
+                else: tel2_ = None
+                if len(request.form['T3']) != 0: tel3_ = int(request.form['T3'])
+                else: tel3_ = None
+                if request.form.get('departamento') != None: dept_ = str(request.form.get('departamento'))
+                else: dept_ = None
+                if request.form.get('municipio') != None: mun_ = str(request.form.get('municipio'))
+                else: mun_ = None
+                if request.form.get('barrio') != None: barrio_ = str(request.form.get('barrio'))
+                else: barrio_ = None
+                #funcion de editar salud
+            elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_salud'))
     return render_template('editar_perfil_salud.html', usuario=usuario)
 
+#VISTA HISTORIALES PRUEBAS COVID ENTIDAD DE SALUD
 @app.route('/histo_covid', methods=['GET','POST'])
 def vista_pruebas_covid():
     fields = ["Persona", "Fecha de Realización", "Fecha Resultado", "Resultado"]
@@ -295,6 +385,7 @@ def vista_pruebas_covid():
                 download_pdf(fields, hist_completo, 2)
     return render_template('vista_historial_p_covid.html', usuario=usuario, hist_completo=hist_completo)
 
+#VISTA REGISTRO PRUEBA COVID ENTIDAD DE SALUD
 @app.route('/registro_p_covid', methods=['GET','POST'])
 def vista_registro_prueba_covid():
     usuario = session['user']
@@ -305,6 +396,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+#VISTA REGISTRO VISITA CON QR PARA ENTIDAD PUBLICA
 @app.route('/registro_visita', methods=['GET','POST'])
 def registro_visita():
     scriptPath = sys.path[0]
@@ -338,6 +430,7 @@ def registro_visita():
                 return redirect(url_for('registro_visita'))
     return render_template('vista_registro_visita.html', usuario=usuario)
 
+#VISTA HISTORIALES DE VISTA ENTIDAD PUBLICA
 @app.route('/historiales_visitas', methods=['GET','POST'])
 def vista_historiales_visitas():
     fields = ["Tipo Documento", "Numero Documento", "Fecha Entrada", "Hora Entrada", "Veredicto", "Razón"]
