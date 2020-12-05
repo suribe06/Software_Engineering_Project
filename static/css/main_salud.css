@@ -93,7 +93,16 @@ body, html {
   background-color: #8EBEEB;
 }
 
-select, input[type=text], input[type=date]{
+input[type=text], input[type=date]{
+  width: 70%;
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+#tipoFiltrado{
   width: 100%;
   padding: 10px 10px;
   border: 1px solid #ccc;
@@ -228,4 +237,24 @@ select, input[type=text], input[type=date]{
 
 #tabla td{
   padding: 10px;
+}
+
+#upload{
+  width: 40%;
+  background-color: #0E4682;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#tipoDocumento{
+  width: 70%;
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 18px;
 }
