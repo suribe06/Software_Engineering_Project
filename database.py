@@ -246,3 +246,19 @@ def editP(usr,n,bar,dep,mun,rsol,tel1,tel2,tel3):
         exe+= exe1
         sessionDB.execute(exe)
     return
+
+def getCorC(usr):
+    person = sessionDB.execute("SELECT correo from civil where username = '{0}'".format(usr))
+    return person.one().correo
+
+def getCorP(usr):
+    person = sessionDB.execute("SELECT correo from publica where username = '{0}'".format(usr))
+    return person.one().correo
+
+def getCorS(usr):
+    person = sessionDB.execute("SELECT correo from salud where username = '{0}'".format(usr))
+    return person.one().correo
+
+def getPass(usr):
+    person = sessionDB.execute("SELECT password from usuarios where username = '{0}'".format(usr))
+    return person.one().password

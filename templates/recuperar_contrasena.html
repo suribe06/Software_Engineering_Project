@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/recuperar_contrasena.css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+
+  <div class="row h-100 justify-content-center align-items-center" id="BlackImg">
+    <div class="row justify-content-center align-items-center" id="loginDiv">
+      <form method="POST" action="/recuperar">
+      <div class="row h-100 justify-content-center align-items-center">
+        <table style=" width: 100%;">
+          <tr><td><img src = "/static/images/logo.png" id="logo"> </td> </tr>
+          <tr>
+            <td>
+              <div id="content" class="h-100 row justify-content-center">
+                <table>
+                  <tr>
+                  <td><input type="text" name="usuario" placeholder="Nombre de usuario" required></td>
+                  </tr>
+                  <tr>
+                  <td><input type="text" name="correo" placeholder="Correo" id="correo" required></td>
+                  </tr>
+                  <tr><td><input type="submit" value="Recuperar" name="btn"></td></tr>
+                  <tr> <td colspan="2"><p id="error"> {{ mensaje }}</p></td></tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+     </form>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

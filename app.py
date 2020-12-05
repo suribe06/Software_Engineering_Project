@@ -1,10 +1,11 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv, sys, os
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
-from cryption import encriptar
+from cryption import encriptar, decriptar
+from correo import enviar_correo
 
 #Configuramos la app de flask
 app = Flask(__name__)
@@ -35,7 +36,8 @@ def login():
                 flash("Usuario o contraseña incorrecta")
         elif request.form["b1"]=="Registrarse":
             return redirect(url_for('register_select'))
-
+        elif request.form["b1"]=="Recordar Contraseña":
+            return redirect(url_for('recuperar_contra'))
     return render_template('login.html')
 
 #VISTA SELECCIONAR TIPO DE REGISTRO
@@ -447,6 +449,28 @@ def vista_historiales_visitas():
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 1)
     return render_template('vista_historial_visitas.html', usuario=usuario, hist_completo=hist_completo)
+
+#VISTA RECUPERAR CONTRASEÑA
+@app.route('/recuperar', methods=['GET','POST'])
+def recuperar_contra():
+    mensaje = ""
+    if request.method == 'POST':
+        if request.form["btn"] == "Recuperar":
+            usr = request.form['usuario']
+            email = request.form['correo']
+            usr_email = None
+            t = getTipo(usr)
+            if t == 1: usr_email = getCorC(usr)
+            elif t == 2: usr_email = getCorS(usr)
+            elif t == 3: usr_email = getCorP(usr)
+            if usr_email == email:
+                p = getPass(usr)
+                m = "Tu contrasena es {0}".format(decriptar(p))
+                enviar_correo(usr_email, "Recuperacion contrasena", m)
+                mensaje = "Tu contrasena ha sido enviada a tu correo"
+            else:
+                mensaje = "El correo que ingresaste no esta asociado al usuario ingresado"
+    return render_template('recuperar_contrasena.html', mensaje=mensaje)
 
 if __name__ == "__main__":
     app.debug = True
