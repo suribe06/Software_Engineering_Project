@@ -54,7 +54,7 @@ def registroP(usr,n,bar,cat,cor,dep,dir,mun,pasw,rsol,tel):
 	ent1 = sessionDB.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
 	ent2 = sessionDB.execute("SELECT username, Nit from publica WHERE Nit = {0} allow filtering".format(n))
 	if ent1.one() == None and ent2.one() == None:
-		sessionDB.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,2))
+		sessionDB.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,3))
 		if len(tel) == 3:
 			sessionDB.execute("INSERT INTO publica (username,Nit,barrio,categoria,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{12}','{3}','{4}','{5}','{6}','{7}','{8}',{9},{10},{11})".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],tel[1],tel[2],cat))
 		elif len(tel) == 2:
@@ -164,7 +164,8 @@ def hVisitas(nd,td):
         else: b = "Denegado"
         a = str(obj.fent.date().year)+"-"+str(obj.fent.date().month)+"-"+str(obj.fent.date().day)
         c = str(obj.hent.time().hour)+":"+str(obj.hent.time().minute)
-        pers = [obj.rsocial,obj.categoria,a,c,b,obj.reason]
+        pub = sessionDB.execute("SELECT rsocial from publica WHERE nit = {0} allow filtering".format(obj.nit))
+        pers = [pub.one().rsocial,obj.categoria,a,c,b,obj.reason]
         visi.append(pers)
     return visi
 
@@ -213,3 +214,35 @@ def getNitS(usr):
 def getCatRsol(usr):
     person = sessionDB.execute("SELECT rsocial, categoria from publica where username = '{0}'".format(usr))
     return person.one().rsocial,person.one().categoria
+
+def editS(usr,n,bar,dep,mun,rsol,tel1,tel2,tel3):
+    exe = "UPDATE salud SET "
+    exe1 = " WHERE username = '{0}' and nit = {1}".format(usr,n)
+    if bar != None: exe+= "barrio = '{0}',".format(bar)
+    if dep != None: exe+="departamento = '{0}',".format(dep)
+    if mun != None: exe+="municipio = '{0}',".format(mun)
+    if rsol != None: exe+="rsocial = '{0}',".format(rsol)
+    if tel1 != None: exe+="telefono1 = {0},".format(tel1)
+    if tel2 != None: exe+="telefono2 = {0},".format(tel2)
+    if tel3 != None: exe+="telefono3 = {0},".format(tel3)
+    if len(exe) > 17:
+        exe = exe[:len(exe)-1]
+        exe+= exe1
+        sessionDB.execute(exe)
+    return
+
+def editP(usr,n,bar,dep,mun,rsol,tel1,tel2,tel3):
+    exe = "UPDATE publica SET "
+    exe1 = " WHERE username = '{0}' and nit = {1}".format(usr,n)
+    if bar != None: exe+= "barrio = '{0}',".format(bar)
+    if dep != None: exe+="departamento = '{0}',".format(dep)
+    if mun != None: exe+="municipio = '{0}',".format(mun)
+    if rsol != None: exe+="rsocial = '{0}',".format(rsol)
+    if tel1 != None: exe+="telefono1 = {0},".format(tel1)
+    if tel2 != None: exe+="telefono2 = {0},".format(tel2)
+    if tel3 != None: exe+="telefono3 = {0},".format(tel3)
+    if len(exe) > 19:
+        exe = exe[:len(exe)-1]
+        exe+= exe1
+        sessionDB.execute(exe)
+    return

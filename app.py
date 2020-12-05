@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv, sys, os
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar
@@ -86,7 +86,8 @@ def register_civil():
 def register_publico():
     if request.method == 'POST':
         nit_ = request.form['NIT']
-        razon_ = str(request.form.get('razon'))
+        cat = str(request.form.get('categoria'))
+        razon_ = request.form['razon']
         dept_ = str(request.form.get('departamento'))
         mun_ = str(request.form.get('municipio'))
         barrio_ = str(request.form.get('barrio'))
@@ -102,7 +103,7 @@ def register_publico():
         u = request.form['username']
         p = encriptar(request.form['password'])
         #Registro de la entidad publica en la base de datos
-        registroP(u, int(nit_), barrio_, razon_, email, dept_, dir_, mun_, p, razon_, tels)
+        registroP(u, int(nit_), barrio_, cat, email, dept_, dir_, mun_, p, razon_, tels)
         return redirect(url_for('login'))
     return render_template('register_publico.html')
 
@@ -339,7 +340,8 @@ def editar_perfil_publico():
                 else: mun_ = None
                 if request.form.get('barrio') != None: barrio_ = str(request.form.get('barrio'))
                 else: barrio_ = None
-                #funcion de editar publico
+                nit_ = getNitP(usuario)
+                editP(usuario, nit_, barrio_, dept_, mun_, razon_, tel1_, tel2_, tel3_)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_publico'))
     return render_template('editar_perfil_publico.html', usuario=usuario)
@@ -365,7 +367,8 @@ def editar_perfil_salud():
                 else: mun_ = None
                 if request.form.get('barrio') != None: barrio_ = str(request.form.get('barrio'))
                 else: barrio_ = None
-                #funcion de editar salud
+                nit_ = getNitS(usuario)
+                editS(usuario, nit_, barrio_, dept_, mun_, razon_, tel1_, tel2_, tel3_)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_salud'))
     return render_template('editar_perfil_salud.html', usuario=usuario)
