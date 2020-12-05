@@ -97,7 +97,16 @@ body, html {
   background-color: #8EBEEB;
 }
 
-select, input[type=text], input[type=date]{
+input[type=text], input[type=date]{
+  width: 100%;
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+#tipoFiltrado{
   width: 100%;
   padding: 10px 10px;
   border: 1px solid #ccc;

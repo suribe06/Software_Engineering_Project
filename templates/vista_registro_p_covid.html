@@ -12,6 +12,30 @@
         <h1>Registra una prueba COVID-19 de un civil</h1>
       </td>
     </tr>
+    <form action="" method="post">
+      <tr>
+        <td style="text-align:center; height:80px"> <input type="text" name="nombres" placeholder="Nombres" required></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; height:80px"> <input type="text" name="apellidos" placeholder="Apellidos" required></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; height:80px">
+          <select name="tipoDocumento" id="tipoDocumento">
+            <option value="" disabled selected>Tipo de documento</option>
+            <option value = "TI">Tarjeta de Identidad</option>
+            <option value = "CC">Cedula de Ciudadania</option>
+            <option value ="Pasaporte">Pasaporte </option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:center; height:80px"> <input type="text" name="numeroDocumento" placeholder="Numero Documento" required></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; height:80px"> <input type="submit" id="upload" name="Registrarse" value="Registrar examen"></td>
+      </tr>
+    </form>
   </table>
 {% endblock %}
 
