@@ -20,10 +20,6 @@ body, html {
   padding: 0px !important;
 }
 
-.selection{
-
-}
-
 #cols1{
   padding: 0 !important;
   height: 100px;
@@ -97,8 +93,9 @@ body, html {
   background-color: #8EBEEB;
 }
 
-input[type=text] {
-  width: 50%;
+select, input[type=text], input[type=date]{
+
+  width: 100%;
   padding: 10px 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
