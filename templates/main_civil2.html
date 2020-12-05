@@ -28,30 +28,27 @@
     <div class="row">
       <div class="col">
         <form class="" action="/main_civil" method="post">
-          <input class="tablink" type ="submit" value="Código QR" name="btn" onclick="changeColor1()"  id="button1">
+          <input class="tablink" type ="submit" value="Código QR" name="btn" >
         </form>
       </div>
       <div  class="col">
         <form class="" action="/main_civil" method="post">
-          <input class="tablink" type ="submit" value="Resultados COVID-19" name="btn" onclick="changeColor2()" id="button2" >
+          <input class="tablink" type ="submit" value="Resultados COVID-19" name="btn" >
         </form>
       </div>
       <div  class="col">
         <form class="" action="/main_civil" method="post">
-          <input class="tablink" type ="submit" value="Historial de visitas" name="btn" onclick="changeColor3()" id="button3">
+          <input class="tablink" type ="submit" value="Historial de visitas" name="btn" >
         </form>
       </div>
     </div>
     <div id="content" class="row justify-content-center">
       {% block content %}{% endblock %}
     </div>
-    <script src="{{ url_for('static', filename='/js/jquery-3.3.1.slim.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='/js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="/static/js/main_civil.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/js/main_civil.js"></script>
     <script type="text/javascript" src="/static/js/filtrado.js"></script>
     {% block scripts %}{% endblock %}
   </body>

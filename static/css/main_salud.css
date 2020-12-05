@@ -94,7 +94,6 @@ body, html {
 }
 
 select, input[type=text], input[type=date]{
-
   width: 100%;
   padding: 10px 10px;
   border: 1px solid #ccc;
