@@ -2,13 +2,13 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="/static/css/editar_perfil_admin.css">
+    <link rel="stylesheet" href="/static/css/editar_perfil_admin.css">
 <meta charset="utf-8">
 </head>
 <body>
     <div class="row" id="rowsito">
       <div class="col-1" id="cols">
-      <form action="/edit_perfil_salud" method="POST">
+      <form action="/editar_perfil_admin" method="POST">
         <div class="col-1" id="cols">
           <input type="submit" name="btn" id="btn_back" value="Volver">
         </div>
@@ -35,23 +35,27 @@
     <br>
     <br>
     <br>
-  <form action="/edit_perfil_salud" method="POST" id="editar">
+  <form action="/editar_perfil_admin" method="POST" id="editar">
   <div class="row h-100 d-flex justify-content-center">
       <table width="60%">
       <tr>
         <td><input type="text" name="nombres" placeholder="Nombres"></td>
       </tr>
       <tr>
-        <td><input type="text"  name="apellidos" placeholder="Apellidos" id="telefono2"></td>
+        <td><input type="text"  name="apellidos" placeholder="Apellidos"></td>
       </tr>
       <tr>
-        <td><input type="password" name="contr" placeholder="Contraseña" id="telefono2"></td>
+        <td>
+          <input type="password" name="contraseña" placeholder="Contraseña">
+        </td>
       </tr>
       <tr>
-        <td><input type="submit" name="btn" id="guardar" value="Guardar"></td>
+        <td>
+          <input type="submit" name="btn" id="guardar" value="Guardar">
+        </td>
       </tr>
       </table>
-  </div>
+    </div>
   </form>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
