@@ -9,18 +9,28 @@
 <table style="width:100% align:center;">
   <tr>
     <td style="text-align:center; height:180px">
-      <p style="font-size:50px;">Ingrese un usuario para eliminarlo</p>
+      <p style="font-size:50px;">Llene el formulario para agregar a un admin</p>
     </td>
   </tr>
-  <form class="" action="/borrar_perfil" method="post">
+  <form class="" action="/agregar_admin" method="post">
   <tr>
     <td style="text-align:center; height:80px">
-      <input type="text" name="usuario" placeholder="Nombre de usuario" id="usuario" required>
+      <input type="text" name="nombres" placeholder="Nombres" required>
     </td>
   </tr>
   <tr>
     <td style="text-align:center; height:80px">
-      <input type="submit" id="borrar" name="btn" value="Eliminar">
+      <input type="text" name="apellidos" placeholder="Apellidos" required>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center; height:80px">
+      <input type="text" name="usuario" placeholder="Nombre de usuario" required>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center; height:80px">
+      <input type="submit" id="borrar" name="btn" value="Agregar">
     </td>
   </tr>
   </form>

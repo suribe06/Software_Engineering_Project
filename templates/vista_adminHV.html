@@ -1,22 +1,22 @@
 {% extends 'main_admin.html' %}
 
 <head>
-  <link rel="stylesheet" href="/static/css/main_publico.css">
+  <link rel="stylesheet" href="/static/css/main_admin.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 </head>
 
 {% block content %}
 <table style="width:100% align:center;">
   <tr>
     <td style="text-align:center; height:180px">
-      <h1>Estas son las visitas que se han hecho</h1>
+      <h1>Estas son las visitas que se encuentran en el sistema</h1>
     </td>
   </tr>
   <tr>
     <td style="text-align:center">
         <table id="hv">
           <tr>
+            <th>Establecimiento Publico</th>
             <th>Tipo Documento</th>
             <th>Numero Documento</th>
             <th>Fecha Entrada</th>
@@ -40,7 +40,7 @@
   <tr>
     <td>
       <table style="width: 100%">
-        <form class="" action="/historiales_visitas" method="post">
+        <form class="" action="" method="post">
           <tr>
             <td style="width: 50%">
               <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar" name="btn" >
