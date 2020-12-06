@@ -46,7 +46,7 @@ body, html {
   top: auto;
 }
 
-input[type=text]{
+input[type=text], input[type=number], input[type=email]{
 
 
   width: 50%;
@@ -90,7 +90,11 @@ input#btn_back{
 }
 
 
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 table{
   top: 50%;

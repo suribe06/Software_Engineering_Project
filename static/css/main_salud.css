@@ -93,7 +93,7 @@ body, html {
   background-color: #8EBEEB;
 }
 
-input[type=text], input[type=date]{
+input[type=text],input[type=date],input[type=password],input[type=number], input[type=email]{
   width: 100%;
   padding: 10px 10px;
   border: 1px solid #ccc;
@@ -257,4 +257,9 @@ input[type=text], input[type=date]{
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 18px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

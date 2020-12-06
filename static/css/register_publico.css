@@ -28,7 +28,7 @@ input[type=text] {
   font-size: 18px;
 }
 
-input[type=password], select{
+input[type=text],input[type=date],input[type=password],input[type=number], input[type=email], select{
 
 
   width: 80%;
@@ -76,4 +76,10 @@ table td{
 }
 p{
   font-size: 25px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
