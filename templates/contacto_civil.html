@@ -40,21 +40,28 @@
     <div class="row h-100 d-flex justify-content-center">
         <table width="60%">
         <tr>
-          <td><input type="text" name="TD" placeholder="Tipo de Documento"></td>
+          <td>
+            <select name="TD">
+              <option value="" disabled selected>Tipo de documento</option>
+              <option value = "TI">Tarjeta de Identidad</option>
+              <option value = "CC">Cedula de Ciudadania</option>
+              <option value ="Pasaporte" >Pasaporte </option>
+            </select>
+          </td>
           <td colspan="2"></td>
-          <td><input type="text" name="ND" placeholder="Número de Documento"></td>
+          <td><input type="text" name="ND" placeholder="Número de Documento" required></td>
         </tr>
         <tr>
-          <td><input type="text" name="nombres" placeholder="Nombres"></td>
+          <td><input type="text" name="nombres" placeholder="Nombres" required></td>
           <td colspan="2"></td>
-          <td><input type="text" name="apellidos" placeholder="Apellidos"></td>
+          <td><input type="text" name="apellidos" placeholder="Apellidos" required></td>
         </tr>
         <tr>
-          <td><input type="text" name="correo" placeholder="Correo"></td>
+          <td><input type="text" name="correo" placeholder="Correo" required></td>
           <td colspan="3"></td>
         </tr>
         <tr style="height: 200px;">
-          <td colspan="4" id="comentarios"><input type="text" style="width:77%; height: 100%; " name="comentarios" placeholder="Escriba aqui sus comentarios..."></td>
+          <td colspan="4" id="comentarios"><input type="text" style="width:77%; height: 100%; " name="comentarios" required placeholder="Escriba aqui sus comentarios..."></td>
         </tr>
         <tr style="align-items: center;">
           <td colspan="4"> <input type="submit" name="btn" id="enviar" value="Enviar"></td>
