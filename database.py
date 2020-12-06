@@ -72,14 +72,14 @@ def regExam(n,td,nd,rsol):
     exa = sessionDB.execute("SELECT COUNT(*) from examenes WHERE ndocumento = {0} and tdocumento = '{1}' and nit = {2} allow filtering".format(nd,td,n))
     i = int(exa.one().count)+1
     dia = dt.datetime.today()
-    sessionDB.execute("INSERT INTO examenes (id,nit,ndocumento,efecha,resultado,rfecha,tdocumento,rsocial) VALUES({6},{0},{1},'{2}-{3}-{4}','Evaluando',NULL,'{5}','{7}')".format(n,nd,dia.year,dia.month,dia.day,td,i,rsol))
+    sessionDB.execute("INSERT INTO examenes (id,nit,ndocumento,efecha,resultado,rfecha,tdocumento,rsocial) VALUES({6},{0},{1},'{2}-{3}-{4}','Evaluando',NULL,'{5}','{7}')".format(n,nd,dia.year,dia.strftime("%m"),dia.strftime("%d"),td,i,rsol))
     return
 
 def regResExam(id,n,nd,res,td):
-    e = sessionDB.execute("SELECT ndocumento from examenes WHERE Id = {0} and ndocumento = {1} and nit = {2} and tdocumento = '{3}'".format(id,nd,n,td))
+    e = sessionDB.execute("SELECT ndocumento from examenes WHERE id = {0} and ndocumento = {1} and nit = {2} and tdocumento = '{3}'".format(id,nd,n,td))
     if e.one() != None:
         dia = dt.datetime.now()
-        sessionDB.execute("UPDATE examenes SET rfecha = '{0}-{1}-{2}', resultado = '{6}' WHERE Id = {3} and Nit = {4} and ndocumento = {5} and tdocumento = '{7}'".format(dia.year,dia.strftime("%m"),dia.strftime("%d"),id,n,nd,res,td))
+        sessionDB.execute("UPDATE examenes SET rfecha = '{0}-{1}-{2}', resultado = '{6}' WHERE id = {3} and Nit = {4} and ndocumento = {5} and tdocumento = '{7}'".format(dia.year,dia.strftime("%m"),dia.strftime("%d"),id,n,nd,res,td))
     return
 
 def getNd(usr):
@@ -362,4 +362,22 @@ def editA(usr,pasw,nom,ape):
         exe = exe[:len(exe)-1]
         exe+= exe1
         sessionDB.execute(exe)
+    return
+
+def regVDestiempo(ni,nd,td,nom,ape,tem,tap,rsol,cat,fecha,hora):
+    person = sessionDB.execute("SELECT nombres,apellidos from civil WHERE ndocumento = {0} and tdocumento = '{1}' allow filtering".format(nd,td))
+    if person.one() != None:
+        visi = sessionDB.execute("SELECT COUNT(*) from visitas WHERE ndocumento = {0} and tdocumento = '{1}' and nit = {2} allow filtering".format(nd,td,ni))
+        i = int(visi.one().count)+1
+        temperatura = tem <= 37
+        ans = temperatura and tap
+        if ans:
+            sessionDB.execute("INSERT INTO visitas (id,nit,ndocumento,apellidos,categoria,fent,hent,nombres,reason,rsocial,tapa,tdocumento,temp,veredict) VALUES({0},{1},{2},'{3}','{11}','{4}','{10}:00','{5}','NA','{9}',{6},'{7}',{8},True)".format(i,ni,nd,ape,fecha,nom,tap,td,tem,rsol,hora,cat))
+        else:
+            razon = ''
+            if not(tap):
+                razon = razon + '- No porta tapabocas '
+            if not(temperatura):
+                razon = razon + '- Temperatura elevada '
+            sessionDB.execute("INSERT INTO visitas (id,nit,ndocumento,apellidos,categoria,fent,hent,nombres,reason,rsocial,tapa,tdocumento,temp,veredict) VALUES({0},{1},{2},'{3}','{11}','{4}','{10}:00','{5}','{12}','{9}',{6},'{7}',{8},False)".format(i,ni,nd,ape,fecha,nom,tap,td,tem,rsol,hora,cat,razon))
     return

@@ -3,7 +3,7 @@ from flask import *
 import requests, csv, sys, os
 from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS
 from database import getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
-from database import fVisitasC, allVisitas, allExamenes, registroA, deleteU, regExam, getRsolS, editA
+from database import fVisitasC, allVisitas, allExamenes, registroA, deleteU, regExam, getRsolS, editA, regVDestiempo, regResExam
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar, decriptar
@@ -279,6 +279,8 @@ def main_salud():
                 return redirect(url_for('vista_pruebas_covid'))
             elif request.form["btn"] == "Registro prueba COVID-19":
                 return redirect(url_for('vista_registro_prueba_covid'))
+            elif request.form["btn"] == "Registro resultado prueba COVID-19":
+                return redirect(url_for('reg_res_exam'))
     return render_template('main_salud.html', usuario=usuario)
 
 #VISTA MAIN ENTIDAD PUBLICA
@@ -291,6 +293,8 @@ def main_publico():
             if request.form["btn"] == "Cerrar Sesión":
                 session.pop('user', None)
                 return redirect(url_for('login'))
+            elif request.form["btn"] == "Registro Asíncrono":
+                return redirect(url_for('registro_falla'))
             elif request.form["btn"] == "Registro Visita":
                 return redirect(url_for('registro_visita'))
             elif request.form["btn"] == "Historial de visitas":
@@ -565,6 +569,26 @@ def registro_visita():
                 return redirect(url_for('registro_visita'))
     return render_template('vista_registro_visita.html', usuario=usuario)
 
+#VISTA REGISTRO VISITA POST FALLA ENTIDAD PUBLICA
+@app.route('/registro_falla', methods=['GET','POST'])
+def registro_falla():
+    usuario = session['user']
+    if request.method == 'POST':
+        if request.form["btn"] == "Registrar":
+            nombres_ = request.form['nombres']
+            apellidos_ = request.form['apellidos']
+            td_ = str(request.form.get('TD'))
+            nd_ = request.form['ND']
+            temp_ = request.form['temp']
+            if str(request.form.get('tapabocas')) == "Si": tap_= True
+            else: tap_ = False
+            fecha_ = request.form['fecha']
+            hora_ = request.form['hora']
+            nit_ = getNitP(usuario)
+            rsol, cat = getCatRsol(usuario)
+            regVDestiempo(nit_,int(nd_),td_,nombres_,apellidos_,int(temp_),tap_,rsol,cat,fecha_,hora_)
+    return render_template('vista_registro_visita_NE.html', usuario=usuario)
+
 #VISTA HISTORIALES DE VISITA ENTIDAD PUBLICA
 @app.route('/historiales_visitas', methods=['GET','POST'])
 def vista_historiales_visitas():
@@ -579,6 +603,20 @@ def vista_historiales_visitas():
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 1)
     return render_template('vista_historial_visitas.html', usuario=usuario, hist_completo=hist_completo)
+
+#VISTA REGISTRO RESULTADO PRUEBA COVID
+@app.route('/reg_res_exam', methods=['GET','POST'])
+def reg_res_exam():
+    usuario = session['user']
+    if request.method == 'POST':
+        if request.form["btn"] == "Registrar":
+            td_ = str(request.form.get('TD'))
+            nd_ = request.form['ND']
+            id_examen = request.form['idExamen']
+            res = str(request.form.get('resultado'))
+            nit_ = getNitS(usuario)
+            regResExam(int(id_examen),nit_,int(nd_),res,td_)
+    return render_template('vista_registroRes.html', usuario=usuario)
 
 #VISTA RECUPERAR CONTRASEÑA
 @app.route('/recuperar', methods=['GET','POST'])

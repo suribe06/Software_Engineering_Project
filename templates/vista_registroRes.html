@@ -12,10 +12,10 @@
         <h1>Registra una prueba COVID-19 de un civil</h1>
       </td>
     </tr>
-    <form action="" method="post">
+    <form action="/reg_res_exam" method="post">
       <tr>
         <td style="text-align:center; height:80px">
-          <select name="tipoDocumento" id="tipoDocumento">
+          <select name="TD" id="tipoDocumento">
             <option value="" disabled selected>Tipo de documento</option>
             <option value = "TI">Tarjeta de Identidad</option>
             <option value = "CC">Cedula de Ciudadania</option>
@@ -24,21 +24,20 @@
         </td>
       </tr>
       <tr>
-        <td style="text-align:center; height:80px"> <input type="text" name="numeroDocumento" placeholder="Numero Documento" required></td>
+        <td style="text-align:center; height:80px"> <input type="number" name="ND" placeholder="Numero Documento" required></td>
       </tr>
       <tr>
-        <td style="text-align:center; height:80px"> <input type="text" name="idExamen" placeholder="Id Examen" required></td>
+        <td style="text-align:center; height:80px"> <input type="number" name="idExamen" placeholder="ID Examen" required></td>
       </tr>
       <td style="text-align:center; height:80px">
-        <select name="estadoPrueba" id="estadoPrueba">
-          <option value="" disabled selected>Tipo de documento</option>
-          <option value = "R">En revisión</option>
-          <option value = "P">Positivo</option>
-          <option value ="N">Negativo </option>
+        <select name="resultado" id="tipoDocumento">
+          <option value="" disabled selected>Resultado</option>
+          <option value="Positivo">Positivo</option>
+          <option value="Negativo">Negativo </option>
         </select>
       </td>
       <tr>
-        <td style="text-align:center; height:80px"> <input type="submit" id="upload" name="Actualizar" value="Registrar resultado"></td>
+        <td style="text-align:center; height:80px"> <input type="submit" id="upload" name="btn" value="Registrar"></td>
       </tr>
     </form>
   </table>

@@ -12,10 +12,35 @@
       <h1>Llena los siguientes campos para registrar una visita</h1>
     </td>
   </tr>
-  <form action="/registro_visita" method="post" enctype="multipart/form-data">
+  <form action="/registro_falla" method="post">
     <tr>
       <td style="text-align:center; height:80px">
-        <input type="text" name="temp" placeholder="Temperatura" required>
+        <input type="text" name="nombres" placeholder="Nombres" required>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type="text" name="apellidos" placeholder="Apellidos" required>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <select name="TD" id="tipoDocumento" required>
+          <option value="" disabled selected>Tipo de documento</option>
+          <option value = "TI">Tarjeta de Identidad</option>
+          <option value = "CC">Cedula de Ciudadania</option>
+          <option value ="Pasaporte" >Pasaporte </option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type="number" name="ND" placeholder="Numero Documento" required>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type="number" name="temp" placeholder="Temperatura" required>
       </td>
     </tr>
     <tr>
@@ -34,20 +59,18 @@
     </tr>
     <tr>
       <td style="text-align:center; height:80px">
-        <input type="text" name="Hora" placeholder="Hora" required>
+        <input type="time" id="appt" name="hora" required>
       </td>
     </tr>
     <tr>
       <td style="text-align:center; height:80px">
-        <input type="file" name="file" required>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:center; height:80px">
-        <input type=submit name="btn" id="upload" value="Registrar">
+        <input type="submit" name="btn" id="upload" value="Registrar">
       </td>
     </tr>
   </form>
 
 </table>
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}
