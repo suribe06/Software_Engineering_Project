@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv, sys, os
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass, fVisitasC
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar, decriptar
@@ -218,6 +218,12 @@ def vista_historiales():
                 download_csv(fields, hist_completo, 1)
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 1)
+        elif request.form["btn"] == "Filtrar":
+            tf = str(request.form.get('tipoFiltrado'))
+            if tf == "TE": pass
+            elif tf == "FI":
+                pass #fVisitasC(ndu,tdu,None,None,None);
+            elif tf == "HF": pass
 
     return render_template('vista_historiales.html', usuario=usuario, hist_completo=hist_completo)
 
@@ -244,13 +250,17 @@ def contacto():
     if 'user' in session:
         if request.method == 'POST':
             if request.form["btn"] == "Enviar":
-                td_ = request.form['TD']
+                td_ = str(request.form.get('TD'))
                 nd_ = request.form['ND']
                 nombres_ = request.form['nombres']
                 apellidos_ = request.form['apellidos']
                 email = request.form['correo']
                 comentarios_ = request.form['comentarios']
-                #que hacer con esta info?
+                m1 = ""
+                m1 += nombres_ + " " + apellidos_ + " identificado con " + td_ + " " + nd_ + " te envio los siguientes comentarios " + comentarios_ + ". Responder al correo " + email
+                enviar_correo("gerentebbgm@gmail.com", "Solicitud de contacto", m1)
+                m2 = "Tus comentarios fueron enviados con exito. Pronto te responderemos."
+                enviar_correo(email, "Envio Solicitud de Contacto", m2)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_civil'))
     return render_template('contacto_civil.html', usuario=usuario)
@@ -265,7 +275,11 @@ def contacto_publico():
                 nit_ = request.form['NIT']
                 email = request.form['correo']
                 comentarios_ = request.form['comentarios']
-                #que hacer con esta info?
+                m1 = ""
+                m1 += "La entidad publica identificada con el NIT " + nit_ + " te envio los siguientes comentarios " + comentarios_ + ". Responder al correo " + email
+                enviar_correo("gerentebbgm@gmail.com", "Solicitud de contacto", m1)
+                m2 = "Tus comentarios fueron enviados con exito. Pronto te responderemos."
+                enviar_correo(email, "Envio Solicitud de Contacto", m2)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_publico'))
     return render_template('contacto_publica.html', usuario=usuario)
@@ -280,7 +294,11 @@ def contacto_salud():
                 nit_ = request.form['NIT']
                 email = request.form['correo']
                 comentarios_ = request.form['comentarios']
-                #que hacer con esta info?
+                m1 = ""
+                m1 += "La entidad de salud identificada con el NIT " + nit_ + " te envio los siguientes comentarios " + comentarios_ + ". Responder al correo " + email
+                enviar_correo("gerentebbgm@gmail.com", "Solicitud de contacto", m1)
+                m2 = "Tus comentarios fueron enviados con exito. Pronto te responderemos."
+                enviar_correo(email, "Envio Solicitud de Contacto", m2)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_salud'))
     return render_template('contacto_salud.html', usuario=usuario)
@@ -435,7 +453,7 @@ def registro_visita():
                 return redirect(url_for('registro_visita'))
     return render_template('vista_registro_visita.html', usuario=usuario)
 
-#VISTA HISTORIALES DE VISTA ENTIDAD PUBLICA
+#VISTA HISTORIALES DE VISITA ENTIDAD PUBLICA
 @app.route('/historiales_visitas', methods=['GET','POST'])
 def vista_historiales_visitas():
     fields = ["Tipo Documento", "Numero Documento", "Fecha Entrada", "Hora Entrada", "Veredicto", "Razón"]
