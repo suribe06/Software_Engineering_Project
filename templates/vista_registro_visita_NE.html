@@ -1,0 +1,53 @@
+{% extends 'main_publico.html' %}
+
+<head>
+  <link rel="stylesheet" href="/static/css/main_publico.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+{% block content %}
+<table style="width:100% align:center;">
+  <tr>
+    <td style="text-align:center; height:180px">
+      <h1>Llena los siguientes campos para registrar una visita</h1>
+    </td>
+  </tr>
+  <form action="/registro_visita" method="post" enctype="multipart/form-data">
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type="text" name="temp" placeholder="Temperatura" required>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <select name="tapabocas" id="tipoDocumento" required>
+          <option value="" disabled selected>¿Lleva tapabocas?</option>
+          <option value = "Si">Si</option>
+          <option value = "No">No</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type="text" name="fecha" placeholder="Fecha de Entrada YYYY-MM-DD"	onfocus="(this.type='date')" onblur="(this.type='text')" required>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type="text" name="Hora" placeholder="Hora" required>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type="file" name="file" required>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center; height:80px">
+        <input type=submit name="btn" id="upload" value="Registrar">
+      </td>
+    </tr>
+  </form>
+
+</table>
+{% endblock %}
