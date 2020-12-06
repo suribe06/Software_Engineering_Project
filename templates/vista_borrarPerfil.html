@@ -1,0 +1,30 @@
+{% extends 'main_admin.html' %}
+
+{% block content %}
+<table style="width:100% align:center;">
+  <tr>
+    <td style="text-align:center; height:180px">
+      <p style="font-size:50px;"> LLene el formulario para borrar un usuario </p>
+    </td>
+  </tr>
+  <tr>
+   <td>
+     <select name="tipoDocumento" id="tipoDocumento" id="tipoDocumento">
+       <option value="" disabled selected>Tipo de documento</option>
+       <option value = "TI">Tarjeta de Identidad</option>
+       <option value = "CC">Cedula de Ciudadania</option>
+       <option value ="Pasaporte" >Pasaporte </option>
+     </select>
+   </td>
+  </tr>
+  <tr>
+    <td>  <input type="text" name="ND" placeholder="Número de Documento" id="documento" required>  </td>
+  </tr>
+  <tr>
+    <td>  <input type="text" name="NU" placeholder="Nombre de usuario" id="usuario" required></td>
+  </tr>
+  <tr>
+    <td> <input type="submit" name="Registrarse" value="Registrarse"> </td>
+  </tr>
+</table>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'main_admin.html' %}
+
+<head>
+  <link rel="stylesheet" href="/static/css/main_publico.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+{% block content %}
+<table style="width:100% align:center;">
+  <tr>
+    <td style="text-align:center; height:180px">
+      <h1>Estas son las visitas que se han hecho</h1>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center">
+        <table id="hv">
+          <tr>
+            <th>Tipo Documento</th>
+            <th>Numero Documento</th>
+            <th>Fecha Entrada</th>
+            <th>Hora Entrada</th>
+            <th>Veredicto</th>
+            <th>Razón</th>
+          </tr>
+          {%  for visita in hist_completo %}
+              <tr>
+                {%  for x in visita %}
+                  <th>{{ x }}</th>
+                {%  endfor %}
+              </tr>
+          {%  endfor %}
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="height:50px"></td>
+  </tr>
+  <tr>
+    <td>
+      <table style="width: 100%">
+        <form class="" action="/historiales_visitas" method="post">
+          <tr>
+            <td style="width: 50%">
+              <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar" name="btn" >
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Filtrado</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Tipo filtrado:</label>
+                          <select name="tipoFiltrado" id="tipoFiltrado" onchange="cambiarEstado()">
+                            <option disabled selected>Escoga el tipo de filtrado</option>
+                             <option value="NE">Nombre del establecimiento</option>
+                             <option value="FI">Fecha de ingreso</option>
+                             <option value="HI">Hora de ingreso</option>
+                             <option value="R">Resultado</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="message-text" class="col-form-label">Filtrado:</label>
+                          <input type="text" id="texto" onblur="cambiarATexto()">
+                        </div>
+                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" name="btn">Filtrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </td>
+            <td style=""></td>
+            <td style="width: 50%"><input class="botones" type ="submit" value="Descargar" name="btn"></td>
+            <td style="">
+              <select name="formato" id="descarga">
+                <option disabled selected>Formato</option>
+                <option value="CSV">CSV</option>
+                <option value="PDF">PDF</option>
+              </select>
+            </td>
+          </tr>
+        </form>
+      </table>
+    </td>
+  </tr>
+</table>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
