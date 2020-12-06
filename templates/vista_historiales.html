@@ -42,7 +42,7 @@
           <form class="" action="/historiales" method="post">
             <tr>
               <td style="width: 50%">
-                <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar" name="btn" >
+                <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar">
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -57,11 +57,8 @@
                             <label for="recipient-name" class="col-form-label">Tipo filtrado:</label>
                             <select name="tipoFiltrado" id="tipoFiltrado" onchange="cambiarEstado()">
                               <option disabled selected>Escoga el tipo de filtrado</option>
-                               <option value="NE">Nombre del establecimiento</option>
                                <option value="TE">Tipo de establecimiento</option>
                                <option value="FI">Fecha de ingreso</option>
-                               <option value="HI">Hora de ingreso</option>
-                               <option value="R">Resultado</option>
                             </select>
                           </div>
                           <div class="form-group">
@@ -71,12 +68,11 @@
                       </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                      <button type="submit" class="btn btn-primary" name="btn">Filtrar</button>
+                      <button type="submit" value="Filtrar" formmethod="post" class="btn btn-primary" name="btn">Filtrar</button>
                     </div>
                   </div>
                 </div>
               </div>
-
               </td>
               <td style=""></td>
               <td style="width: 50%"><input class="botones" type ="submit" value="Descargar" name="btn" onclick="download()"></td>

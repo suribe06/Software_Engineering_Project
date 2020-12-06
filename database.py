@@ -263,7 +263,7 @@ def getPass(usr):
     person = sessionDB.execute("SELECT password from usuarios where username = '{0}'".format(usr))
     return person.one().password
 
-def fVisitas(nd,td,cat,fi,ff):
+def fVisitasC(nd,td,cat,fi,ff):
     exe = "SELECT * from visitas where ndocumento = {0} and tdocumento = '{1}' ".format(nd,td)
     exe1 = "allow filtering"
     if fi != None: exe += "and fent >= '{0}' ".format(fi)

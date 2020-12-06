@@ -1,7 +1,7 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv, sys, os
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass, fVisitasC
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar, decriptar
@@ -218,6 +218,12 @@ def vista_historiales():
                 download_csv(fields, hist_completo, 1)
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 1)
+        elif request.form["btn"] == "Filtrar":
+            tf = str(request.form.get('tipoFiltrado'))
+            if tf == "TE": pass
+            elif tf == "FI":
+                pass #fVisitasC(ndu,tdu,None,None,None);
+            elif tf == "HF": pass
 
     return render_template('vista_historiales.html', usuario=usuario, hist_completo=hist_completo)
 
@@ -447,7 +453,7 @@ def registro_visita():
                 return redirect(url_for('registro_visita'))
     return render_template('vista_registro_visita.html', usuario=usuario)
 
-#VISTA HISTORIALES DE VISTA ENTIDAD PUBLICA
+#VISTA HISTORIALES DE VISITA ENTIDAD PUBLICA
 @app.route('/historiales_visitas', methods=['GET','POST'])
 def vista_historiales_visitas():
     fields = ["Tipo Documento", "Numero Documento", "Fecha Entrada", "Hora Entrada", "Veredicto", "Razón"]
