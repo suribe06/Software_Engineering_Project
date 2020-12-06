@@ -1,0 +1,48 @@
+{% extends 'main_salud.html' %}
+
+<head>
+  <link rel="stylesheet" href="/static/css/main_salud.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+{% block content %}
+  <table style="width:100% align:center;">
+    <tr>
+      <td style="text-align:center; height:180px">
+        <h1>Registra una prueba COVID-19 de un civil</h1>
+      </td>
+    </tr>
+    <form action="" method="post">
+      <tr>
+        <td style="text-align:center; height:80px">
+          <select name="tipoDocumento" id="tipoDocumento">
+            <option value="" disabled selected>Tipo de documento</option>
+            <option value = "TI">Tarjeta de Identidad</option>
+            <option value = "CC">Cedula de Ciudadania</option>
+            <option value ="Pasaporte">Pasaporte </option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:center; height:80px"> <input type="text" name="numeroDocumento" placeholder="Numero Documento" required></td>
+      </tr>
+      <tr>
+        <td style="text-align:center; height:80px"> <input type="text" name="idExamen" placeholder="Id Examen" required></td>
+      </tr>
+      <td style="text-align:center; height:80px">
+        <select name="estadoPrueba" id="estadoPrueba">
+          <option value="" disabled selected>Tipo de documento</option>
+          <option value = "R">En revisión</option>
+          <option value = "P">Positivo</option>
+          <option value ="N">Negativo </option>
+        </select>
+      </td>
+      <tr>
+        <td style="text-align:center; height:80px"> <input type="submit" id="upload" name="Actualizar" value="Registrar resultado"></td>
+      </tr>
+    </form>
+  </table>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
