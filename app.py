@@ -1,7 +1,9 @@
 from cassandra.cluster import Cluster
 from flask import *
 import requests, csv, sys, os
-from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS, getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass, fVisitasC
+from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS
+from database import getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
+from database import fVisitasC, allVisitas, allExamenes, registroA, deleteU, regExam, getRsolS, editA
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar, decriptar
@@ -151,6 +153,8 @@ def main_admin():
             if request.form["btn"] == "Cerrar Sesión":
                 session.pop('user', None)
                 return redirect(url_for('login'))
+            elif request.form["btn"] == "Editar Perfil":
+                return redirect(url_for('editar_perfil_admin'))
             elif request.form["btn"] == "Borrar Perfil":
                 return redirect(url_for('borrar_perfil'))
             elif request.form["btn"] == "Historial Visitas":
@@ -166,7 +170,7 @@ def main_admin():
 def hv_admin():
     fields = ['Establecimiento Publico', 'Tipo Documento', 'Numero Documento', 'Fecha Entrada', 'Hora Entrada', 'Veredicto', 'Razón']
     usuario = session['user']
-    hist_completo = []
+    hist_completo = allVisitas()
     if request.method == 'POST':
         if request.form["btn"] == "Descargar":
             if str(request.form.get('formato')) == "CSV":
@@ -180,7 +184,7 @@ def hv_admin():
 def hc_admin():
     fields = fields = ['Establecimiento de Salud', 'Tipo Documento', 'Numero Documento', 'Fecha de Realización', 'Fecha Obtención Resultado', 'Resultado']
     usuario = session['user']
-    hist_completo = []
+    hist_completo = allExamenes()
     if request.method == 'POST':
         if request.form["btn"] == "Descargar":
             if str(request.form.get('formato')) == "CSV":
@@ -196,7 +200,14 @@ def borrar_perfil():
     if request.method == 'POST':
         if request.form["btn"] == "Eliminar":
             u = request.form['usuario']
-            #funcion para borrar usuario
+            t = getTipo(u)
+            if t == 1:
+                ndu = getNd(u)
+                scriptPath = sys.path[0]
+                UPLOAD_PATH = os.path.join(scriptPath, 'static/images/')
+                filename = "QR_{0}.png".format(ndu)
+                os.remove('{0}{1}'.format(UPLOAD_PATH, filename))
+            deleteU(u)
     return render_template('vista_borrarPerfil.html', usuario=usuario)
 
 #VISTA AGREGAR ADMIN (ADMIN)
@@ -208,8 +219,25 @@ def agregar_admin():
             nombres_ = request.form['nombres']
             apellidos_ = request.form['apellidos']
             u = request.form['usuario']
-            #funcion para agregar admin
+            registroA(u, encriptar("admin"), nombres_, apellidos_)
     return render_template('vista_agregar_admin.html', usuario=usuario)
+
+#VISTA EDITAR PERFIL ADMIN
+@app.route('/editar_perfil_admin', methods=['GET','POST'])
+def editar_perfil_admin():
+    usuario = session['user']
+    if request.method == 'POST':
+        if request.form["btn"] == "Guardar":
+            if len(request.form['nombres']) != 0: nombres_ = request.form['nombres']
+            else: nombres_ = None
+            if len(request.form['apellidos']) != 0: apellidos_ = request.form['apellidos']
+            else: apellidos_ = None
+            if len(request.form['contraseña']) != 0: p = encriptar(request.form['contraseña'])
+            else: p = None
+            editA(usuario,p,nombres_,apellidos_)
+        elif request.form["btn"] == "Volver":
+            return redirect(url_for('main_admin'))
+    return render_template('editar_perfil_admin.html', usuario=usuario)
 
 #VISTA MAIN CIVIL
 @app.route('/main_civil', methods=['GET','POST'])
@@ -489,6 +517,13 @@ def vista_pruebas_covid():
 @app.route('/registro_p_covid', methods=['GET','POST'])
 def vista_registro_prueba_covid():
     usuario = session['user']
+    if request.method == 'POST':
+        if request.form["btn"] == "Registrar Examen":
+            td_ = str(request.form.get('TD'))
+            nd_ = request.form['ND']
+            nit_ = getNitS(usuario)
+            rsol = getRsolS(usuario)
+            regExam(nit_,td_,nd_,rsol)
     return render_template('vista_registro_p_covid.html', usuario=usuario)
 
 def allowed_file(filename):

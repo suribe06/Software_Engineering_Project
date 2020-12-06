@@ -63,23 +63,16 @@ def registroP(usr,n,bar,cat,cor,dep,dir,mun,pasw,rsol,tel):
 			sessionDB.execute("INSERT INTO publica (username,Nit,barrio,categoria,correo,departamento,direccion,municipio,password,rsocial,telefono1,telefono2,telefono3) VALUES ('{0}',{1},'{2}','{10}','{3}','{4}','{5}','{6}','{7}','{8}',{9},NULL,NULL)".format(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel[0],cat))
 	return
 
-def regExam(id,n,td,nd,rsol):
+def regExam(n,td,nd,rsol):
     """
     Entrada: un entero n el cual hace referencia al NIT de la entidad de salud, td el cual es un string que hace referencia al tipo de
              documento del civil al que se le va a registar el examen de COVID-19, y un entero nd el cual hace referencia al numero de
              documento del civil al que se le va a registar el examen de COVID-19.
-    Salida:
-    Funcionamiento: Mediante el uso de CQL se hacen 2 queries, la primera para obtener la entidad de salud con respecto a su NIT, y así verificar que
-                    esta entidad existe, la segunda query es para obtener el civil con el numero de documento indicado y el tipo de documento ingresado
-                    esta registrado en el sistema, de ser así se toma la fecha del día en el que se está registrando el examen y se registra la nit del
-                    establecimiento de salud, la fecha en la que se realiza el registro, el resultado (antes de obtener un veredicto se guarda como Evaluando)
-                    la fecha en la que se entrega el resultado (antes de obtener el veredicto se guarda como NULL), y el numero y tipo de documento del civil en cuestion
     """
-    sal = sessionDB.execute("SELECT username,nit from salud WHERE nit = {0} allow filtering".format(n))
-    person = sessionDB.execute("SELECT * from civil WHERE ndocumento = {0} and tdocumento = '{1}' allow filtering".format(nd,td))
-    if person.one() != None and    sal.one() != None:
-        dia = dt.datetime.now()
-        sessionDB.execute("INSERT INTO examenes (id,nit,ndocumento,efecha,resultado,rfecha,tdocumento,rsocial) VALUES({6},{0},{1},'{2}-{3}-{4}','Evaluando',NULL,'{5}','{7}')".format(n,nd,dia.year,dia.strftime("%m"),dia.strftime("%d"),td,id,rsol))
+    exa = sessionDB.execute("SELECT COUNT(*) from examenes WHERE ndocumento = {0} and tdocumento = '{1}' and nit = {2} allow filtering".format(nd,td,n))
+    i = int(exa.one().count)+1
+    dia = dt.datetime.today()
+    sessionDB.execute("INSERT INTO examenes (id,nit,ndocumento,efecha,resultado,rfecha,tdocumento,rsocial) VALUES({6},{0},{1},'{2}-{3}-{4}','Evaluando',NULL,'{5}','{7}')".format(n,nd,dia.year,dia.month,dia.day,td,i,rsol))
     return
 
 def regResExam(id,n,nd,res,td):
@@ -102,24 +95,27 @@ def getTipo(usr):
     return person.one().tipo
 
 def editC(usr,pasw,ndoc,ape,bar,cor,dep,dire,mun,nac,nom,sex,tdoc,tel):
-    exe = "UPDATE civil SET "
-    exe1 = " WHERE username = '{0}' and ndocumento = {1} and tdocumento = '{2}'".format(usr,ndoc,tdoc)
-    if pasw != None: exe+= "password = '{0}',".format(pasw)
-    if ape != None: exe+="apellidos = '{0}',".format(ape)
-    if bar != None: exe+="barrio = '{0}',".format(bar)
-    if cor != None: exe+= "correo = '{0}',".format(cor)
-    if dep != None: exe+="departamento = '{0}',".format(dep)
-    if dire != None: exe+="direccion = '{0}',".format(dire)
-    if mun != None: exe+="municipio = '{0}',".format(mun)
-    if nac != None: exe+="nacimiento = '{0}',".format(nac)
-    if nom != None: exe+="nombres = '{0}',".format(nom)
-    if sex != None: exe+="sexo = '{0}',".format(sex)
-    if tel != None: exe+="telefono = {0},".format(tel)
-    if len(exe) > 17:
-        exe = exe[:len(exe)-1]
-        exe+= exe1
-        sessionDB.execute(exe)
-    return
+	exe = "UPDATE civil SET "
+	exe1 = " WHERE username = '{0}' and ndocumento = {1} and tdocumento = '{2}'".format(usr,ndoc,tdoc)
+	if pasw != None:
+		exe+= "password = '{0}',".format(pasw)
+		sessionDB.execute("UPDATE usuarios SET password = '{1}' WHERE username = '{0}'".format(usr,pasw))
+	if ape != None: exe+="apellidos = '{0}',".format(ape)
+	if bar != None: exe+="barrio = '{0}',".format(bar)
+	if cor != None: exe+= "correo = '{0}',".format(cor)
+	if dep != None: exe+="departamento = '{0}',".format(dep)
+	if dire != None: exe+="direccion = '{0}',".format(dire)
+	if mun != None: exe+="municipio = '{0}',".format(mun)
+	if nac != None: exe+="nacimiento = '{0}',".format(nac)
+	if nom != None: exe+="nombres = '{0}',".format(nom)
+	if sex != None: exe+="sexo = '{0}',".format(sex)
+	if tel != None: exe+="telefono = {0},".format(tel)
+	if len(exe) > 17:
+		exe = exe[:len(exe)-1]
+		exe+= exe1
+		print(exe)
+		sessionDB.execute(exe)
+	return
 
 def cuarentena(nd,td):
     cuar = False
@@ -215,37 +211,47 @@ def getCatRsol(usr):
     person = sessionDB.execute("SELECT rsocial, categoria from publica where username = '{0}'".format(usr))
     return person.one().rsocial,person.one().categoria
 
-def editS(usr,n,bar,dep,mun,rsol,tel1,tel2,tel3):
-    exe = "UPDATE salud SET "
-    exe1 = " WHERE username = '{0}' and nit = {1}".format(usr,n)
-    if bar != None: exe+= "barrio = '{0}',".format(bar)
-    if dep != None: exe+="departamento = '{0}',".format(dep)
-    if mun != None: exe+="municipio = '{0}',".format(mun)
-    if rsol != None: exe+="rsocial = '{0}',".format(rsol)
-    if tel1 != None: exe+="telefono1 = {0},".format(tel1)
-    if tel2 != None: exe+="telefono2 = {0},".format(tel2)
-    if tel3 != None: exe+="telefono3 = {0},".format(tel3)
-    if len(exe) > 17:
-        exe = exe[:len(exe)-1]
-        exe+= exe1
-        sessionDB.execute(exe)
-    return
+def editS(usr,n,bar,cor,dep,dire,mun,pasw,rsol,tel1,tel2,tel3):
+	exe = "UPDATE salud SET "
+	exe1 = " WHERE username = '{0}' and nit = {1}".format(usr,n)
+	if bar != None:	exe+= "bar = '{0}',".format(pasw)
+	if cor != None: exe+= "correo = '{0}',".format(cor)
+	if dep != None: exe+="departamento = '{0}',".format(dep)
+	if dire != None: exe+="direccion = '{0}',".format(dire)
+	if mun != None: exe+="municipio = '{0}',".format(mun)
+	if pasw != None:
+		sessionDB.execute("UPDATE usuarios SET password = '{1}' WHERE username = '{0}'".format(usr,pasw))
+		exe+="password = '{0}',".format(pasw)
+	if rsol != None: exe+="rsocial = '{0}',".format(rsol)
+	if tel1 != None: exe+="telefono1 = {0},".format(tel1)
+	if tel2 != None: exe+="telefono2 = {0},".format(tel2)
+	if tel3 != None: exe+="telefono3 = {0},".format(tel3)
+	if len(exe) > 17:
+		exe = exe[:len(exe)-1]
+		exe+= exe1
+		sessionDB.execute(exe)
+	return
 
-def editP(usr,n,bar,dep,mun,rsol,tel1,tel2,tel3):
-    exe = "UPDATE publica SET "
-    exe1 = " WHERE username = '{0}' and nit = {1}".format(usr,n)
-    if bar != None: exe+= "barrio = '{0}',".format(bar)
-    if dep != None: exe+="departamento = '{0}',".format(dep)
-    if mun != None: exe+="municipio = '{0}',".format(mun)
-    if rsol != None: exe+="rsocial = '{0}',".format(rsol)
-    if tel1 != None: exe+="telefono1 = {0},".format(tel1)
-    if tel2 != None: exe+="telefono2 = {0},".format(tel2)
-    if tel3 != None: exe+="telefono3 = {0},".format(tel3)
-    if len(exe) > 19:
-        exe = exe[:len(exe)-1]
-        exe+= exe1
-        sessionDB.execute(exe)
-    return
+def editP(usr,n,bar,cor,dep,dire,mun,pasw,rsol,tel1,tel2,tel3):
+	exe = "UPDATE publica SET "
+	exe1 = " WHERE username = '{0}' and nit = {1}".format(usr,n)
+	if bar != None: exe+= "bar = '{0}',".format(pasw)
+	if cor != None: exe+= "correo = '{0}',".format(cor)
+	if dep != None: exe+="departamento = '{0}',".format(dep)
+	if dire != None: exe+="direccion = '{0}',".format(dire)
+	if mun != None: exe+="municipio = '{0}',".format(mun)
+	if pasw != None:
+		sessionDB.execute("UPDATE usuarios SET password = '{1}' WHERE username = '{0}'".format(usr,pasw))
+		exe+="password = '{0}',".format(pasw)
+	if rsol != None: exe+="rsocial = '{0}',".format(rsol)
+	if tel1 != None: exe+="telefono1 = {0},".format(tel1)
+	if tel2 != None: exe+="telefono2 = {0},".format(tel2)
+	if tel3 != None: exe+="telefono3 = {0},".format(tel3)
+	if len(exe) > 19:
+		exe = exe[:len(exe)-1]
+		exe+= exe1
+		sessionDB.execute(exe)
+	return
 
 def getCorC(usr):
     person = sessionDB.execute("SELECT correo from civil where username = '{0}'".format(usr))
@@ -280,3 +286,80 @@ def fVisitasC(nd,td,cat,fi,ff):
         pers = [obj.rsocial,obj.categoria,a,c,b,obj.reason]
         visi.append(pers)
     return visi
+
+def allVisitas():
+    """
+    Entrada:
+    Salida:Una lista con todas las vistas registradas en el sistema
+    """
+    v = sessionDB.execute("SELECT * from visitas")
+    visi = []
+    for obj in v:
+        if obj.veredict == True: b = "Aceptado"
+        else: b = "Denegado"
+        a = str(obj.fent.date().year)+"-"+str(obj.fent.date().month)+"-"+str(obj.fent.date().day)
+        c = str(obj.hent.time().hour)+":"+str(obj.hent.time().minute)
+        pub = sessionDB.execute("SELECT rsocial from publica WHERE nit = {0} allow filtering".format(obj.nit))
+        pers = [pub.one().rsocial,obj.tdocumento,obj.ndocumento,a,c,b,obj.reason]
+        visi.append(pers)
+    return visi
+
+def allExamenes():
+    """
+    Entrada:
+    Salida:Una lista con todas los examenes registrados en el sistema
+    """
+    e = sessionDB.execute("SELECT * from examenes")
+    exa = []
+    for obj in e:
+        a = str(obj.efecha.date().year)+"-"+str(obj.efecha.date().month)+"-"+str(obj.efecha.date().day)
+        if obj.rfecha != None: b = str(obj.rfecha.date().year)+"-"+str(obj.rfecha.date().month)+"-"+str(obj.rfecha.date().day)
+        else: b = "NA"
+        sal = sessionDB.execute("SELECT rsocial from salud WHERE nit = {0} allow filtering".format(obj.nit))
+        pers = [sal.one().rsocial,obj.tdocumento,obj.ndocumento,a,b,obj.resultado]
+        exa.append(pers)
+    return exa
+
+def registroA(usr,pasw,nom,ape):
+    u = sessionDB.execute("SELECT tipo from usuarios WHERE username = '{0}'".format(usr))
+    if u.one() == None:
+        sessionDB.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,0))
+        sessionDB.execute("INSERT INTO admins (username, password, nombres, apellidos) VALUES ('{0}','{1}','{2}','{3}')".format(usr,pasw,nom,ape))
+    return
+
+def deleteU(usr):
+    u = sessionDB.execute("SELECT * from usuarios WHERE username = '{0}'".format(usr))
+    if u.one() != None:
+        tipo = getTipo(usr)
+        sessionDB.execute("DELETE FROM usuarios WHERE username = '{0}'".format(usr))
+        if tipo == 0:
+            sessionDB.execute("DELETE FROM admins WHERE username = '{0}'".format(usr))
+        elif tipo == 1:
+            td = getTd(usr)
+            nd = getNd(usr)
+            sessionDB.execute("DELETE FROM civil WHERE username = '{0}' and ndocumento = {1} and tdocumento = '{2}'".format(usr,nd,td))
+        elif tipo == 2:
+            n = getNitS(usr)
+            sessionDB.execute("DELETE FROM salud WHERE username = '{0}' and nit = {1}".format(usr,n))
+        elif tipo == 3:
+            n = getNitP(usr)
+            sessionDB.execute("DELETE FROM publica WHERE username = '{0}' and nit = {1}".format(usr,n))
+    return
+
+def getRsolS(usr):
+    person = sessionDB.execute("SELECT rsocial from salud where username = '{0}'".format(usr))
+    return person.one().rsocial
+
+def editA(usr,pasw,nom,ape):
+    exe = "UPDATE admins SET "
+    exe1 = " WHERE username = '{0}'".format(usr)
+    if pasw != None:
+        sessionDB.execute("UPDATE usuarios SET password = '{1}' WHERE username = '{0}'".format(usr,pasw))
+        exe+="password = '{0}',".format(pasw)
+    if nom != None: exe+="nombres = '{0}',".format(nom)
+    if ape != None: exe+="apellidos = '{0}',".format(ape)
+    if len(exe) > 18:
+        exe = exe[:len(exe)-1]
+        exe+= exe1
+        sessionDB.execute(exe)
+    return
