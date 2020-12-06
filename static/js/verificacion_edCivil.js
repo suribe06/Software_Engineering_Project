@@ -4,16 +4,14 @@
 function verificarReq(){
   valid = true;
   var telefono = document.getElementById("telefono").value;
-  var correo = document.getElementById("correo").value;
-  valid1 = valid && validateEmail(correo);
+
   valid2 = valid && isNumeric(telefono);
-  valid3 = valid && validateEmail(correo) && isNumeric(telefono);
-  if(!valid1){
-    document.getElementById("error").innerHTML = 'Correo no valido';
-  }else if (!valid2) {
+
+
+  if (!valid2) {
     document.getElementById("error").innerHTML = 'Telefono no valido';
   }
-  return valid3
+  return valid2
 }
 
 function validateEmail(email) {

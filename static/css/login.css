@@ -72,3 +72,10 @@ table td{
   width: 100%;
   align-content: center;
 }
+
+.row{
+
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+
+}

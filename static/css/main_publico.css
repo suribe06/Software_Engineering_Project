@@ -133,67 +133,6 @@ body, html {
   background-color: #256DB6;
 }
 
-.overlay{
-  background: rgba(0, 0, 0, .3);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden ;
-
-}
-
-.overlay.active{
-  visibility: visible;
-}
-
-.popUp{
-  background-color: #F8F8F8;
-  width: 50%;
-  border-radius: 3px;
-}
-
-.popHeader {
-  background-color: #256DB6;
-  width: 100%;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.popHeader p{
-  color: white;
-}
-
-.popBody{
-  text-align: center;
-  padding: 40px ;
-  align-items: center;
-}
-
-.popBody input{
-  width: 50%
-}
-
-.popBody  button{
-  width: 30%;
-  background-color: #256DB6;
-  color: white;
-  padding: 8px 5px;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.popBody button:hover{
-  background-color: #428BD6;
-}
 .botones{
   width: 55%;
   background-color: #256DB6;

@@ -40,7 +40,7 @@
           <form class="" action="/pruebas_covid" method="post">
             <tr>
               <td style="width: 50%">
-                <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar" name="btn" >
+                <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar" >
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -51,19 +51,23 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                          <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Tipo filtrado:</label>
-                            <select name="tipoFiltrado" id="tipoFiltrado" onchange="cambiarEstado()">
-                              <option disabled selected>Escoga el tipo de filtrado</option>
-                               <option value="NE">Entidad de salud</option>
-                               <option value="FI">Fecha examen</option>
-                               <option value="R">Resultado</option>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="message-text" class="col-form-label">Filtrado:</label>
-                            <input type="text" id="texto" onblur="cambiarATexto()">
-                          </div>
+                        <div class="form-group">
+                          <label for="message-text" class="col-form-label">Fecha Inicial:</label>
+                          <input type="text" name="fechaI" placeholder="yyyy-mm-dd"	onfocus="(this.type='date')" onblur="(this.type='text')" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="message-text" class="col-form-label">Fecha Final:</label>
+                          <input type="text" name="fechaF" placeholder="yyyy-mm-dd"	onfocus="(this.type='date')" onblur="(this.type='text')" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="message-text" class="col-form-label">Resultado:</label>
+                          <select name="categoria"  id="tipoFiltrado">
+                            <option value="" disabled selected>Categoria</option>
+                            <option value = "ER">En revisión</option>
+                            <option value = "P">Positivo</option>
+                            <option value ="N">Negativo</option>
+                          </select>
+                        </div>
                       </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
