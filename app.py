@@ -26,6 +26,8 @@ def login():
             ans, tp = inicio(u, p)
             if ans:
                 session['user'] = request.form['user']
+                if tp == 0:
+                    return redirect(url_for('main_admin'))
                 if tp == 1:
                     return redirect(url_for('main_civil'))
                 if tp == 2:
@@ -106,6 +108,9 @@ def register_publico():
         p = encriptar(request.form['password'])
         #Registro de la entidad publica en la base de datos
         registroP(u, int(nit_), barrio_, cat, email, dept_, dir_, mun_, p, razon_, tels)
+        m = ""
+        m += "La entidad publica identificada con el NIT " + nit_ + " se acaba de registrar en el sistema"
+        enviar_correo("gerentebbgm@gmail.com", "Registro entidad publica", m)
         return redirect(url_for('login'))
     return render_template('register_publico.html')
 
@@ -131,8 +136,80 @@ def register_salud():
         p = encriptar(request.form['password'])
         #Registro de la entidad salud en la base de datos
         registroS(u, int(nit_), barrio_, email, dept_, dir_, mun_, p, razon_, tels)
+        m = ""
+        m += "La entidad de salud identificada con el NIT " + nit_ + " se acaba de registrar en el sistema"
+        enviar_correo("gerentebbgm@gmail.com", "Registro entidad de salud", m)
         return redirect(url_for('login'))
     return render_template('register_salud.html')
+
+#VISTA MAIN ADMIN
+@app.route('/main_admin', methods=['GET','POST'])
+def main_admin():
+    if 'user' in session:
+        usuario = session['user']
+        if request.method == 'POST':
+            if request.form["btn"] == "Cerrar Sesión":
+                session.pop('user', None)
+                return redirect(url_for('login'))
+            elif request.form["btn"] == "Borrar Perfil":
+                return redirect(url_for('borrar_perfil'))
+            elif request.form["btn"] == "Historial Visitas":
+                return redirect(url_for('hv_admin'))
+            elif request.form["btn"] == "Historial Pruebas":
+                return redirect(url_for('hc_admin'))
+            elif request.form["btn"] == "Registrar Admin":
+                return redirect(url_for('agregar_admin'))
+    return render_template('main_admin.html', usuario=usuario)
+
+#VISTA HISTORIALES VISITAS DE CIVILES (ADMIN)
+@app.route('/hv_admin', methods=['GET','POST'])
+def hv_admin():
+    fields = ['Establecimiento Publico', 'Tipo Documento', 'Numero Documento', 'Fecha Entrada', 'Hora Entrada', 'Veredicto', 'Razón']
+    usuario = session['user']
+    hist_completo = []
+    if request.method == 'POST':
+        if request.form["btn"] == "Descargar":
+            if str(request.form.get('formato')) == "CSV":
+                download_csv(fields, hist_completo, 1)
+            elif str(request.form.get('formato')) == "PDF":
+                download_pdf(fields, hist_completo, 1)
+    return render_template('vista_adminHV.html', usuario=usuario, hist_completo=hist_completo)
+
+#VISTA HISTORIALES PRUEBAS COVID-19 CIVILES (ADMIN)
+@app.route('/hc_admin', methods=['GET','POST'])
+def hc_admin():
+    fields = fields = ['Establecimiento de Salud', 'Tipo Documento', 'Numero Documento', 'Fecha de Realización', 'Fecha Obtención Resultado', 'Resultado']
+    usuario = session['user']
+    hist_completo = []
+    if request.method == 'POST':
+        if request.form["btn"] == "Descargar":
+            if str(request.form.get('formato')) == "CSV":
+                download_csv(fields, hist_completo, 2)
+            elif str(request.form.get('formato')) == "PDF":
+                download_pdf(fields, hist_completo, 2)
+    return render_template('vista_adminHC.html', usuario=usuario, hist_completo=hist_completo)
+
+#VISTA BORRAR PERFIL (ADMIN)
+@app.route('/borrar_perfil', methods=['GET','POST'])
+def borrar_perfil():
+    usuario = session['user']
+    if request.method == 'POST':
+        if request.form["btn"] == "Eliminar":
+            u = request.form['usuario']
+            #funcion para borrar usuario
+    return render_template('vista_borrarPerfil.html', usuario=usuario)
+
+#VISTA AGREGAR ADMIN (ADMIN)
+@app.route('/agregar_admin', methods=['GET','POST'])
+def agregar_admin():
+    usuario = session['user']
+    if request.method == 'POST':
+        if request.form["btn"] == "Agregar":
+            nombres_ = request.form['nombres']
+            apellidos_ = request.form['apellidos']
+            u = request.form['usuario']
+            #funcion para agregar admin
+    return render_template('vista_agregar_admin.html', usuario=usuario)
 
 #VISTA MAIN CIVIL
 @app.route('/main_civil', methods=['GET','POST'])

@@ -6,88 +6,91 @@
 </head>
 
 {% block content %}
-<table style="width:100% align:center;">
-  <tr>
-    <td style="text-align:center; height:180px">
-      <h1>Estos son las pruebas de COVID-19 que se han realizado</h1>
-    </td>
-  </tr>
-  <tr>
-    <td style="text-align:center">
-        <table id="hv">
-          <tr>
-            <th>Persona</th>
-            <th>Fecha de Realización</th>
-            <th>Fecha Resultado</th>
-            <th>Resultado</th>
-          </tr>
-          {%  for visita in hist_completo %}
-              <tr>
-                {%  for x in visita %}
-                  <th>{{ x }}</th>
-                {%  endfor %}
-              </tr>
-          {%  endfor %}
-        </table>
-    </td>
-  </tr>
-  <tr>
-    <td style="height:50px"></td>
-  </tr>
-  <tr>
-    <td>
-      <table style="width: 100%">
-        <form class="" action="/histo_covid" method="post">
-          <tr>
-            <td style="width: 50%">
-              <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar" name="btn" >
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Filtrado</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+  <table style="width:100% align:center;">
+    <tr>
+      <td style="text-align:center; height:180px">
+        <h1>Estas son las pruebas de COVID-19 en el sistema</h1>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:center">
+          <table id="hv">
+            <tr>
+              <th>Establecimiento de Salud</th>
+              <th>Tipo Documento</th>
+              <th>Numero Documento</th>
+              <th>Fecha de Realización</th>
+              <th>Fecha Obtención Resultado</th>
+              <th>Resultado</th>
+            </tr>
+            {%  for visita in hist_completo %}
+                <tr>
+                  {%  for x in visita %}
+                    <th>{{ x }}</th>
+                  {%  endfor %}
+                </tr>
+            {%  endfor %}
+          </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:50px"></td>
+    </tr>
+    <tr>
+      <td>
+        <table style="width: 100%">
+          <form class="" action="/hc_admin" method="post">
+            <tr>
+              <td style="width: 50%">
+                <input class="botones" data-toggle="modal" data-target="#exampleModal" type ="button" value="Filtrar" name="btn" >
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Filtrado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Tipo filtrado:</label>
+                            <select name="tipoFiltrado" id="tipoFiltrado" onchange="cambiarEstado()">
+                              <option disabled selected>Escoga el tipo de filtrado</option>
+                               <option value="FI">Fecha examen</option>
+                               <option value="R">Resultado</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">Filtrado:</label>
+                            <input type="text" id="texto" onblur="cambiarATexto()">
+                          </div>
+                      </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-primary" name="btn">Filtrar</button>
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                          <label for="recipient-name" class="col-form-label">Tipo filtrado:</label>
-                          <select name="tipoFiltrado" id="tipoFiltrado" onchange="cambiarEstado()">
-                            <option disabled selected>Escoga el tipo de filtrado</option>
-                             <option value="NE">Entidad de salud</option>
-                             <option value="FI">Fecha examen</option>
-                             <option value="R">Resultado</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="message-text" class="col-form-label">Filtrado:</label>
-                          <input type="text" id="texto" onblur="cambiarATexto()">
-                        </div>
-                    </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" name="btn">Filtrar</button>
                   </div>
                 </div>
               </div>
-            </div>
-            </td>
-            <td style=""></td>
-            <td style="width: 50%"><input class="botones" type ="submit" value="Descargar" name="btn"></td>
-            <td style="width: 50%">
-              <select name="formato" id="descarga">
-                <option disabled selected>Formato</option>
-                 <option value="CSV">CSV</option>
-                 <option value="PDF">PDF</option>
-              </select>
-            </td>
-          </tr>
-        </form>
-      </table>
-    </td>
-  </tr>
-</table>
+              </td>
+              <td style=""></td>
+              <td style="width: 50%"><input class="botones" type ="submit" value="Descargar" name="btn" onclick="download()"></td>
+              <td style="width: 50%">
+                <select name="formato" id="descarga">
+                  <option disabled selected>Formato</option>
+                   <option value="CSV">CSV</option>
+                   <option value="PDF">PDF</option>
+                </select>
+              </td>
+            </tr>
+          </form>
+        </table>
+      </td>
+    </tr>
+  </table>
 {% endblock %}
+
 {% block scripts %}
+
 {% endblock %}
