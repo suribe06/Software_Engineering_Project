@@ -262,3 +262,21 @@ def getCorS(usr):
 def getPass(usr):
     person = sessionDB.execute("SELECT password from usuarios where username = '{0}'".format(usr))
     return person.one().password
+
+def fVisitas(nd,td,cat,fi,ff):
+    exe = "SELECT * from visitas where ndocumento = {0} and tdocumento = '{1}' ".format(nd,td)
+    exe1 = "allow filtering"
+    if fi != None: exe += "and fent >= '{0}' ".format(fi)
+    if ff != None: exe += "and fent <= '{0}' ".format(ff)
+    if cat != None: exe += "and categoria = '{0}' ".format(cat)
+    exe += exe1
+    v = sessionDB.execute(exe)
+    visi = []
+    for obj in v:
+        if obj.veredict == True: b = "Aceptado"
+        else: b = "Denegado"
+        a = str(obj.fent.date().year)+"-"+str(obj.fent.date().month)+"-"+str(obj.fent.date().day)
+        c = str(obj.hent.time().hour)+":"+str(obj.hent.time().minute)
+        pers = [obj.rsocial,obj.categoria,a,c,b,obj.reason]
+        visi.append(pers)
+    return visi

@@ -7,7 +7,8 @@ def enviar_correo(receiver_email, asunto, m):
     password = "Miniproyecto2020"
     message = """\
 Subject: {0}
-{1}""".format(asunto, m)
+{1} """.format(asunto,m)
+
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
         server.login(sender_email, password)

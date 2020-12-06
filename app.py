@@ -244,13 +244,17 @@ def contacto():
     if 'user' in session:
         if request.method == 'POST':
             if request.form["btn"] == "Enviar":
-                td_ = request.form['TD']
+                td_ = str(request.form.get('TD'))
                 nd_ = request.form['ND']
                 nombres_ = request.form['nombres']
                 apellidos_ = request.form['apellidos']
                 email = request.form['correo']
                 comentarios_ = request.form['comentarios']
-                #que hacer con esta info?
+                m1 = ""
+                m1 += nombres_ + " " + apellidos_ + " identificado con " + td_ + " " + nd_ + " te envio los siguientes comentarios " + comentarios_ + ". Responder al correo " + email
+                enviar_correo("gerentebbgm@gmail.com", "Solicitud de contacto", m1)
+                m2 = "Tus comentarios fueron enviados con exito. Pronto te responderemos."
+                enviar_correo(email, "Envio Solicitud de Contacto", m2)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_civil'))
     return render_template('contacto_civil.html', usuario=usuario)
@@ -265,7 +269,11 @@ def contacto_publico():
                 nit_ = request.form['NIT']
                 email = request.form['correo']
                 comentarios_ = request.form['comentarios']
-                #que hacer con esta info?
+                m1 = ""
+                m1 += "La entidad publica identificada con el NIT " + nit_ + " te envio los siguientes comentarios " + comentarios_ + ". Responder al correo " + email
+                enviar_correo("gerentebbgm@gmail.com", "Solicitud de contacto", m1)
+                m2 = "Tus comentarios fueron enviados con exito. Pronto te responderemos."
+                enviar_correo(email, "Envio Solicitud de Contacto", m2)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_publico'))
     return render_template('contacto_publica.html', usuario=usuario)
@@ -280,7 +288,11 @@ def contacto_salud():
                 nit_ = request.form['NIT']
                 email = request.form['correo']
                 comentarios_ = request.form['comentarios']
-                #que hacer con esta info?
+                m1 = ""
+                m1 += "La entidad de salud identificada con el NIT " + nit_ + " te envio los siguientes comentarios " + comentarios_ + ". Responder al correo " + email
+                enviar_correo("gerentebbgm@gmail.com", "Solicitud de contacto", m1)
+                m2 = "Tus comentarios fueron enviados con exito. Pronto te responderemos."
+                enviar_correo(email, "Envio Solicitud de Contacto", m2)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_salud'))
     return render_template('contacto_salud.html', usuario=usuario)
