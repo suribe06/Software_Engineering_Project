@@ -47,8 +47,6 @@ body, html {
 }
 
 input[type=text], input[type=number], input[type=email]{
-
-
   width: 50%;
   padding: 10px 10px;
 
