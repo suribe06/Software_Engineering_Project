@@ -76,14 +76,15 @@ def register_civil():
         u = request.form['username']
         p = encriptar(request.form['password'])
         #Registro del civil en la base de datos
-        registroC(u, p, int(numDoc), apellidos_, barrio_, email, dept, dire, mun, fecha_, nombres_, genero_, tipoDoc, int(tel))
-        data = {}
-        data["Nombre"] = nombres_
-        data["Apellido"] = apellidos_
-        data["Tipo Documento"] = tipoDoc
-        data["Numero Documento"] = numDoc
-        #Se crea el codigo qr del civil
-        makeQR(data)
+        ans = registroC(u, p, int(numDoc), apellidos_, barrio_, email, dept, dire, mun, fecha_, nombres_, genero_, tipoDoc, int(tel))
+        if ans == True:
+            data = {}
+            data["Nombre"] = nombres_
+            data["Apellido"] = apellidos_
+            data["Tipo Documento"] = tipoDoc
+            data["Numero Documento"] = numDoc
+            #Se crea el codigo qr del civil
+            makeQR(data)
         return redirect(url_for('login'))
     return render_template('register_civil.html')
 

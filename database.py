@@ -32,10 +32,12 @@ def registroC(usr,pasw,ndoc,ape,bar,cor,dep,dire,mun,nac,nom,sex,tdoc,tel):
 	"""
 	person1 = sessionDB.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
 	person2 = sessionDB.execute("SELECT password from civil WHERE ndocumento = {0} and tdocumento = '{1}' allow filtering".format(ndoc,tdoc))
+	ans = False
 	if person1.one() == None and person2.one() == None:
+		ans = True
 		sessionDB.execute("INSERT INTO civil (username,ndocumento,apellidos,barrio,correo,departamento,direccion,municipio,nacimiento,nombres,password,sexo,tdocumento,telefono) VALUES('{0}',{1},'{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}',{13})".format(usr,ndoc,ape,bar,cor,dep,dire,mun,nac,nom,pasw,sex,tdoc,tel))
 		sessionDB.execute("INSERT INTO usuarios (username,password,tipo) VALUES ('{0}','{1}',{2})".format(usr,pasw,1))
-	return
+	return ans
 
 def registroS(usr,n,bar,cor,dep,dir,mun,pasw,rsol,tel):
 	ent1 = sessionDB.execute("SELECT password,tipo from usuarios WHERE username = '{0}'".format(usr))
@@ -132,7 +134,7 @@ def regVisita(ni,nd,td,nom,ape,tem,tap,rsol,cat):
     person = sessionDB.execute("SELECT nombres,apellidos from civil WHERE ndocumento = {0} and tdocumento = '{1}'allow filtering".format(nd,td))
     if person.one() != None:
         visi = sessionDB.execute("SELECT COUNT(*) from visitas WHERE ndocumento = {0} and nit = {2} and tdocumento = '{1}'allow filtering".format(nd,td,ni))
-        i = int(visi.one().count)
+        i = int(visi.one().count) + 1
         cuar,enfer = cuarentena(nd,td)
         dia = dt.datetime.now()
         temperatura = tem <= 37
@@ -183,7 +185,7 @@ def hExamenesS(n):
         a = str(obj.efecha.date().year)+"-"+str(obj.efecha.date().month)+"-"+str(obj.efecha.date().day)
         if obj.rfecha != None: b = str(obj.rfecha.date().year)+"-"+str(obj.rfecha.date().month)+"-"+str(obj.rfecha.date().day)
         else: b = "NA"
-        pers = [obj.ndocumento,a,b,obj.resultado]
+        pers = [obj.id,obj.ndocumento,a,b,obj.resultado]
         exa.append(pers)
     return exa
 
