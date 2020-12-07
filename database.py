@@ -383,3 +383,56 @@ def regVDestiempo(ni,nd,td,nom,ape,tem,tap,rsol,cat,fecha,hora):
                 razon = razon + '- Temperatura elevada '
             sessionDB.execute("INSERT INTO visitas (id,nit,ndocumento,apellidos,categoria,fent,hent,nombres,reason,rsocial,tapa,tdocumento,temp,veredict) VALUES({0},{1},{2},'{3}','{11}','{4}','{10}:00','{5}','{12}','{9}',{6},'{7}',{8},False)".format(i,ni,nd,ape,fecha,nom,tap,td,tem,rsol,hora,cat,razon))
     return
+
+def fExamenesC(nd,td,result,fi,ff):
+    exe = "SELECT * from examenes where ndocumento = {0} and tdocumento = '{1}' ".format(nd,td)
+    exe1 = "allow filtering"
+    if fi != None: exe += "and efecha >= '{0}' ".format(fi)
+    if ff != None: exe += "and efecha <= '{0}' ".format(ff)
+    if result != None: exe += "and resultado = '{0}' ".format(result)
+    exe += exe1
+    e = sessionDB.execute(exe)
+    exa = []
+    for obj in e:
+        a = str(obj.efecha.date().year)+"-"+str(obj.efecha.date().month)+"-"+str(obj.efecha.date().day)
+        if obj.rfecha != None: b = str(obj.rfecha.date().year)+"-"+str(obj.rfecha.date().month)+"-"+str(obj.rfecha.date().day)
+        else: b = "NA"
+        sal = sessionDB.execute("SELECT rsocial from salud WHERE nit = {0} allow filtering".format(obj.nit))
+        pers = [sal.one().rsocial,a,b,obj.resultado]
+        exa.append(pers)
+    return exa
+
+def fVisitasP(ni,ver,fi,ff):
+    exe = "SELECT * from visitas where nit = {0} ".format(ni)
+    exe1 = "allow filtering"
+    if fi != None: exe += "and fent >= '{0}' ".format(fi)
+    if ff != None: exe += "and fent <= '{0}' ".format(ff)
+    if ver != None: exe += "and veredict = {0} ".format(ver)
+    exe += exe1
+    v = sessionDB.execute(exe)
+    visi = []
+    for obj in v:
+        if obj.veredict == True: b = "Aceptado"
+        else: b = "Denegado"
+        a = str(obj.fent.date().year)+"-"+str(obj.fent.date().month)+"-"+str(obj.fent.date().day)
+        c = str(obj.hent.time().hour)+":"+str(obj.hent.time().minute)
+        pers = [obj.ndocumento,obj.tdocumento,a,c,b,obj.reason]
+        visi.append(pers)
+    return visi
+
+def fExamenesS(ni,result,fi,ff):
+    exe = "SELECT * from examenes where nit = {0} ".format(ni)
+    exe1 = "allow filtering"
+    if fi != None: exe += "and efecha >= '{0}' ".format(fi)
+    if ff != None: exe += "and efecha <= '{0}' ".format(ff)
+    if result != None: exe += "and resultado = '{0}' ".format(result)
+    exe += exe1
+    e = sessionDB.execute(exe)
+    exa = []
+    for obj in e:
+        a = str(obj.efecha.date().year)+"-"+str(obj.efecha.date().month)+"-"+str(obj.efecha.date().day)
+        if obj.rfecha != None: b = str(obj.rfecha.date().year)+"-"+str(obj.rfecha.date().month)+"-"+str(obj.rfecha.date().day)
+        else: b = "NA"
+        pers = [obj.id,obj.ndocumento,a,b,obj.resultado]
+        exa.append(pers)
+    return exa

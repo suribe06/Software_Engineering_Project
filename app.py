@@ -4,6 +4,7 @@ import requests, csv, sys, os
 from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS
 from database import getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
 from database import fVisitasC, allVisitas, allExamenes, registroA, deleteU, regExam, getRsolS, editA, regVDestiempo, regResExam
+from database import fExamenesC, fVisitasP, fExamenesS
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar, decriptar
@@ -323,18 +324,21 @@ def vista_historiales():
     tdu = getTd(usuario)
     hist_completo = hVisitas(ndu, tdu)
     if request.method == 'POST':
-        if request.form["btn"] == "Descargar":
+        if request.form["btn"] == "Filtrar":
+            if len(request.form['fi']) != 0: fi_ = request.form['fi']
+            else: fi_ = None
+            if len(request.form['ff']) != 0: ff_ = request.form['ff']
+            else: ff_ = None
+            if request.form.get('categoria') != None: cat_ = str(request.form.get('categoria'))
+            else: cat_ = None
+            nd_ = getNd(usuario)
+            td_ = getTd(usuario)
+            hist_completo = fVisitasC(nd_,td_,cat_,fi_,ff_)
+        elif request.form["btn"] == "Descargar":
             if str(request.form.get('formato')) == "CSV":
                 download_csv(fields, hist_completo, 1)
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 1)
-        elif request.form["btn"] == "Filtrar":
-            tf = str(request.form.get('tipoFiltrado'))
-            if tf == "TE": pass
-            elif tf == "FI":
-                pass #fVisitasC(ndu,tdu,None,None,None);
-            elif tf == "HF": pass
-
     return render_template('vista_historiales.html', usuario=usuario, hist_completo=hist_completo)
 
 #VISTA HISTORIALES DE PRUEBAS COVID PARA CIVIL
@@ -351,6 +355,16 @@ def vista_covid():
                 download_csv(fields, hist_completo, 2)
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 2)
+        elif request.form["btn"] == "Filtrar":
+            if len(request.form['fi']) != 0: fi_ = request.form['fi']
+            else: fi_ = None
+            if len(request.form['ff']) != 0: ff_ = request.form['ff']
+            else: ff_ = None
+            if request.form.get('categoria') != None: cat_ = str(request.form.get('categoria'))
+            else: cat_ = None
+            nd_ = getNd(usuario)
+            td_ = getTd(usuario)
+            hist_completo = fExamenesC(nd_,td_,cat_,fi_,ff_)
     return render_template('vista_covid.html', usuario=usuario, hist_completo=hist_completo)
 
 #VISTA CONTACTO PARA EL CIVIL
@@ -516,6 +530,15 @@ def vista_pruebas_covid():
                 download_csv(fields, hist_completo, 2)
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 2)
+        elif request.form["btn"] == "Filtrar":
+            if len(request.form['fi']) != 0: fi_ = request.form['fi']
+            else: fi_ = None
+            if len(request.form['ff']) != 0: ff_ = request.form['ff']
+            else: ff_ = None
+            if request.form.get('categoria') != None: cat_ = str(request.form.get('categoria'))
+            else: cat_ = None
+            nit_ = getNitS(usuario)
+            hist_completo = fExamenesS(nit_, cat_, fi_, ff_)
     return render_template('vista_historial_p_covid.html', usuario=usuario, hist_completo=hist_completo)
 
 #VISTA REGISTRO PRUEBA COVID ENTIDAD DE SALUD
@@ -603,6 +626,17 @@ def vista_historiales_visitas():
                 download_csv(fields, hist_completo, 1)
             elif str(request.form.get('formato')) == "PDF":
                 download_pdf(fields, hist_completo, 1)
+        elif request.form["btn"] == "Filtrar":
+            if len(request.form['fi']) != 0: fi_ = request.form['fi']
+            else: fi_ = None
+            if len(request.form['ff']) != 0: ff_ = request.form['ff']
+            else: ff_ = None
+            if request.form.get('categoria') != None: cat_ = str(request.form.get('categoria'))
+            else: cat_ = None
+            if cat_ == "Denegado": c = False
+            else: c = True
+            nit_ = getNitP(usuario)
+            hist_completo = fVisitasP(nit_, c, fi_, ff_)
     return render_template('vista_historial_visitas.html', usuario=usuario, hist_completo=hist_completo)
 
 #VISTA REGISTRO RESULTADO PRUEBA COVID

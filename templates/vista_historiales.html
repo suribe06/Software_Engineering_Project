@@ -55,11 +55,11 @@
                       <div class="modal-body">
                         <div class="form-group">
                           <label for="message-text" class="col-form-label">Fecha Inicial:</label>
-                          <input type="text" name="fecha" placeholder="yyyy-mm-dd"	onfocus="(this.type='date')" onblur="(this.type='text')" required>
+                          <input type="text" name="fi" placeholder="yyyy-mm-dd"	onfocus="(this.type='date')" onblur="(this.type='text')" >
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="col-form-label">Fecha Final:</label>
-                          <input type="text" name="fecha" placeholder="yyyy-mm-dd"	onfocus="(this.type='date')" onblur="(this.type='text')" required>
+                          <input type="text" name="ff" placeholder="yyyy-mm-dd"	onfocus="(this.type='date')" onblur="(this.type='text')" >
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="col-form-label">Tipo establecimiento:</label>
@@ -83,7 +83,7 @@
               <td style=""></td>
               <td style="width: 50%"><input class="botones" type ="submit" value="Descargar" name="btn" onclick="download()"></td>
               <td style="width: 50%">
-                <select name="formato" id="descarga">
+                <select name="formato" id="descarga" required>
                   <option disabled selected>Formato</option>
                    <option value="CSV">CSV</option>
                    <option value="PDF">PDF</option>
