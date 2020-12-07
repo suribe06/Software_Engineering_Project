@@ -1,0 +1,9 @@
+create keyspace bdis with replication = {'class':'SimpleStrategy', 'replication_factor':1};
+use bdis;
+CREATE TABLE bdis.civil (username text,password text,nombres text,nacimiento date, apellidos text, tdocumento text,ndocumento bigint, departamento text, municipio text, barrio text, direccion text, sexo text, telefono bigint, correo text, PRIMARY KEY (ndocumento,tdocumento,username));
+CREATE TABLE bdis.usuarios (username text PRIMARY KEY, password text, tipo int);
+CREATE TABLE bdis.salud (Nit bigint, rSocial text, departamento text, municipio text, barrio text, direccion text, telefono1 bigint,telefono2 bigint,telefono3 bigint,correo text,username text, password text, PRIMARY KEY (username,Nit));
+CREATE TABLE bdis.examenes (Id bigint,Nit bigint,ndocumento bigint,rsocial text,tdocumento text,eFecha date,rFecha date,resultado text,PRIMARY KEY (Nit,Id,ndocumento,tdocumento));
+CREATE table bdis.publica (Nit bigint, rSocial text, departamento text, municipio text, barrio text, direccion text, telefono1 bigint,telefono2 bigint,telefono3 bigint,correo text,categoria text,username text, password text, PRIMARY KEY (username,Nit));
+CREATE table bdis.visitas(Id bigint, Nit bigint,categoria text,ndocumento bigint, tdocumento text, hent time,nombres text,apellidos text, tapa boolean, temp int, fent date, veredict boolean, reason text, rsocial text,PRIMARY KEY(Id,Nit,ndocumento,tdocumento));
+CREATE TABLE bdis.admins (username text PRIMARY KEY, password text, nombres text, apellidos text);
