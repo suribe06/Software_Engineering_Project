@@ -237,7 +237,7 @@ def editS(usr,n,bar,cor,dep,dire,mun,pasw,rsol,tel1,tel2,tel3):
 def editP(usr,n,bar,cor,dep,dire,mun,pasw,rsol,tel1,tel2,tel3):
 	exe = "UPDATE publica SET "
 	exe1 = " WHERE username = '{0}' and nit = {1}".format(usr,n)
-	if bar != None: exe+= "bar = '{0}',".format(pasw)
+	if bar != None: exe+= "barrio = '{0}',".format(bar)
 	if cor != None: exe+= "correo = '{0}',".format(cor)
 	if dep != None: exe+="departamento = '{0}',".format(dep)
 	if dire != None: exe+="direccion = '{0}',".format(dire)

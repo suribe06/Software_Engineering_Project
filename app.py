@@ -485,7 +485,7 @@ def editar_perfil_publico():
                 if request.form.get('barrio') != None: barrio_ = str(request.form.get('barrio'))
                 else: barrio_ = None
                 nit_ = getNitP(usuario)
-                editP(usuario, nit_, barrio_, dept_, mun_, razon_, tel1_, tel2_, tel3_)
+                editP(usuario, nit_, barrio_, None, dept_, None, mun_, None, razon_, tel1_, tel2_, tel3_)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_publico'))
     return render_template('editar_perfil_publico.html', usuario=usuario)
@@ -512,7 +512,7 @@ def editar_perfil_salud():
                 if request.form.get('barrio') != None: barrio_ = str(request.form.get('barrio'))
                 else: barrio_ = None
                 nit_ = getNitS(usuario)
-                editS(usuario, nit_, barrio_, dept_, mun_, razon_, tel1_, tel2_, tel3_)
+                editS(usuario, nit_, barrio_, None, dept_, None, mun_, None, razon_, tel1_, tel2_, tel3_)
             elif request.form["btn"] == "Volver":
                 return redirect(url_for('main_salud'))
     return render_template('editar_perfil_salud.html', usuario=usuario)
