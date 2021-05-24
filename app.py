@@ -4,7 +4,7 @@ import requests, csv, sys, os
 from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS
 from database import getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
 from database import fVisitasC, allVisitas, allExamenes, registroA, deleteU, regExam, getRsolS, editA, regVDestiempo, regResExam
-from database import fExamenesC, fVisitasP, fExamenesS, getEdad, getEstrato
+from database import fExamenesC, fVisitasP, fExamenesS, getEdad, getEstrato, salidas_recientes
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar, decriptar
@@ -323,7 +323,7 @@ def vista_riesgo():
             num_salidas_recientes = salidas_recientes(ndu, tdu)
             edad = getEdad(usuario)
             riesgo = calcular_riesgo(edad, estrato, num_salidas_recientes)
-            mensaje_riesgo = "{0}, tu factor de riesgo de infección es: {1}".format(usuario, edad)
+            mensaje_riesgo = "{0}, tu factor de riesgo de infección es: {1}".format(usuario, riesgo)
         elif request.form["btn"] == "Volver":
             return redirect(url_for('main_civil'))
 

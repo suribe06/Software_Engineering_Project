@@ -458,4 +458,4 @@ def salidas_recientes(nd, td):
 	ans = 0
 	for obj in v:
 		ans += 1
-	return
+	return ans
