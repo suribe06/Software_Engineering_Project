@@ -436,3 +436,26 @@ def fExamenesS(ni,result,fi,ff):
         pers = [obj.id,obj.ndocumento,a,b,obj.resultado]
         exa.append(pers)
     return exa
+
+def getEdad(usr):
+	today_date = dt.datetime.now().date()
+	person = sessionDB.execute("SELECT nacimiento from civil where username = '{0}'".format(usr))
+	birth_date = person.one().nacimiento.date()
+	age = today_date - birth_date
+	return int((age.days)/365)
+
+def getEstrato(usr):
+	person = sessionDB.execute("SELECT estrato from civil where username = '{0}'".format(usr))
+	return person.one().estrato
+
+def salidas_recientes(nd, td):
+	"""
+	Esta funcion retorna el numero de visitas de un usuario en el rango de un mes
+	"""
+	dia = dt.datetime.now()
+	dia -= dt.timedelta(days = 31)
+	v = sessionDB.execute("SELECT * from visitas WHERE ndocumento = {0} and tdocumento = '{1}' and fent >= '{2}-{3}-{4}' allow filtering".format(nd,td,dia.year,dia.strftime("%m"),dia.strftime("%d")))
+	ans = 0
+	for obj in v:
+		ans += 1
+	return

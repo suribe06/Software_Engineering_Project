@@ -4,11 +4,12 @@ import requests, csv, sys, os
 from database import inicio, registroC, registroP, registroS, getNd, getTd, getTipo, editC, hVisitas, hExamenes, hExamenesS
 from database import getNitP, getNitS, regVisita, hVisitasP, getCatRsol, editS, editP, getCorC, getCorP, getCorS, getPass
 from database import fVisitasC, allVisitas, allExamenes, registroA, deleteU, regExam, getRsolS, editA, regVDestiempo, regResExam
-from database import fExamenesC, fVisitasP, fExamenesS
+from database import fExamenesC, fVisitasP, fExamenesS, getEdad, getEstrato
 from download_files import download_csv, download_pdf
 from QR import makeQR, readQR
 from cryption import encriptar, decriptar
 from correo import enviar_correo
+from extra_functions import calcular_riesgo
 
 #Configuramos la app de flask
 app = Flask(__name__)
@@ -261,6 +262,8 @@ def main_civil():
                 return redirect(url_for('contacto'))
             elif request.form["btn"] == "Editar Perfil":
                 return redirect(url_for('editar_perfil_civil'))
+            elif request.form["btn"] == "Calcular Riesgo":
+                return redirect(url_for('vista_riesgo'))
     return render_template('main_civil2.html', usuario=usuario)
 
 #VISTA MAIN ENTIDAD DE SALUD
@@ -306,6 +309,25 @@ def main_publico():
             elif request.form["btn"] == "Editar Perfil":
                 return redirect(url_for('editar_perfil_publico'))
     return render_template('main_publico.html', usuario=usuario)
+
+#VISTA PARA CALCULAR RIESGO PARA CIVIL
+@app.route('/riesgo', methods=['GET','POST'])
+def vista_riesgo():
+    usuario = session['user']
+    mensaje_riesgo = ''
+    if request.method == 'POST':
+        if request.form["btn"] == "Calcular Riesgo":
+            estrato = 6 #getEstrato(usuario)
+            ndu = getNd(usuario)
+            tdu = getTd(usuario)
+            num_salidas_recientes = salidas_recientes(ndu, tdu)
+            edad = getEdad(usuario)
+            riesgo = calcular_riesgo(edad, estrato, num_salidas_recientes)
+            mensaje_riesgo = "{0}, tu factor de riesgo de infección es: {1}".format(usuario, edad)
+        elif request.form["btn"] == "Volver":
+            return redirect(url_for('main_civil'))
+
+    return render_template('vista_riesgo.html', usuario=usuario, mensaje_riesgo=mensaje_riesgo)
 
 #VISTA DEL CODIGO QR PARA EL CIVIL
 @app.route('/qr', methods=['GET','POST'])
